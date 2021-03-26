@@ -1,0 +1,32 @@
+
+{
+  "translations": {
+    "currency": "تومان",
+    "navBar": {
+      "home": "صفحه اصلی",
+      "shop": "محصولات",
+      "events": "اخبار",
+      "ourStory": "درباره ما",
+      "articles": "مقالات",
+      "proCard": "مراکز مجاز فروش",
+      "contact": "تماس با ما"
+    },
+    "topBar": {
+      "userLogin" : "ورود به حساب کاربری",
+      "search": "جستجو"
+    },
+    "footer": {
+      "introduce": "معرفی گریماس",
+      "aboutUs": "درباره ما",
+      "qa": "پرسش و پاسخ",
+      "authorizedSalescenters": "مراکز مجاز فروش",
+      "grimasTrainingGroup": "گروه آموزش گریماس",
+      "contactWithUs": "تماس با ما",
+      "cinematicSales": "فروش سینمایی",
+      "grantingRepresentation": "اعطا نمایندگی",
+      "lastComments": "آخرین نظرات"
+
+
+    }
+  }
+}

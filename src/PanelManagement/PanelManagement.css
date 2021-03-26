@@ -1,0 +1,42 @@
+@font-face {
+    font-family: IRANSansMobileFaNum-Light;
+    src: url("../market/fonts/IRANSansMobileFaNum-Light.eot") format('eot'),
+    url("../market/fonts/IRANSansMobileFaNum-Light.woff") format('woff'),
+    url("../market/fonts/IRANSansMobileFaNum-Light.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: IRANSansMobileFaNum-Bold;
+    src: url("../market/fonts/IRANSansMobileFaNum-Bold.eot") format('eot'),
+    url("../market/fonts/IRANSansMobileFaNum-Bold.woff") format('woff'),
+    url("../market/fonts/IRANSansMobileFaNum-Bold.ttf") format('truetype');
+}
+
+html, body, root {
+    height: 100%;
+    font-family: IRANSansMobileFaNum-Light;
+}
+#root{
+    height: 100% !important;
+}
+.App {
+    margin-top: 0px;
+    height: 100%;
+}
+
+.App .navbar-brand {
+    font-weight: bold;
+}
+
+.App .container{
+    align-content: center;
+    margin-top: 50px;
+}
+
+.top-content{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 100;
+}
