@@ -11,38 +11,38 @@ class ConfigsManager extends Component {
         this.isUpdate = false;
         this.state = {
             items: [],
-            apartemanList: [],
-            aparteman: '',
+            apartmentList: [],
+            apartment: '',
+            sourceList: [],
+            source: '',
             vilaList: [],
             vila: '',
-            mosteghelatList: [],
-            mosteghelat: '',
-            kharejiList: [],
-            khareji: '',
-            kolangiList: [],
-            kolangi: '',
-            dafterekarList: [],
-            dafterekar: '',
-            emkanatList: [],
-            emkanat: '',
-            vaziyatsanadList: [],
-            vaziyatsanad: '',
-            manbaetelatiList: [],
-            manbaetelati: '',
-            namaList: [],
-            nama: '',
-            mantagheList: [],
-            mantaghe: '',
-            noemelkList: [],
-            noemelk: '',
+            buildingList: [],
+            building: '',
+            oldHouseList: [],
+            oldHouse: '',
+            officeList: [],
+            office: '',
+            equipmentsList: [],
+            equipments: '',
+            documentKindList: [],
+            documentKind: '',
+            frontKindList: [],
+            frontKind: '',
+            regionList: [],
+            region: '',
+            typeList: [],
+            type: '',
             moshakhaseList: [],
             moshakhase: '',
-            manbaList: [],
-            manba: '',
-            tanzimkonandeList: [],
-            tanzimkonande: '',
-            codeList: [],
-            code: '',
+            publisherList: [],
+            publisher: '',
+            poolList: [],
+            pool: '',
+            sonaList: [],
+            sona: '',
+            jakoziList: [],
+            jakozi: '',
             isLoading: false,
             isDone: true,
             modalShow: true
@@ -68,22 +68,22 @@ class ConfigsManager extends Component {
                     } else {
                         this.isUpdate = true;
                         this.setState({
-                            apartemanList: response.data[response.data.length - 1].aparteman ? response.data[response.data.length - 1].aparteman : [],
+                            sourceList: response.data[response.data.length - 1].source ? response.data[response.data.length - 1].source : [],
+                            apartmentList: response.data[response.data.length - 1].apartment ? response.data[response.data.length - 1].apartment : [],
                             vilaList: response.data[response.data.length - 1].vila ? response.data[response.data.length - 1].vila : [],
-                            mosteghelatList: response.data[response.data.length - 1].mosteghelat ? response.data[response.data.length - 1].mosteghelat : [],
-                            kharejiList: response.data[response.data.length - 1].khareji ? response.data[response.data.length - 1].khareji : [],
-                            kolangiList: response.data[response.data.length - 1].kolangi ? response.data[response.data.length - 1].kolangi : [],
-                            dafterekarList: response.data[response.data.length - 1].dafterekar ? response.data[response.data.length - 1].dafterekar : [],
-                            emkanatList: response.data[response.data.length - 1].emkanat ? response.data[response.data.length - 1].emkanat : [],
-                            vaziyatsanadList: response.data[response.data.length - 1].vaziyatsanad ? response.data[response.data.length - 1].vaziyatsanad : [],
-                            manbaetelatiList: response.data[response.data.length - 1].manbaetelati ? response.data[response.data.length - 1].manbaetelati : [],
-                            namaList: response.data[response.data.length - 1].nama ? response.data[response.data.length - 1].nama : [],
-                            mantagheList: response.data[response.data.length - 1].mantaghe ? response.data[response.data.length - 1].mantaghe : [],
-                            noemelkList: response.data[response.data.length - 1].noemelk ? response.data[response.data.length - 1].noemelk : [],
+                            buildingList: response.data[response.data.length - 1].building ? response.data[response.data.length - 1].building : [],
+                            oldHouseList: response.data[response.data.length - 1].oldHouse ? response.data[response.data.length - 1].oldHouse : [],
+                            officeList: response.data[response.data.length - 1].office ? response.data[response.data.length - 1].office : [],
+                            equipmentsList: response.data[response.data.length - 1].equipments ? response.data[response.data.length - 1].equipments : [],
+                            documentKindList: response.data[response.data.length - 1].documentKind ? response.data[response.data.length - 1].documentKind : [],
+                            frontKindList: response.data[response.data.length - 1].frontKind ? response.data[response.data.length - 1].frontKind : [],
+                            regionList: response.data[response.data.length - 1].region ? response.data[response.data.length - 1].region : [],
+                            typeList: response.data[response.data.length - 1].type ? response.data[response.data.length - 1].type : [],
                             moshakhaseList: response.data[response.data.length - 1].moshakhase ? response.data[response.data.length - 1].moshakhase : [],
-                            manbaList: response.data[response.data.length - 1].manba ? response.data[response.data.length - 1].manba : [],
-                            tanzimkonandeList: response.data[response.data.length - 1].tanzimkonande ? response.data[response.data.length - 1].tanzimkonande : [],
-                            codeList: response.data[response.data.length - 1].code ? response.data[response.data.length - 1].code : [],
+                            publisherList: response.data[response.data.length - 1].publisher ? response.data[response.data.length - 1].publisher : [],
+                            poolList: response.data[response.data.length - 1].pool ? response.data[response.data.length - 1].pool : [],
+                            sonaList: response.data[response.data.length - 1].sona ? response.data[response.data.length - 1].sona : [],
+                            jakoziList: response.data[response.data.length - 1].jakozi ? response.data[response.data.length - 1].jakozi : [],
                             isLoading: false
                         });
                     }
@@ -110,25 +110,24 @@ class ConfigsManager extends Component {
         }, () => {
             setTimeout(() => {
                 Services.insertConfig({
-                    aparteman: this.state.apartemanList,
+                    source: this.state.sourceList,
+                    apartment: this.state.apartmentList,
                     vila: this.state.vilaList,
-                    mosteghelat: this.state.mosteghelatList,
-                    khareji: this.state.kharejiList,
-                    kolangi: this.state.kolangiList,
-                    dafterekar: this.state.dafterekarList,
-                    emkanat: this.state.emkanatList,
-                    vaziyatsanad: this.state.vaziyatsanadList,
-                    manbaetelati: this.state.manbaetelatiList,
-                    nama: this.state.namaList,
-                    mantaghe: this.state.mantagheList,
-                    noemelk: this.state.noemelkList,
+                    building: this.state.buildingList,
+                    oldHouse: this.state.oldHouseList,
+                    office: this.state.officeList,
+                    equipments: this.state.equipmentsList,
+                    documentKind: this.state.documentKindList,
+                    frontKind: this.state.frontKindList,
+                    region: this.state.regionList,
+                    type: this.state.typeList,
                     moshakhase: this.state.moshakhaseList,
-                    manba: this.state.manbaList,
-                    tanzimkonande: this.state.tanzimkonandeList,
-                    code: this.state.codeList,
-                    isLoading: false
+                    publisher: this.state.publisherList,
+                    pool: this.state.poolList,
+                    sona: this.state.sonaList,
+                    jakozi: this.state.jakoziList,
                 }).then((response) => {
-                    window.location.reload();
+                    this.setState({isLoading: false});
                     setTimeout(() => {
                         this.setState({isDone: true});
                     }, 1000);
@@ -152,25 +151,24 @@ class ConfigsManager extends Component {
         }, () => {
             setTimeout(() => {
                 Services.editConfig({
-                    aparteman: this.state.apartemanList,
+                    source: this.state.sourceList,
+                    apartment: this.state.apartmentList,
                     vila: this.state.vilaList,
-                    mosteghelat: this.state.mosteghelatList,
-                    khareji: this.state.kharejiList,
-                    kolangi: this.state.kolangiList,
-                    dafterekar: this.state.dafterekarList,
-                    emkanat: this.state.emkanatList,
-                    vaziyatsanad: this.state.vaziyatsanadList,
-                    manbaetelati: this.state.manbaetelatiList,
-                    nama: this.state.namaList,
-                    mantaghe: this.state.mantagheList,
-                    noemelk: this.state.noemelkList,
+                    building: this.state.buildingList,
+                    oldHouse: this.state.oldHouseList,
+                    office: this.state.officeList,
+                    equipments: this.state.equipmentsList,
+                    documentKind: this.state.documentKindList,
+                    frontKind: this.state.frontKindList,
+                    region: this.state.regionList,
+                    type: this.state.typeList,
                     moshakhase: this.state.moshakhaseList,
-                    manba: this.state.manbaList,
-                    tanzimkonande: this.state.tanzimkonandeList,
-                    code: this.state.codeList,
-                    isLoading: false
+                    publisher: this.state.publisherList,
+                    pool: this.state.poolList,
+                    sona: this.state.sonaList,
+                    jakozi: this.state.jakoziList,
                 }).then((response) => {
-                    window.location.reload();
+                    this.setState({isLoading: false});
                     setTimeout(() => {
                         this.setState({isDone: true});
                     }, 1000);
@@ -231,42 +229,46 @@ class ConfigsManager extends Component {
 
                         <div className="tab">
                             <button className="tablinks active"
-                                    onClick={(event) => this.openCity(event, 'aparteman')}>آپارتمان
+                                    onClick={(event) => this.openCity(event, 'source')}>منبع اطلاعاتی
+                            </button>
+                            <button className="tablinks"
+                                    onClick={(event) => this.openCity(event, 'apartment')}>آپارتمان
                             </button>
                             <button className="tablinks" onClick={(event) => this.openCity(event, 'vila')}>ویلا</button>
                             <button className="tablinks"
-                                    onClick={(event) => this.openCity(event, 'mosteghelat')}>مستغلات
+                                    onClick={(event) => this.openCity(event, 'building')}>مستغلات
                             </button>
-                            <button className="tablinks" onClick={(event) => this.openCity(event, 'khareji')}>خارجی
-                            </button>
-                            <button className="tablinks" onClick={(event) => this.openCity(event, 'kolangi')}>کلنگی
+                            <button className="tablinks" onClick={(event) => this.openCity(event, 'oldHouse')}>کلنگی
                             </button>
                             <button className="tablinks"
-                                    onClick={(event) => this.openCity(event, 'dafterekar')}>دفترکار
+                                    onClick={(event) => this.openCity(event, 'office')}>دفترکار
                             </button>
-                            <button className="tablinks" onClick={(event) => this.openCity(event, 'emkanat')}>امکانات
+                            <button className="tablinks" onClick={(event) => this.openCity(event, 'equipments')}>امکانات
                             </button>
-                            <button className="tablinks" onClick={(event) => this.openCity(event, 'vaziyatsanad')}>وضعیت
+                            <button className="tablinks" onClick={(event) => this.openCity(event, 'documentKind')}>وضعیت
                                 سند
                             </button>
-                            <button className="tablinks" onClick={(event) => this.openCity(event, 'manbaetelati')}>منبع
-                                اطلاعاتی
+                            <button className="tablinks" onClick={(event) => this.openCity(event, 'frontKind')}>نما</button>
+                            <button className="tablinks" onClick={(event) => this.openCity(event, 'region')}>منطقه
                             </button>
-                            <button className="tablinks" onClick={(event) => this.openCity(event, 'nama')}>نما</button>
-                            <button className="tablinks" onClick={(event) => this.openCity(event, 'mantaghe')}>منطقه
-                            </button>
-                            <button className="tablinks" onClick={(event) => this.openCity(event, 'noemelk')}>نوع ملک
+                            <button className="tablinks" onClick={(event) => this.openCity(event, 'type')}>نوع ملک
                             </button>
                             <button className="tablinks" onClick={(event) => this.openCity(event, 'moshakhase')}>مشخصه
                             </button>
-                            <button className="tablinks" onClick={(event) => this.openCity(event, 'manba')}>منبع
+                            <button className="tablinks"
+                                    onClick={(event) => this.openCity(event, 'publisher')}>تنظیم کننده
                             </button>
                             <button className="tablinks"
-                                    onClick={(event) => this.openCity(event, 'tanzimkonande')}>تنظیم کننده
+                                    onClick={(event) => this.openCity(event, 'pool')}>استخر
                             </button>
-                            <button className="tablinks" onClick={(event) => this.openCity(event, 'code')}>کد</button>
+                            <button className="tablinks"
+                                    onClick={(event) => this.openCity(event, 'sona')}>سونا
+                            </button>
+                            <button className="tablinks"
+                                    onClick={(event) => this.openCity(event, 'jakozi')}>جکوزی
+                            </button>
                         </div>
-                        <div id="aparteman" className="tabcontent" style={{display: 'block'}}>
+                        <div id="source" className="tabcontent" style={{display: 'block'}}>
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -276,17 +278,17 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="aparteman" className="form-control text-input"
-                                                   value={this.state.aparteman}
-                                                   placeholder="نوع آپارتمان" id="aparteman" onChange={this.onChange}/>
+                                            <input type="text" name="source" className="form-control text-input"
+                                                   value={this.state.source}
+                                                   placeholder="منبع اطلاعاتی" id="source" onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.aparteman !== '') {
-                                                                this.state.apartemanList.push(this.state.aparteman);
+                                                            if (this.state.source !== '') {
+                                                                this.state.sourceList.push(this.state.source);
                                                                 this.setState({
-                                                                    apartemanList: this.state.apartemanList,
-                                                                    aparteman: ''
+                                                                    sourceList: this.state.sourceList,
+                                                                    source: ''
                                                                 })
                                                             }
                                                         }
@@ -295,20 +297,79 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.apartemanList.map((aparteman) => {
+                                        {this.state.sourceList.map((source) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={aparteman}
+                                                               placeholder="Enter Name Here" value={source}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.apartemanList = this.state.apartemanList.filter(item => item !== aparteman);
+                                                                        this.state.sourceList = this.state.sourceList.filter(item => item !== source);
                                                                         this.setState({
-                                                                            apartemanList: this.state.apartemanList
+                                                                            sourceList: this.state.sourceList
+                                                                        })
+                                                                    }}><i
+                                                                className="glyphicon glyphicon-remove"></i> حذف
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })}
+
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="apartment" className="tabcontent" style={{display: 'none'}}>
+                            <div className="panel panel-default">
+
+                                <div className="panel-body">
+
+
+                                    <form action="action.php">
+
+
+                                        <div className="input-group control-group after-add-more">
+                                            <input type="text" name="apartment" className="form-control text-input"
+                                                   value={this.state.apartment}
+                                                   placeholder="نوع آپارتمان" id="apartment" onChange={this.onChange}/>
+                                            <div className="input-group-btn">
+                                                <button className="btn btn-success add-more" type="button"
+                                                        onClick={() => {
+                                                            if (this.state.apartment !== '') {
+                                                                this.state.apartmentList.push(this.state.apartment);
+                                                                this.setState({
+                                                                    apartmentList: this.state.apartmentList,
+                                                                    apartment: ''
+                                                                })
+                                                            }
+                                                        }
+                                                        }><i
+                                                    className="glyphicon glyphicon-plus"></i> افزودن
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {this.state.apartmentList.map((apartment) => {
+                                            return (
+                                                <div className="copy">
+                                                    <div className="control-group input-group" style={{marginTop: 10}}>
+                                                        <input type="text" name="addmore[]"
+                                                               className="form-control text-input"
+                                                               placeholder="Enter Name Here" value={apartment}
+                                                               disabled={true}/>
+                                                        <div className="input-group-btn">
+                                                            <button className="btn btn-danger remove" type="button"
+                                                                    onClick={() => {
+                                                                        this.state.apartmentList = this.state.apartmentList.filter(item => item !== apartment);
+                                                                        this.setState({
+                                                                            apartmentList: this.state.apartmentList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
@@ -383,7 +444,7 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div id="mosteghelat" className="tabcontent">
+                        <div id="building" className="tabcontent">
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -393,17 +454,17 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="mosteghelat" className="form-control text-input"
-                                                   value={this.state.mosteghelat}
-                                                   placeholder="نوع مستغلات" id="mosteghelat" onChange={this.onChange}/>
+                                            <input type="text" name="building" className="form-control text-input"
+                                                   value={this.state.building}
+                                                   placeholder="نوع مستغلات" id="building" onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.mosteghelat !== '') {
-                                                                this.state.mosteghelatList.push(this.state.mosteghelat);
+                                                            if (this.state.building !== '') {
+                                                                this.state.buildingList.push(this.state.building);
                                                                 this.setState({
-                                                                    mosteghelatList: this.state.mosteghelatList,
-                                                                    mosteghelat: ''
+                                                                    buildingList: this.state.buildingList,
+                                                                    building: ''
                                                                 })
                                                             }
                                                         }
@@ -412,20 +473,20 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.mosteghelatList.map((mosteghelat) => {
+                                        {this.state.buildingList.map((building) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={mosteghelat}
+                                                               placeholder="Enter Name Here" value={building}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.mosteghelatList = this.state.mosteghelatList.filter(item => item !== mosteghelat);
+                                                                        this.state.buildingList = this.state.buildingList.filter(item => item !== building);
                                                                         this.setState({
-                                                                            mosteghelatList: this.state.mosteghelatList
+                                                                            buildingList: this.state.buildingList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
@@ -442,7 +503,7 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div id="khareji" className="tabcontent">
+                        <div id="oldHouse" className="tabcontent">
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -452,17 +513,17 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="khareji" className="form-control text-input"
-                                                   value={this.state.khareji}
-                                                   placeholder="نوع خارجی" id="khareji" onChange={this.onChange}/>
+                                            <input type="text" name="oldHouse" className="form-control text-input"
+                                                   value={this.state.oldHouse}
+                                                   placeholder="نوع کلنگی" id="oldHouse" onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.khareji !== '') {
-                                                                this.state.kharejiList.push(this.state.khareji);
+                                                            if (this.state.oldHouse !== '') {
+                                                                this.state.oldHouseList.push(this.state.oldHouse);
                                                                 this.setState({
-                                                                    kharejiList: this.state.kharejiList,
-                                                                    khareji: ''
+                                                                    oldHouseList: this.state.oldHouseList,
+                                                                    oldHouse: ''
                                                                 })
                                                             }
                                                         }
@@ -471,20 +532,20 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.kharejiList.map((khareji) => {
+                                        {this.state.oldHouseList.map((oldHouse) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={khareji}
+                                                               placeholder="Enter Name Here" value={oldHouse}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.kharejiList = this.state.kharejiList.filter(item => item !== khareji);
+                                                                        this.state.oldHouseList = this.state.oldHouseList.filter(item => item !== oldHouse);
                                                                         this.setState({
-                                                                            kharejiList: this.state.kharejiList
+                                                                            oldHouseList: this.state.oldHouseList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
@@ -501,7 +562,7 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div id="kolangi" className="tabcontent">
+                        <div id="office" className="tabcontent">
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -511,17 +572,17 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="kolangi" className="form-control text-input"
-                                                   value={this.state.kolangi}
-                                                   placeholder="نوع کلنگی" id="kolangi" onChange={this.onChange}/>
+                                            <input type="text" name="office" className="form-control text-input"
+                                                   value={this.state.office}
+                                                   placeholder="نوع دفترکار" id="office" onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.kolangi !== '') {
-                                                                this.state.kolangiList.push(this.state.kolangi);
+                                                            if (this.state.office !== '') {
+                                                                this.state.officeList.push(this.state.office);
                                                                 this.setState({
-                                                                    kolangiList: this.state.kolangiList,
-                                                                    kolangi: ''
+                                                                    officeList: this.state.officeList,
+                                                                    office: ''
                                                                 })
                                                             }
                                                         }
@@ -530,20 +591,20 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.kolangiList.map((kolangi) => {
+                                        {this.state.officeList.map((office) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={kolangi}
+                                                               placeholder="Enter Name Here" value={office}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.kolangiList = this.state.kolangiList.filter(item => item !== kolangi);
+                                                                        this.state.officeList = this.state.officeList.filter(item => item !== office);
                                                                         this.setState({
-                                                                            kolangiList: this.state.kolangiList
+                                                                            officeList: this.state.officeList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
@@ -560,7 +621,7 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div id="dafterekar" className="tabcontent">
+                        <div id="equipments" className="tabcontent">
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -570,17 +631,17 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="dafterekar" className="form-control text-input"
-                                                   value={this.state.dafterekar}
-                                                   placeholder="نوع دفترکار" id="dafterekar" onChange={this.onChange}/>
+                                            <input type="text" name="equipments" className="form-control text-input"
+                                                   value={this.state.equipments}
+                                                   placeholder="نوع امکانات" id="equipments" onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.dafterekar !== '') {
-                                                                this.state.dafterekarList.push(this.state.dafterekar);
+                                                            if (this.state.equipments !== '') {
+                                                                this.state.equipmentsList.push(this.state.equipments);
                                                                 this.setState({
-                                                                    dafterekarList: this.state.dafterekarList,
-                                                                    dafterekar: ''
+                                                                    equipmentsList: this.state.equipmentsList,
+                                                                    equipments: ''
                                                                 })
                                                             }
                                                         }
@@ -589,20 +650,20 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.dafterekarList.map((dafterekar) => {
+                                        {this.state.equipmentsList.map((equipments) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={dafterekar}
+                                                               placeholder="Enter Name Here" value={equipments}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.dafterekarList = this.state.dafterekarList.filter(item => item !== dafterekar);
+                                                                        this.state.equipmentsList = this.state.equipmentsList.filter(item => item !== equipments);
                                                                         this.setState({
-                                                                            dafterekarList: this.state.dafterekarList
+                                                                            equipmentsList: this.state.equipmentsList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
@@ -619,7 +680,7 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div id="emkanat" className="tabcontent">
+                        <div id="documentKind" className="tabcontent">
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -629,77 +690,18 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="emkanat" className="form-control text-input"
-                                                   value={this.state.emkanat}
-                                                   placeholder="نوع امکانات" id="emkanat" onChange={this.onChange}/>
-                                            <div className="input-group-btn">
-                                                <button className="btn btn-success add-more" type="button"
-                                                        onClick={() => {
-                                                            if (this.state.emkanat !== '') {
-                                                                this.state.emkanatList.push(this.state.emkanat);
-                                                                this.setState({
-                                                                    emkanatList: this.state.emkanatList,
-                                                                    emkanat: ''
-                                                                })
-                                                            }
-                                                        }
-                                                        }><i
-                                                    className="glyphicon glyphicon-plus"></i> افزودن
-                                                </button>
-                                            </div>
-                                        </div>
-                                        {this.state.emkanatList.map((emkanat) => {
-                                            return (
-                                                <div className="copy">
-                                                    <div className="control-group input-group" style={{marginTop: 10}}>
-                                                        <input type="text" name="addmore[]"
-                                                               className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={emkanat}
-                                                               disabled={true}/>
-                                                        <div className="input-group-btn">
-                                                            <button className="btn btn-danger remove" type="button"
-                                                                    onClick={() => {
-                                                                        this.state.emkanatList = this.state.emkanatList.filter(item => item !== emkanat);
-                                                                        this.setState({
-                                                                            emkanatList: this.state.emkanatList
-                                                                        })
-                                                                    }}><i
-                                                                className="glyphicon glyphicon-remove"></i> حذف
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })}
-
-                                    </form>
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <div id="vaziyatsanad" className="tabcontent">
-                            <div className="panel panel-default">
-
-                                <div className="panel-body">
-
-
-                                    <form action="action.php">
-
-
-                                        <div className="input-group control-group after-add-more">
-                                            <input type="text" name="vaziyatsanad" className="form-control text-input"
-                                                   value={this.state.vaziyatsanad}
-                                                   placeholder="نوع وضعیت سند" id="vaziyatsanad"
+                                            <input type="text" name="documentKind" className="form-control text-input"
+                                                   value={this.state.documentKind}
+                                                   placeholder="نوع وضعیت سند" id="documentKind"
                                                    onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.vaziyatsanad !== '') {
-                                                                this.state.vaziyatsanadList.push(this.state.vaziyatsanad);
+                                                            if (this.state.documentKind !== '') {
+                                                                this.state.documentKindList.push(this.state.documentKind);
                                                                 this.setState({
-                                                                    vaziyatsanadList: this.state.vaziyatsanadList,
-                                                                    vaziyatsanad: ''
+                                                                    documentKindList: this.state.documentKindList,
+                                                                    documentKind: ''
                                                                 })
                                                             }
                                                         }
@@ -708,20 +710,20 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.vaziyatsanadList.map((vaziyatsanad) => {
+                                        {this.state.documentKindList.map((documentKind) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={vaziyatsanad}
+                                                               placeholder="Enter Name Here" value={documentKind}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.vaziyatsanadList = this.state.vaziyatsanadList.filter(item => item !== vaziyatsanad);
+                                                                        this.state.documentKindList = this.state.documentKindList.filter(item => item !== documentKind);
                                                                         this.setState({
-                                                                            vaziyatsanadList: this.state.vaziyatsanadList
+                                                                            documentKindList: this.state.documentKindList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
@@ -738,7 +740,7 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div id="manbaetelati" className="tabcontent">
+                        <div id="frontKind" className="tabcontent">
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -748,18 +750,17 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="manbaetelati" className="form-control text-input"
-                                                   value={this.state.manbaetelati}
-                                                   placeholder="نوع منبع اطلاعاتی" id="manbaetelati"
-                                                   onChange={this.onChange}/>
+                                            <input type="text" name="frontKind" className="form-control text-input"
+                                                   value={this.state.frontKind}
+                                                   placeholder="نوع نما" id="frontKind" onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.manbaetelati !== '') {
-                                                                this.state.manbaetelatiList.push(this.state.manbaetelati);
+                                                            if (this.state.frontKind !== '') {
+                                                                this.state.frontKindList.push(this.state.frontKind);
                                                                 this.setState({
-                                                                    manbaetelatiList: this.state.manbaetelatiList,
-                                                                    manbaetelati: ''
+                                                                    frontKindList: this.state.frontKindList,
+                                                                    frontKind: ''
                                                                 })
                                                             }
                                                         }
@@ -768,20 +769,20 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.manbaetelatiList.map((manbaetelati) => {
+                                        {this.state.frontKindList.map((frontKind) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={manbaetelati}
+                                                               placeholder="Enter Name Here" value={frontKind}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.manbaetelatiList = this.state.manbaetelatiList.filter(item => item !== manbaetelati);
+                                                                        this.state.frontKindList = this.state.frontKindList.filter(item => item !== frontKind);
                                                                         this.setState({
-                                                                            manbaetelatiList: this.state.manbaetelatiList
+                                                                            frontKindList: this.state.frontKindList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
@@ -798,7 +799,7 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div id="nama" className="tabcontent">
+                        <div id="region" className="tabcontent">
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -808,17 +809,17 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="nama" className="form-control text-input"
-                                                   value={this.state.nama}
-                                                   placeholder="نوع نما" id="nama" onChange={this.onChange}/>
+                                            <input type="text" name="region" className="form-control text-input"
+                                                   value={this.state.region}
+                                                   placeholder="نوع منطقه" id="region" onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.nama !== '') {
-                                                                this.state.namaList.push(this.state.nama);
+                                                            if (this.state.region !== '') {
+                                                                this.state.regionList.push(this.state.region);
                                                                 this.setState({
-                                                                    namaList: this.state.namaList,
-                                                                    nama: ''
+                                                                    regionList: this.state.regionList,
+                                                                    region: ''
                                                                 })
                                                             }
                                                         }
@@ -827,20 +828,20 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.namaList.map((nama) => {
+                                        {this.state.regionList.map((region) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={nama}
+                                                               placeholder="Enter Name Here" value={region}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.namaList = this.state.namaList.filter(item => item !== nama);
+                                                                        this.state.regionList = this.state.regionList.filter(item => item !== region);
                                                                         this.setState({
-                                                                            namaList: this.state.namaList
+                                                                            regionList: this.state.regionList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
@@ -857,7 +858,7 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div id="mantaghe" className="tabcontent">
+                        <div id="type" className="tabcontent">
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -867,17 +868,17 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="mantaghe" className="form-control text-input"
-                                                   value={this.state.mantaghe}
-                                                   placeholder="نوع منطقه" id="mantaghe" onChange={this.onChange}/>
+                                            <input type="text" name="type" className="form-control text-input"
+                                                   value={this.state.type}
+                                                   placeholder="نوع ملک" id="type" onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.mantaghe !== '') {
-                                                                this.state.mantagheList.push(this.state.mantaghe);
+                                                            if (this.state.type !== '') {
+                                                                this.state.typeList.push(this.state.type);
                                                                 this.setState({
-                                                                    mantagheList: this.state.mantagheList,
-                                                                    mantaghe: ''
+                                                                    typeList: this.state.typeList,
+                                                                    type: ''
                                                                 })
                                                             }
                                                         }
@@ -886,79 +887,20 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.mantagheList.map((mantaghe) => {
+                                        {this.state.typeList.map((type) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={mantaghe}
+                                                               placeholder="Enter Name Here" value={type}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.mantagheList = this.state.mantagheList.filter(item => item !== mantaghe);
+                                                                        this.state.typeList = this.state.typeList.filter(item => item !== type);
                                                                         this.setState({
-                                                                            mantagheList: this.state.mantagheList
-                                                                        })
-                                                                    }}><i
-                                                                className="glyphicon glyphicon-remove"></i> حذف
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })}
-
-                                    </form>
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <div id="noemelk" className="tabcontent">
-                            <div className="panel panel-default">
-
-                                <div className="panel-body">
-
-
-                                    <form action="action.php">
-
-
-                                        <div className="input-group control-group after-add-more">
-                                            <input type="text" name="noemelk" className="form-control text-input"
-                                                   value={this.state.noemelk}
-                                                   placeholder="نوع ملک" id="noemelk" onChange={this.onChange}/>
-                                            <div className="input-group-btn">
-                                                <button className="btn btn-success add-more" type="button"
-                                                        onClick={() => {
-                                                            if (this.state.noemelk !== '') {
-                                                                this.state.noemelkList.push(this.state.noemelk);
-                                                                this.setState({
-                                                                    noemelkList: this.state.noemelkList,
-                                                                    noemelk: ''
-                                                                })
-                                                            }
-                                                        }
-                                                        }><i
-                                                    className="glyphicon glyphicon-plus"></i> افزودن
-                                                </button>
-                                            </div>
-                                        </div>
-                                        {this.state.noemelkList.map((noemelk) => {
-                                            return (
-                                                <div className="copy">
-                                                    <div className="control-group input-group" style={{marginTop: 10}}>
-                                                        <input type="text" name="addmore[]"
-                                                               className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={noemelk}
-                                                               disabled={true}/>
-                                                        <div className="input-group-btn">
-                                                            <button className="btn btn-danger remove" type="button"
-                                                                    onClick={() => {
-                                                                        this.state.noemelkList = this.state.noemelkList.filter(item => item !== noemelk);
-                                                                        this.setState({
-                                                                            noemelkList: this.state.noemelkList
+                                                                            typeList: this.state.typeList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
@@ -1034,7 +976,7 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div id="manba" className="tabcontent">
+                        <div id="publisher" className="tabcontent">
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -1044,77 +986,18 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="manba" className="form-control text-input"
-                                                   value={this.state.manba}
-                                                   placeholder="نوع منبع" id="manba" onChange={this.onChange}/>
-                                            <div className="input-group-btn">
-                                                <button className="btn btn-success add-more" type="button"
-                                                        onClick={() => {
-                                                            if (this.state.manba !== '') {
-                                                                this.state.manbaList.push(this.state.manba);
-                                                                this.setState({
-                                                                    manbaList: this.state.manbaList,
-                                                                    manba: ''
-                                                                })
-                                                            }
-                                                        }
-                                                        }><i
-                                                    className="glyphicon glyphicon-plus"></i> افزودن
-                                                </button>
-                                            </div>
-                                        </div>
-                                        {this.state.manbaList.map((manba) => {
-                                            return (
-                                                <div className="copy">
-                                                    <div className="control-group input-group" style={{marginTop: 10}}>
-                                                        <input type="text" name="addmore[]"
-                                                               className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={manba}
-                                                               disabled={true}/>
-                                                        <div className="input-group-btn">
-                                                            <button className="btn btn-danger remove" type="button"
-                                                                    onClick={() => {
-                                                                        this.state.manbaList = this.state.manbaList.filter(item => item !== manba);
-                                                                        this.setState({
-                                                                            manbaList: this.state.manbaList
-                                                                        })
-                                                                    }}><i
-                                                                className="glyphicon glyphicon-remove"></i> حذف
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })}
-
-                                    </form>
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <div id="tanzimkonande" className="tabcontent">
-                            <div className="panel panel-default">
-
-                                <div className="panel-body">
-
-
-                                    <form action="action.php">
-
-
-                                        <div className="input-group control-group after-add-more">
-                                            <input type="text" name="tanzimkonande" className="form-control text-input"
-                                                   value={this.state.tanzimkonande}
-                                                   placeholder="نوع تنظیم کننده" id="tanzimkonande"
+                                            <input type="text" name="publisher" className="form-control text-input"
+                                                   value={this.state.publisher}
+                                                   placeholder="نوع تنظیم کننده" id="publisher"
                                                    onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.tanzimkonande !== '') {
-                                                                this.state.tanzimkonandeList.push(this.state.tanzimkonande);
+                                                            if (this.state.publisher !== '') {
+                                                                this.state.publisherList.push(this.state.publisher);
                                                                 this.setState({
-                                                                    tanzimkonandeList: this.state.tanzimkonandeList,
-                                                                    tanzimkonande: ''
+                                                                    publisherList: this.state.publisherList,
+                                                                    publisher: ''
                                                                 })
                                                             }
                                                         }
@@ -1123,20 +1006,20 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.tanzimkonandeList.map((tanzimkonande) => {
+                                        {this.state.publisherList.map((publisher) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={tanzimkonande}
+                                                               placeholder="Enter Name Here" value={publisher}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.tanzimkonandeList = this.state.tanzimkonandeList.filter(item => item !== tanzimkonande);
+                                                                        this.state.publisherList = this.state.publisherList.filter(item => item !== publisher);
                                                                         this.setState({
-                                                                            tanzimkonandeList: this.state.tanzimkonandeList
+                                                                            publisherList: this.state.publisherList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
@@ -1153,7 +1036,8 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div id="code" className="tabcontent">
+
+                        <div id="pool" className="tabcontent">
                             <div className="panel panel-default">
 
                                 <div className="panel-body">
@@ -1163,17 +1047,18 @@ class ConfigsManager extends Component {
 
 
                                         <div className="input-group control-group after-add-more">
-                                            <input type="text" name="code" className="form-control text-input"
-                                                   value={this.state.code}
-                                                   placeholder="نوع کد" id="code" onChange={this.onChange}/>
+                                            <input type="text" name="pool" className="form-control text-input"
+                                                   value={this.state.pool}
+                                                   placeholder="نوع تنظیم کننده" id="pool"
+                                                   onChange={this.onChange}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.code !== '') {
-                                                                this.state.codeList.push(this.state.code);
+                                                            if (this.state.pool !== '') {
+                                                                this.state.poolList.push(this.state.pool);
                                                                 this.setState({
-                                                                    codeList: this.state.codeList,
-                                                                    code: ''
+                                                                    poolList: this.state.poolList,
+                                                                    pool: ''
                                                                 })
                                                             }
                                                         }
@@ -1182,20 +1067,140 @@ class ConfigsManager extends Component {
                                                 </button>
                                             </div>
                                         </div>
-                                        {this.state.codeList.map((code) => {
+                                        {this.state.poolList.map((pool) => {
                                             return (
                                                 <div className="copy">
                                                     <div className="control-group input-group" style={{marginTop: 10}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={code}
+                                                               placeholder="Enter Name Here" value={pool}
                                                                disabled={true}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
-                                                                        this.state.codeList = this.state.codeList.filter(item => item !== code);
+                                                                        this.state.poolList = this.state.poolList.filter(item => item !== pool);
                                                                         this.setState({
-                                                                            codeList: this.state.codeList
+                                                                            poolList: this.state.poolList
+                                                                        })
+                                                                    }}><i
+                                                                className="glyphicon glyphicon-remove"></i> حذف
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })}
+
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="sona" className="tabcontent">
+                            <div className="panel panel-default">
+
+                                <div className="panel-body">
+
+
+                                    <form action="action.php">
+
+
+                                        <div className="input-group control-group after-add-more">
+                                            <input type="text" name="sona" className="form-control text-input"
+                                                   value={this.state.sona}
+                                                   placeholder="نوع تنظیم کننده" id="sona"
+                                                   onChange={this.onChange}/>
+                                            <div className="input-group-btn">
+                                                <button className="btn btn-success add-more" type="button"
+                                                        onClick={() => {
+                                                            if (this.state.sona !== '') {
+                                                                this.state.sonaList.push(this.state.sona);
+                                                                this.setState({
+                                                                    sonaList: this.state.sonaList,
+                                                                    sona: ''
+                                                                })
+                                                            }
+                                                        }
+                                                        }><i
+                                                    className="glyphicon glyphicon-plus"></i> افزودن
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {this.state.sonaList.map((sona) => {
+                                            return (
+                                                <div className="copy">
+                                                    <div className="control-group input-group" style={{marginTop: 10}}>
+                                                        <input type="text" name="addmore[]"
+                                                               className="form-control text-input"
+                                                               placeholder="Enter Name Here" value={sona}
+                                                               disabled={true}/>
+                                                        <div className="input-group-btn">
+                                                            <button className="btn btn-danger remove" type="button"
+                                                                    onClick={() => {
+                                                                        this.state.sonaList = this.state.sonaList.filter(item => item !== sona);
+                                                                        this.setState({
+                                                                            sonaList: this.state.sonaList
+                                                                        })
+                                                                    }}><i
+                                                                className="glyphicon glyphicon-remove"></i> حذف
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })}
+
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="jakozi" className="tabcontent">
+                            <div className="panel panel-default">
+
+                                <div className="panel-body">
+
+
+                                    <form action="action.php">
+
+
+                                        <div className="input-group control-group after-add-more">
+                                            <input type="text" name="jakozi" className="form-control text-input"
+                                                   value={this.state.jakozi}
+                                                   placeholder="نوع تنظیم کننده" id="jakozi"
+                                                   onChange={this.onChange}/>
+                                            <div className="input-group-btn">
+                                                <button className="btn btn-success add-more" type="button"
+                                                        onClick={() => {
+                                                            if (this.state.jakozi !== '') {
+                                                                this.state.jakoziList.push(this.state.jakozi);
+                                                                this.setState({
+                                                                    jakoziList: this.state.jakoziList,
+                                                                    jakozi: ''
+                                                                })
+                                                            }
+                                                        }
+                                                        }><i
+                                                    className="glyphicon glyphicon-plus"></i> افزودن
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {this.state.jakoziList.map((jakozi) => {
+                                            return (
+                                                <div className="copy">
+                                                    <div className="control-group input-group" style={{marginTop: 10}}>
+                                                        <input type="text" name="addmore[]"
+                                                               className="form-control text-input"
+                                                               placeholder="Enter Name Here" value={jakozi}
+                                                               disabled={true}/>
+                                                        <div className="input-group-btn">
+                                                            <button className="btn btn-danger remove" type="button"
+                                                                    onClick={() => {
+                                                                        this.state.jakoziList = this.state.jakoziList.filter(item => item !== jakozi);
+                                                                        this.setState({
+                                                                            jakoziList: this.state.jakoziList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف
