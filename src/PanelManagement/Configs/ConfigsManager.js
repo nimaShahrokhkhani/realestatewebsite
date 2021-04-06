@@ -30,7 +30,8 @@ class ConfigsManager extends Component {
             frontKindList: [],
             frontKind: '',
             regionList: [],
-            region: '',
+            regionName: '',
+            regionCode: '',
             typeList: [],
             type: '',
             moshakhaseList: [],
@@ -808,18 +809,23 @@ class ConfigsManager extends Component {
                                     <form action="action.php">
 
 
-                                        <div className="input-group control-group after-add-more">
-                                            <input type="text" name="region" className="form-control text-input"
-                                                   value={this.state.region}
-                                                   placeholder="نوع منطقه" id="region" onChange={this.onChange}/>
+                                        <div className="input-group control-group after-add-more" style={{display: 'flex'}}>
+                                            <input type="text" name="regionName" className="form-control text-input"
+                                                   value={this.state.regionName}
+                                                   placeholder="اسم منطقه" id="regionName" onChange={this.onChange} style={{width: '75%'}}/>
+                                            <input type="text" name="regionCode" className="form-control text-input"
+                                                   value={this.state.regionCode}
+                                                   placeholder="کد منطقه" id="regionCode" onChange={this.onChange} style={{width: '15%'}}/>
                                             <div className="input-group-btn">
                                                 <button className="btn btn-success add-more" type="button"
                                                         onClick={() => {
-                                                            if (this.state.region !== '') {
-                                                                this.state.regionList.push(this.state.region);
+                                                            if (this.state.regionName !== '' && this.state.regionCode) {
+                                                                let region = {regionName: this.state.regionName, regionCode: this.state.regionCode};
+                                                                this.state.regionList.push(region);
                                                                 this.setState({
                                                                     regionList: this.state.regionList,
-                                                                    region: ''
+                                                                    regionCode: '',
+                                                                    regionName: ''
                                                                 })
                                                             }
                                                         }
@@ -831,11 +837,15 @@ class ConfigsManager extends Component {
                                         {this.state.regionList.map((region) => {
                                             return (
                                                 <div className="copy">
-                                                    <div className="control-group input-group" style={{marginTop: 10}}>
+                                                    <div className="control-group input-group" style={{marginTop: 10, display: 'flex'}}>
                                                         <input type="text" name="addmore[]"
                                                                className="form-control text-input"
-                                                               placeholder="Enter Name Here" value={region}
-                                                               disabled={true}/>
+                                                               placeholder="Enter Name Here" value={region.regionName}
+                                                               disabled={true} style={{width: '75%'}}/>
+                                                        <input type="text" name="addmore[]"
+                                                               className="form-control text-input"
+                                                               placeholder="Enter Name Here" value={region.regionCode}
+                                                               disabled={true} style={{width: '15%'}}/>
                                                         <div className="input-group-btn">
                                                             <button className="btn btn-danger remove" type="button"
                                                                     onClick={() => {
