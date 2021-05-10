@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './Configs.css';
 import Services from "../../utils/Services";
+import StringUtils from "../../utils/StringUtils";
 import ScreenLoading from "../../components/screenLoading/ScreenLoading";
 import LoginModal from "../components/Modal/LoginModal";
 
@@ -32,6 +33,10 @@ class ConfigsManager extends Component {
             regionList: [],
             regionName: '',
             regionCode: '',
+            regionPriceList: [],
+            regionPriceName: '',
+            regionPriceCode: '',
+            regionPrice: '',
             typeList: [],
             type: '',
             moshakhaseList: [],
@@ -44,14 +49,16 @@ class ConfigsManager extends Component {
             sona: '',
             jakoziList: [],
             jakozi: '',
+            blockList: [],
+            blockNumber: '',
             isLoading: false,
             isDone: true,
-            modalShow: true
+            modalShow: false
         }
     }
 
     onChange = e => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({[e.target.name]: StringUtils.convertNumbersToEnglish(e.target.value)})
     };
 
     getItems = () => {
@@ -79,12 +86,14 @@ class ConfigsManager extends Component {
                             documentKindList: response.data[response.data.length - 1].documentKind ? response.data[response.data.length - 1].documentKind : [],
                             frontKindList: response.data[response.data.length - 1].frontKind ? response.data[response.data.length - 1].frontKind : [],
                             regionList: response.data[response.data.length - 1].region ? response.data[response.data.length - 1].region : [],
+                            regionPriceList: response.data[response.data.length - 1].regionPrice ? response.data[response.data.length - 1].regionPrice : [],
                             typeList: response.data[response.data.length - 1].type ? response.data[response.data.length - 1].type : [],
                             moshakhaseList: response.data[response.data.length - 1].moshakhase ? response.data[response.data.length - 1].moshakhase : [],
                             publisherList: response.data[response.data.length - 1].publisher ? response.data[response.data.length - 1].publisher : [],
                             poolList: response.data[response.data.length - 1].pool ? response.data[response.data.length - 1].pool : [],
                             sonaList: response.data[response.data.length - 1].sona ? response.data[response.data.length - 1].sona : [],
                             jakoziList: response.data[response.data.length - 1].jakozi ? response.data[response.data.length - 1].jakozi : [],
+                            blockList: response.data[response.data.length - 1].blackList ? response.data[response.data.length - 1].blackList : [],
                             isLoading: false
                         });
                     }
@@ -96,7 +105,10 @@ class ConfigsManager extends Component {
                         isLoading: false
                     });
                     setTimeout(() => {
-                        this.setState({isDone: true});
+                        this.setState({
+                            isDone: true,
+                            modalShow: true
+                        });
                     }, 1000);
                     console.log('error', error)
                 });
@@ -121,12 +133,14 @@ class ConfigsManager extends Component {
                     documentKind: this.state.documentKindList,
                     frontKind: this.state.frontKindList,
                     region: this.state.regionList,
+                    regionPrice: this.state.regionPriceList,
                     type: this.state.typeList,
                     moshakhase: this.state.moshakhaseList,
                     publisher: this.state.publisherList,
                     pool: this.state.poolList,
                     sona: this.state.sonaList,
                     jakozi: this.state.jakoziList,
+                    blackList: this.state.blockList,
                 }).then((response) => {
                     this.setState({isLoading: false});
                     setTimeout(() => {
@@ -137,7 +151,10 @@ class ConfigsManager extends Component {
                         isLoading: false
                     });
                     setTimeout(() => {
-                        this.setState({isDone: true});
+                        this.setState({
+                            isDone: true,
+                            modalShow: true
+                        });
                     }, 1000);
                     console.log('error', error)
                 });
@@ -162,12 +179,14 @@ class ConfigsManager extends Component {
                     documentKind: this.state.documentKindList,
                     frontKind: this.state.frontKindList,
                     region: this.state.regionList,
+                    regionPrice: this.state.regionPriceList,
                     type: this.state.typeList,
                     moshakhase: this.state.moshakhaseList,
                     publisher: this.state.publisherList,
                     pool: this.state.poolList,
                     sona: this.state.sonaList,
                     jakozi: this.state.jakoziList,
+                    blackList: this.state.blockList,
                 }).then((response) => {
                     this.setState({isLoading: false});
                     setTimeout(() => {
@@ -178,7 +197,10 @@ class ConfigsManager extends Component {
                         isLoading: false
                     });
                     setTimeout(() => {
-                        this.setState({isDone: true});
+                        this.setState({
+                            isDone: true,
+                            modalShow: true
+                        });
                     }, 1000);
                     console.log('error', error)
                 });
@@ -207,6 +229,8 @@ class ConfigsManager extends Component {
     onSuccessLogin = () => {
         this.setState({
             modalShow: false
+        }, () => {
+            this.getItems()
         })
     };
 
@@ -252,6 +276,8 @@ class ConfigsManager extends Component {
                             <button className="tablinks" onClick={(event) => this.openCity(event, 'frontKind')}>نما</button>
                             <button className="tablinks" onClick={(event) => this.openCity(event, 'region')}>منطقه
                             </button>
+                            <button className="tablinks" onClick={(event) => this.openCity(event, 'regionPrice')}>قیمت مناطق
+                            </button>
                             <button className="tablinks" onClick={(event) => this.openCity(event, 'type')}>نوع ملک
                             </button>
                             <button className="tablinks" onClick={(event) => this.openCity(event, 'moshakhase')}>مشخصه
@@ -267,6 +293,9 @@ class ConfigsManager extends Component {
                             </button>
                             <button className="tablinks"
                                     onClick={(event) => this.openCity(event, 'jakozi')}>جکوزی
+                            </button>
+                            <button className="tablinks"
+                                    onClick={(event) => this.openCity(event, 'blockList')}>شماره های مسدودی
                             </button>
                         </div>
                         <div id="source" className="tabcontent" style={{display: 'block'}}>
@@ -868,6 +897,86 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
+                        <div id="regionPrice" className="tabcontent">
+                            <div className="panel panel-default">
+
+                                <div className="panel-body">
+
+
+                                    <form action="action.php">
+
+
+                                        <div className="input-group control-group after-add-more" style={{display: 'flex'}}>
+                                            <input type="text" name="regionPrice" className="form-control text-input"
+                                                   value={this.state.regionPrice}
+                                                   placeholder="قیمت منطقه" id="regionPrice" onChange={this.onChange} style={{width: '30%'}}/>
+                                            <input type="text" name="regionPriceName" className="form-control text-input"
+                                                   value={this.state.regionPriceName}
+                                                   placeholder="اسم منطقه" id="regionPriceName" onChange={this.onChange} style={{width: '45%'}}/>
+                                            <input type="text" name="regionPriceCode" className="form-control text-input"
+                                                   value={this.state.regionPriceCode}
+                                                   placeholder="کد منطقه" id="regionPriceCode" onChange={this.onChange} style={{width: '15%'}}/>
+                                            <div className="input-group-btn">
+                                                <button className="btn btn-success add-more" type="button"
+                                                        onClick={() => {
+                                                            if (this.state.regionPriceName !== '' && this.state.regionPriceCode && this.state.regionPrice) {
+                                                                let region = {
+                                                                    regionName: this.state.regionPriceName,
+                                                                    regionCode: this.state.regionPriceCode,
+                                                                    regionPrice: this.state.regionPrice
+                                                                };
+                                                                this.state.regionPriceList.push(region);
+                                                                this.setState({
+                                                                    regionPriceList: this.state.regionPriceList,
+                                                                    regionPriceCode: '',
+                                                                    regionPriceName: '',
+                                                                    regionPrice: ''
+                                                                })
+                                                            }
+                                                        }
+                                                        }><i
+                                                    className="glyphicon glyphicon-plus"></i> افزودن
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {this.state.regionPriceList.map((region) => {
+                                            return (
+                                                <div className="copy">
+                                                    <div className="control-group input-group" style={{marginTop: 10, display: 'flex'}}>
+                                                        <input type="text" name="addmore[]"
+                                                               className="form-control text-input"
+                                                               placeholder="Enter Name Here" value={region.regionPrice}
+                                                               disabled={true} style={{width: '30%'}}/>
+                                                        <input type="text" name="addmore[]"
+                                                               className="form-control text-input"
+                                                               placeholder="Enter Name Here" value={region.regionName}
+                                                               disabled={true} style={{width: '45%'}}/>
+                                                        <input type="text" name="addmore[]"
+                                                               className="form-control text-input"
+                                                               placeholder="Enter Name Here" value={region.regionCode}
+                                                               disabled={true} style={{width: '15%'}}/>
+                                                        <div className="input-group-btn">
+                                                            <button className="btn btn-danger remove" type="button"
+                                                                    onClick={() => {
+                                                                        this.state.regionPriceList = this.state.regionPriceList.filter(item => item !== region);
+                                                                        this.setState({
+                                                                            regionPriceList: this.state.regionPriceList
+                                                                        })
+                                                                    }}><i
+                                                                className="glyphicon glyphicon-remove"></i> حذف
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })}
+
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
                         <div id="type" className="tabcontent">
                             <div className="panel panel-default">
 
@@ -1046,7 +1155,6 @@ class ConfigsManager extends Component {
                                 </div>
                             </div>
                         </div>
-
                         <div id="pool" className="tabcontent">
                             <div className="panel panel-default">
 
@@ -1211,6 +1319,66 @@ class ConfigsManager extends Component {
                                                                         this.state.jakoziList = this.state.jakoziList.filter(item => item !== jakozi);
                                                                         this.setState({
                                                                             jakoziList: this.state.jakoziList
+                                                                        })
+                                                                    }}><i
+                                                                className="glyphicon glyphicon-remove"></i> حذف
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })}
+
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="blockList" className="tabcontent">
+                            <div className="panel panel-default">
+
+                                <div className="panel-body">
+
+
+                                    <form action="action.php">
+
+
+                                        <div className="input-group control-group after-add-more">
+                                            <input type="text" name="blockNumber" className="form-control text-input"
+                                                   value={this.state.blockNumber}
+                                                   placeholder="شماره های مسدودی" id="blockList"
+                                                   onChange={this.onChange}/>
+                                            <div className="input-group-btn">
+                                                <button className="btn btn-success add-more" type="button"
+                                                        onClick={() => {
+                                                            if (this.state.blockList !== '') {
+                                                                this.state.blockList.push(this.state.blockNumber);
+                                                                this.setState({
+                                                                    blockList: this.state.blockList,
+                                                                    blockNumber: ''
+                                                                })
+                                                            }
+                                                        }
+                                                        }><i
+                                                    className="glyphicon glyphicon-plus"></i> افزودن
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {this.state.blockList.map((blockNumber) => {
+                                            return (
+                                                <div className="copy">
+                                                    <div className="control-group input-group" style={{marginTop: 10}}>
+                                                        <input type="text" name="addmore[]"
+                                                               className="form-control text-input"
+                                                               placeholder="Enter Name Here" value={blockNumber}
+                                                               disabled={true}/>
+                                                        <div className="input-group-btn">
+                                                            <button className="btn btn-danger remove" type="button"
+                                                                    onClick={() => {
+                                                                        this.state.blockList = this.state.blockList.filter(item => item !== blockNumber);
+                                                                        this.setState({
+                                                                            blockList: this.state.blockList
                                                                         })
                                                                     }}><i
                                                                 className="glyphicon glyphicon-remove"></i> حذف

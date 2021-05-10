@@ -36,6 +36,7 @@ class LoginModal extends React.Component {
     submitLogin = (e) => {
         e.preventDefault();
         Services.signIn({username: this.state.username, password: this.state.password}).then((res) => {
+            localStorage.setItem('session', res.headers['set-cookie']);
             this.props.onSuccessLogin(res.data);
         }).catch((error) => {
             this.props.onErrorLogin(error);
