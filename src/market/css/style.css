@@ -9204,7 +9204,7 @@ mark.color {
 .pricing-container {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: flex-start;
+	align-items: center;
 	position: relative;
 }
 
