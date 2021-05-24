@@ -5,6 +5,7 @@ import '../css/color.css';
 import 'react-awesome-slider/dist/styles.css';
 import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
+import ScriptTag from 'react-script-tag';
 
 class Home extends React.Component {
 
@@ -834,19 +835,19 @@ class Home extends React.Component {
 
                 <div id="backtotop"><a href="#"></a></div>
 
-
-                <script type="text/javascript" src="scripts/jquery-3.4.1.min.js"></script>
-                <script type="text/javascript" src="scripts/jquery-migrate-3.1.0.min.js"></script>
-                <script type="text/javascript" src="scripts/chosen.min.js"></script>
-                <script type="text/javascript" src="scripts/magnific-popup.min.js"></script>
-                <script type="text/javascript" src="scripts/owl.carousel.min.js"></script>
-                <script type="text/javascript" src="scripts/rangeSlider.js"></script>
-                <script type="text/javascript" src="scripts/sticky-kit.min.js"></script>
-                <script type="text/javascript" src="scripts/slick.min.js"></script>
-                <script type="text/javascript" src="scripts/masonry.min.js"></script>
-                <script type="text/javascript" src="scripts/mmenu.min.js"></script>
-                <script type="text/javascript" src="scripts/tooltips.min.js"></script>
-                <script type="text/javascript" src="scripts/custom.js"></script>
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/jquery-3.4.1.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/jquery-migrate-3.1.0.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/chosen.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/chosen.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/magnific-popup.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/owl.carousel.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/rangeSlider.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/sticky-kit.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/slick.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/masonry.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/mmenu.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/tooltips.min.js" />
+                <ScriptTag isHydrating={true} type="text/javascript" src="scripts/custom.js" />
 
 
             </div>
