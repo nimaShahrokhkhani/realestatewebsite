@@ -10,9 +10,46 @@ export default class Services {
         axios.defaults.headers['Accept'] = '/';
         axios.defaults.headers['Cache-Control'] = 'no-cache';
         axios.defaults.withCredentials = true;
-        return axios.post(`/login`, {
+        return axios.post(`/base/login`, {
             username: requestData.username,
             password: requestData.password,
+        })
+    }
+
+    static signInClient(requestData) {
+        axios.defaults.headers['content-Type'] = 'application/json';
+        axios.defaults.headers['Accept'] = '/';
+        axios.defaults.headers['Cache-Control'] = 'no-cache';
+        axios.defaults.withCredentials = true;
+        return axios.post(`/client/login`, {
+            username: requestData.username,
+            password: requestData.password,
+        })
+    }
+
+    static registerClient(requestData) {
+        axios.defaults.headers['content-Type'] = 'application/json';
+        axios.defaults.headers['Accept'] = '/';
+        axios.defaults.headers['Cache-Control'] = 'no-cache';
+        axios.defaults.withCredentials = true;
+        return axios.post(`/client/register`, {
+            username: requestData.username,
+            password: requestData.password,
+            email: requestData.email,
+        })
+    }
+
+    static editClientProfile(requestData) {
+        axios.defaults.headers['content-Type'] = 'application/json';
+        axios.defaults.headers['Accept'] = '/';
+        axios.defaults.headers['Cache-Control'] = 'no-cache';
+        axios.defaults.withCredentials = true;
+        return axios.post(`/client/clientUsers/edit`, {
+            username: requestData.username,
+            name: requestData.name,
+            telephone: requestData.telephone,
+            email: requestData.email,
+            aboutMe: requestData.aboutMe,
         })
     }
 

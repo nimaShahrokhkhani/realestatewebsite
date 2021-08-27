@@ -29,6 +29,7 @@ export default class Routes extends Component {
                         <Route path="/realstate/submitAdvertise" component={submit}/>
                         <Route path="/realstate/contact" component={contact}/>
                         <Route path="/realstate/bestAgencies" component={bestAgencies}/>
+                        <Route path="/realstate/profile" component={profile}/>
                     </Switch>
                 </ScrollToTop>
             </Router>

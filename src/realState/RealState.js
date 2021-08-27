@@ -74,6 +74,13 @@ class RealState extends React.Component {
         this.changeCurrentMenu('/realstate/bestAgencies');
     };
 
+    onProfileClick = () => {
+        this.props.history.push({
+            pathname: '/realstate/profile'
+        });
+        this.clearAllMenuSelect();
+    };
+
     clearAllMenuSelect() {
         [...document.getElementsByName('home')].map(item => {
             item.className = '';
@@ -125,6 +132,7 @@ class RealState extends React.Component {
     }
 
     componentDidMount() {
+        this.props.setState(JSON.parse(localStorage.getItem('state')));
         this.changeCurrentMenu();
     }
 
@@ -150,18 +158,22 @@ class RealState extends React.Component {
                                 <nav id="navigation" className="style-1">
                                     <ul id="responsive">
 
-                                        <li><a id='home' name='home' className="current" onClick={this.onHomePageClick}>خانه</a>
+                                        <li><a id='home' name='home' className="current"
+                                               onClick={this.onHomePageClick}>خانه</a>
 
                                         </li>
 
-                                        <li><a id='advertise' name='advertise' onClick={this.onAdvertisingPageClick}>آگهی ها</a>
+                                        <li><a id='advertise' name='advertise' onClick={this.onAdvertisingPageClick}>آگهی
+                                            ها</a>
 
                                         </li>
 
-                                        <li><a id='realStatePanel' name='realStatePanel' onClick={this.onRealstatePanelClick}>پنل املاک</a>
+                                        <li><a id='realStatePanel' name='realStatePanel'
+                                               onClick={this.onRealstatePanelClick}>پنل املاک</a>
 
                                         </li>
-                                        <li><a id='bestAgencies' name='bestAgencies' onClick={this.onBestAgenciesClick}>آژانس برتر </a>
+                                        <li><a id='bestAgencies' name='bestAgencies' onClick={this.onBestAgenciesClick}>آژانس
+                                            برتر </a>
 
                                         </li>
 
@@ -175,9 +187,12 @@ class RealState extends React.Component {
                             </div>
                             <div className="right-side">
                                 <div className="header-widget">
-                                    <a id="loginContainer" onClick={this.onLoginClick} className="sign-in"><i
-                                        className="fa fa-user"></i>
-                                        ورود / ثبت نام</a>
+                                    {this.props.user.username ?
+                                        <a id="loginContainer" className="sign-in-username" onClick={this.onProfileClick}>
+                                            {this.props.user.username} خوش آمدید</a> :
+                                        <a id="loginContainer" onClick={this.onLoginClick} className="sign-in"><i
+                                            className="fa fa-user"></i>
+                                            ورود / ثبت نام</a>}
                                     <a id="userContainer" href="my-profile.html" className="sign-in" hidden>
                                         <span id="usernameHeader"></span></a>
                                     <a onClick={this.onSubmitAdvertiseClick} className="button border">ثبت آگهی
@@ -207,14 +222,17 @@ class RealState extends React.Component {
 
                                         </li>
 
-                                        <li><a id='advertise' name='advertise' onClick={this.onAdvertisingPageClick}>آگهی ها</a>
+                                        <li><a id='advertise' name='advertise' onClick={this.onAdvertisingPageClick}>آگهی
+                                            ها</a>
 
                                         </li>
 
-                                        <li><a id='realStatePanel' name='realStatePanel' onClick={this.onRealstatePanelClick}>پنل املاک</a>
+                                        <li><a id='realStatePanel' name='realStatePanel'
+                                               onClick={this.onRealstatePanelClick}>پنل املاک</a>
 
                                         </li>
-                                        <li><a id='bestAgencies' name='bestAgencies' onClick={this.onBestAgenciesClick}>آژانس برتر </a>
+                                        <li><a id='bestAgencies' name='bestAgencies' onClick={this.onBestAgenciesClick}>آژانس
+                                            برتر </a>
 
                                         </li>
 
@@ -228,9 +246,12 @@ class RealState extends React.Component {
                             </div>
                             <div className="right-side">
                                 <div className="header-widget">
-                                    <a id="loginContainer" onClick={this.onLoginClick} className="sign-in"><i
-                                        className="fa fa-user"></i>
-                                        ورود / ثبت نام</a>
+                                    {this.props.user.username ?
+                                        <a id="loginContainer" className="sign-in-username" onClick={this.onProfileClick}>
+                                            {this.props.user.username} خوش آمدید</a> :
+                                        <a id="loginContainer" onClick={this.onLoginClick} className="sign-in"><i
+                                            className="fa fa-user"></i>
+                                            ورود / ثبت نام</a>}
                                     <a id="userContainer" href="my-profile.html" className="sign-in" hidden>
                                         <span id="usernameHeader"></span></a>
                                     <a onClick={this.onSubmitAdvertiseClick} className="button border">ثبت آگهی
@@ -329,8 +350,7 @@ class RealState extends React.Component {
 
 const mapStateToProps = state => {
     const user = state.user;
-    const products = state.products;
-    return {user, products};
-}
+    return {user};
+};
 
 export default connect(mapStateToProps, {setUser, setState})(withTranslation()(RealState));

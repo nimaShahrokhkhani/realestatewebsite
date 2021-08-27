@@ -5,6 +5,9 @@ import 'react-awesome-slider/dist/styles.css';
 import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
 import ScriptTag from 'react-script-tag';
+import Services from "../../utils/Services";
+import connect from "react-redux/es/connect/connect";
+import {setState, setUser} from "../../components/redux/actions";
 
 class LoginRegister extends React.Component {
 
@@ -13,13 +16,6 @@ class LoginRegister extends React.Component {
         this.state = {
             activeNav: 1
         }
-    }
-
-
-    onNavMenuClick(activeNavMenu) {
-        this.setState({
-            activeNav: activeNavMenu
-        })
     }
 
     componentDidMount() {
@@ -94,6 +90,36 @@ class LoginRegister extends React.Component {
         })
     }
 
+    onLoginBtnClick = () => {
+        let username = document.getElementById('username').value;
+        let password = document.getElementById('password').value;
+        Services.signInClient({username: username, password: password}).then((res) => {
+            this.props.setUser(res.data);
+            this.props.history.push({
+                pathname: '/realstate/profile'
+            });
+        }).catch((error) => {
+
+        })
+    };
+
+    onRegisterBtnClick = () => {
+        let username = document.getElementById('username1').value;
+        let password = document.getElementById('password1').value;
+        let repeatPassword = document.getElementById('password2').value;
+        let email = document.getElementById('email').value;
+        if (password === repeatPassword) {
+            Services.registerClient({username: username, password: password, email: email}).then((res) => {
+                this.props.setUser({username: username, email: email});
+                this.props.history.push({
+                    pathname: '/realstate/profile'
+                });
+            }).catch((error) => {
+
+            })
+        }
+    };
+
     render() {
         return (
             <div id='root-div'>
@@ -136,7 +162,7 @@ class LoginRegister extends React.Component {
 
                                             <p className="form-row">
                                                 <input type="submit" className="button border margin-top-10"
-                                                       name="login" placeholder="ورود"/>
+                                                       name="login" value="ورود" onClick={this.onLoginBtnClick}/>
 
                                                 <label htmlFor="rememberme" className="rememberme">
                                                     <input name="rememberme" type="checkbox" id="rememberme"
@@ -159,14 +185,14 @@ class LoginRegister extends React.Component {
                                                 <label htmlFor="username2">نام کاربری:
                                                     <i className="im im-icon-Male"></i>
                                                     <input type="text" className="input-text" name="username"
-                                                           id="username2" />
+                                                           id="username1"/>
                                                 </label>
                                             </p>
 
                                             <p className="form-row form-row-wide">
                                                 <label htmlFor="email2">ایمیل:
                                                     <i className="im im-icon-Mail"></i>
-                                                    <input type="text" className="input-text" name="email" id="email2"/>
+                                                    <input type="text" className="input-text" name="email" id="email"/>
                                                 </label>
                                             </p>
 
@@ -189,7 +215,8 @@ class LoginRegister extends React.Component {
                                             <p className="form-row">
                                                 <input type="submit" className="button border fw margin-top-10"
                                                        name="register"
-                                                       placeholder="ثبت نام"/>
+                                                       value="ثبت نام"
+                                                       onClick={this.onRegisterBtnClick}/>
                                             </p>
 
                                         </div>
@@ -209,4 +236,9 @@ class LoginRegister extends React.Component {
     }
 }
 
-export default withTranslation()(LoginRegister);
+const mapStateToProps = state => {
+    const user = state.user;
+    return {user};
+};
+
+export default connect(mapStateToProps, {setUser, setState})(withTranslation()(LoginRegister));
