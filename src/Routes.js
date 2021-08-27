@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Router, Switch, Route} from "react-router-dom";
 
 import PanelManagement from "./PanelManagement/PanelManagement";
-import Market from "./market/Market";
+import RealState from "./realState/RealState";
 import history from './history';
 
 export default class Routes extends Component {
@@ -10,8 +10,7 @@ export default class Routes extends Component {
         return (
             <Router history={history}>
                 <Switch>
-                    <Route path="" component={Market}/>
-                    <Route path="/PanelManagement" component={PanelManagement}/>
+                    <Route path="/realstate" component={RealState}/>
                 </Switch>
             </Router>
         )

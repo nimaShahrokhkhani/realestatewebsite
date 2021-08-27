@@ -1,5 +1,4 @@
 /* ----------------- Start Document ----------------- */
-
 (function($){
 "use strict";
 
@@ -63,11 +62,11 @@ $(document).ready(function(){
 	/*----------------------------------------------------*/
 	/*  Sticky Header
 	/*----------------------------------------------------*/
-	$( "#header" ).not( "#header-container.header-style-2 #header" ).clone(true).addClass('cloned unsticky').insertAfter( "#header" );
-	$( "#navigation.style-2" ).clone(true).addClass('cloned unsticky').insertAfter( "#navigation.style-2" );
+	//$( "#header" ).not( "#header-container.header-style-2 #header" ).clone(true).addClass('cloned unsticky').insertAfter( "#header" );
+	//$( "#navigation.style-2" ).clone(true).addClass('cloned unsticky').insertAfter( "#navigation.style-2" );
 
 	// Logo for header style 2
-	$( "#logo .sticky-logo" ).clone(true).prependTo("#navigation.style-2.cloned ul#responsive");
+	// $( "#logo .sticky-logo" ).clone(true).prependTo("#navigation.style-2.cloned ul#responsive");
 
 
 	// sticky header script
@@ -202,21 +201,21 @@ $(document).ready(function(){
 	/*  Tooltips
 	/*----------------------------------------------------*/
 
-	$(".tooltip.top").tipTip({
-	  defaultPosition: "top"
-	});
-
-	$(".tooltip.bottom").tipTip({
-	  defaultPosition: "bottom"
-	});
-
-	$(".tooltip.left").tipTip({
-	  defaultPosition: "left"
-	});
-
-	$(".tooltip.right").tipTip({
-	  defaultPosition: "right"
-	});
+	// $(".tooltip.top").tipTip({
+	//   defaultPosition: "top"
+	// });
+	//
+	// $(".tooltip.bottom").tipTip({
+	//   defaultPosition: "bottom"
+	// });
+	//
+	// $(".tooltip.left").tipTip({
+	//   defaultPosition: "left"
+	// });
+	//
+	// $(".tooltip.right").tipTip({
+	//   defaultPosition: "right"
+	// });
 
 
 
@@ -234,7 +233,7 @@ $(document).ready(function(){
 
 	// replacing comma with dot
 	$(document).on('change', function() {
-		$("#interest").val($("#interest").val().replace(/,/g, '.'));
+		$("#interest").val() && $("#interest").val($("#interest").val().replace(/,/g, '.'));
 	});
 
 	// Calculator
@@ -376,7 +375,7 @@ $(document).ready(function(){
 
 	// Jumping background fix for IE
 	if(navigator.userAgent.match(/Trident\/7\./)) { // if IE
-	    $('body').on("mousewheel", function (event) {
+	    $('body').on("mousewheel", function () {
 	        event.preventDefault();
 
 	        var wheelDelta = event.wheelDelta;
@@ -392,26 +391,26 @@ $(document).ready(function(){
 	function searchTypeButtons() {
 
 		// Radio attr reset
-		$('.search-type label.active input[type="radio"]').prop('checked',true);
-
-		// Positioning indicator arrow
-		var buttonWidth = $('.search-type label.active').width();
-		var arrowDist = $('.search-type label.active').position().left;
-		$('.search-type-arrow').css('left', arrowDist + (buttonWidth/2) );
-
-		$('.search-type label').on('change', function() {
-		    $('.search-type input[type="radio"]').parent('label').removeClass('active');
-		    $('.search-type input[type="radio"]:checked').parent('label').addClass('active');
-
-			// Positioning indicator arrow
-			var buttonWidth = $('.search-type label.active').width();
-			var arrowDist = $('.search-type label.active').position().left;
-
-			$('.search-type-arrow').css({
-				'left': arrowDist + (buttonWidth/2),
-				'transition':'left 0.4s cubic-bezier(.87,-.41,.19,1.44)'
-			});
-		});
+		// $('.search-type label.active input[type="radio"]').prop('checked',true);
+		//
+		// // Positioning indicator arrow
+		// var buttonWidth = $('.search-type label.active').width();
+		// var arrowDist = $('.search-type label.active').position().left;
+		// $('.search-type-arrow').css('left', arrowDist + (buttonWidth/2) );
+		//
+		// $('.search-type label').on('change', function() {
+		//     $('.search-type input[type="radio"]').parent('label').removeClass('active');
+		//     $('.search-type input[type="radio"]:checked').parent('label').addClass('active');
+		//
+		// 	// Positioning indicator arrow
+		// 	var buttonWidth = $('.search-type label.active').width();
+		// 	var arrowDist = $('.search-type label.active').position().left;
+		//
+		// 	$('.search-type-arrow').css({
+		// 		'left': arrowDist + (buttonWidth/2),
+		// 		'transition':'left 0.4s cubic-bezier(.87,-.41,.19,1.44)'
+		// 	});
+		// });
 
 	}
 
@@ -993,7 +992,63 @@ $(document).ready(function(){
 		var dataMax = $(this).attr('data-max');
 		var dataUnit = $(this).attr('data-unit');
 
-		$(this).append( "<input type='text' class='first-slider-value'disabled/><input type='text' class='second-slider-value' disabled/>" );
+		$(this).append( "<input id='area-range-min' type='text' class='first-slider-value' disabled/><input id='area-range-max' type='text' class='second-slider-value' disabled/>" );
+
+		$(this).slider({
+
+		  range: true,
+		  min: dataMin,
+		  max: dataMax,
+		  step: 10,
+		  values: [ dataMin, dataMax ],
+
+		  slide: function( event, ui ) {
+			 event = event;
+			 $(this).children( ".first-slider-value" ).val( ui.values[ 0 ]  + " " + dataUnit );
+			 $(this).children( ".second-slider-value" ).val( ui.values[ 1 ] + " " +  dataUnit );
+		  }
+		});
+		 $(this).children( ".first-slider-value" ).val( $( this ).slider( "values", 0 ) + " " + dataUnit );
+		 $(this).children( ".second-slider-value" ).val( $( this ).slider( "values", 1 ) + " " + dataUnit );
+
+	});
+
+	// Area Range
+	$("#area-range-panel").each(function() {
+
+		var dataMin = $(this).attr('data-min');
+		var dataMax = $(this).attr('data-max');
+		var dataUnit = $(this).attr('data-unit');
+
+		$(this).append( "<input id='area-range-panel-min' type='text' class='first-slider-value' disabled/><input id='area-range-panel-max' type='text' class='second-slider-value' disabled/>" );
+
+		$(this).slider({
+
+		  range: true,
+		  min: dataMin,
+		  max: dataMax,
+		  step: 10,
+		  values: [ dataMin, dataMax ],
+
+		  slide: function( event, ui ) {
+			 event = event;
+			 $(this).children( ".first-slider-value" ).val( ui.values[ 0 ]  + " " + dataUnit );
+			 $(this).children( ".second-slider-value" ).val( ui.values[ 1 ] + " " +  dataUnit );
+		  }
+		});
+		 $(this).children( ".first-slider-value" ).val( $( this ).slider( "values", 0 ) + " " + dataUnit );
+		 $(this).children( ".second-slider-value" ).val( $( this ).slider( "values", 1 ) + " " + dataUnit );
+
+	});
+
+	// Area Range
+	$("#area-range-advertise").each(function() {
+
+		var dataMin = $(this).attr('data-min');
+		var dataMax = $(this).attr('data-max');
+		var dataUnit = $(this).attr('data-unit');
+
+		$(this).append( "<input id='area-range-advertise-min' type='text' class='first-slider-value' disabled/><input id='area-range-advertise-max' type='text' class='second-slider-value' disabled/>" );
 
 		$(this).slider({
 
@@ -1016,13 +1071,13 @@ $(document).ready(function(){
 
 
 	// Price Range
-	$("#price-range").each(function() {
+	$("#sale-price-range").each(function() {
 
 		var dataMin = $(this).attr('data-min');
 		var dataMax = $(this).attr('data-max');
 		var dataUnit = $(this).attr('data-unit');
 
-		$(this).append( "<input type='text' class='first-slider-value' disabled/><input type='text' class='second-slider-value' disabled/>" );
+		$(this).append( "<input id='sale-price-range-min' type='text' class='first-slider-value' disabled/><input id='sale-price-range-max' type='text' class='second-slider-value' disabled/>" );
 
 
 		$(this).slider({
@@ -1043,6 +1098,62 @@ $(document).ready(function(){
 
 
 	});
+	$("#mortgage-price-range").each(function() {
+
+		var dataMin = $(this).attr('data-min');
+		var dataMax = $(this).attr('data-max');
+		var dataUnit = $(this).attr('data-unit');
+
+		$(this).append( "<input id='mortgage-price-range-min' type='text' class='first-slider-value' disabled/><input id='mortgage-price-range-max' type='text' class='second-slider-value' disabled/>" );
+
+
+		$(this).slider({
+
+			range: true,
+			min: dataMin,
+			max: dataMax,
+			values: [ dataMin, dataMax ],
+
+			slide: function( event, ui ) {
+				event = event;
+				$(this).children( ".first-slider-value" ).val( ui.values[ 0 ].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + ' ' + dataUnit);
+				$(this).children( ".second-slider-value" ).val( ui.values[ 1 ].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + ' ' + dataUnit);
+			}
+		});
+		$(this).children( ".first-slider-value" ).val( $( this ).slider( "values", 0 ).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + ' ' + dataUnit);
+		$(this).children( ".second-slider-value" ).val(   $( this ).slider( "values", 1 ).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + ' ' + dataUnit);
+
+
+	});
+	$("#rent-price-range").each(function() {
+
+		var dataMin = $(this).attr('data-min');
+		var dataMax = $(this).attr('data-max');
+		var dataUnit = $(this).attr('data-unit');
+
+		$(this).append( "<input id='rent-price-range-min' type='text' class='first-slider-value' disabled/><input id='rent-price-range-max' type='text' class='second-slider-value' disabled/>" );
+
+
+		$(this).slider({
+
+			range: true,
+			min: dataMin,
+			max: dataMax,
+			values: [ dataMin, dataMax ],
+
+			slide: function( event, ui ) {
+				event = event;
+				$(this).children( ".first-slider-value" ).val( ui.values[ 0 ].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + ' ' + dataUnit);
+				$(this).children( ".second-slider-value" ).val( ui.values[ 1 ].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + ' ' + dataUnit);
+			}
+		});
+		$(this).children( ".first-slider-value" ).val( $( this ).slider( "values", 0 ).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + ' ' + dataUnit);
+		$(this).children( ".second-slider-value" ).val(   $( this ).slider( "values", 1 ).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + ' ' + dataUnit);
+
+
+	});
+
+
 
 
 

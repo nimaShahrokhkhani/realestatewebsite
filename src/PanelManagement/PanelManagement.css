@@ -1,15 +1,15 @@
 @font-face {
     font-family: IRANSansMobileFaNum-Light;
-    src: url("../market/fonts/IRANSansMobileFaNum-Light.eot") format('eot'),
-    url("../market/fonts/IRANSansMobileFaNum-Light.woff") format('woff'),
-    url("../market/fonts/IRANSansMobileFaNum-Light.ttf") format('truetype');
+    src: url("../realState/fonts/IRANSansMobileFaNum-Light.eot") format('eot'),
+    url("../realState/fonts/IRANSansMobileFaNum-Light.woff") format('woff'),
+    url("../realState/fonts/IRANSansMobileFaNum-Light.ttf") format('truetype');
 }
 
 @font-face {
     font-family: IRANSansMobileFaNum-Bold;
-    src: url("../market/fonts/IRANSansMobileFaNum-Bold.eot") format('eot'),
-    url("../market/fonts/IRANSansMobileFaNum-Bold.woff") format('woff'),
-    url("../market/fonts/IRANSansMobileFaNum-Bold.ttf") format('truetype');
+    src: url("../realState/fonts/IRANSansMobileFaNum-Bold.eot") format('eot'),
+    url("../realState/fonts/IRANSansMobileFaNum-Bold.woff") format('woff'),
+    url("../realState/fonts/IRANSansMobileFaNum-Bold.ttf") format('truetype');
 }
 
 html, body, root {
