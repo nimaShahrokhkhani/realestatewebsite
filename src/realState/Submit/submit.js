@@ -4,18 +4,83 @@ import '../css/color.css';
 import 'react-awesome-slider/dist/styles.css';
 import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
+import Services from "../../utils/Services";
+import Doka, {imageList} from './dropZone'
+import {css} from "@emotion/react";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+import _ from 'underscore';
 
 class submit extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            activeNav: 1
-        }
+            activeNav: 1,
+            isLoading: false,
+            configList: []
+        };
+        this.finalEquipmentList = [];
     }
 
+    submitAdvertise = () => {
+        this.setState({
+            isLoading: true
+        }, () => {
+            const data = new FormData();
+            for (let image of imageList) {
+                data.append('files', image);
+            }
+            data.append('title', document.getElementById('titleSubmit').value);
+            data.append('sale', document.getElementById('conditionSubmit').value);
+            data.append('type', document.getElementById('kindSubmit').value);
+            data.append('totalPrice', document.getElementById('priceTotalSubmit').value);
+            data.append('unitPrice', document.getElementById('priceMetriSubmit').value);
+            data.append('rent', document.getElementById('priceRentSubmit').value);
+            data.append('mortgage', document.getElementById('priceMortgageSubmit').value);
+            data.append('area', document.getElementById('areaSubmit').value);
+            data.append('unitRoom', document.getElementById('roomSubmit').value);
+            data.append('address', document.getElementById('addressSubmit').value);
+            data.append('city', document.getElementById('citySubmit').value);
+            data.append('province', document.getElementById('provinceSubmit').value);
+            data.append('postalCode', document.getElementById('codePostAddress').value);
+            data.append('comment', document.getElementById('explainSubmit').value);
+            data.append('age', document.getElementById('ageSubmit').value);
+            data.append('unitWC', document.getElementById('bathSubmit').value);
+            data.append('realStateAccess', document.getElementById('yesSubmit').checked);
+            data.append('contactInfoName', document.getElementById('nameSubmit').value);
+            data.append('contactInfoTel', document.getElementById('emailSubmit').value);
+            data.append('contactInfoEmail', document.getElementById('telSubmit').value);
+            data.append('equipments', this.finalEquipmentList);
+            Services.insertAdvertise(data).then((response) => {
+                this.hideLoading();
+                NotificationManager.success('موفق', '');
+            }).catch((error) => {
+                this.hideLoading();
+                NotificationManager.error('خطا', '', 5000);
+            });
+        })
+    };
+
+    getConfigList() {
+        Services.getConfigList().then(response => {
+            this.setState({
+                configList: response.data[0]
+            })
+        }).catch(error => {
+
+        })
+    }
+
+    hideLoading() {
+        this.setState({
+            isLoading: false
+        })
+    }
 
     componentDidMount() {
+        this.getConfigList();
         let root = document.getElementById('root-div');
 
         var element = document.createElement("script");
@@ -90,6 +155,7 @@ class submit extends React.Component {
     render() {
         return (
             <div id="root-div" style={{marginTop: 0}}>
+                <NotificationContainer/>
                 <div id="wrapper">
 
                     <div className="clearfix"></div>
@@ -151,8 +217,33 @@ class submit extends React.Component {
                                         <div className="row with-forms">
 
                                             <div className="col-md-4">
-                                                <h5>قیمت </h5>
-                                                <div className="select-input disabled-first-option" id="priceSubmit">
+                                                <h5>قیمت متری</h5>
+                                                <div className="select-input disabled-first-option"
+                                                     id="priceMetriSubmit">
+                                                    <input type="text" data-unit="تومان"/>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-4">
+                                                <h5>قیمت کل</h5>
+                                                <div className="select-input disabled-first-option"
+                                                     id="priceTotalSubmit">
+                                                    <input type="text" data-unit="تومان"/>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-4">
+                                                <h5>قیمت اجاره </h5>
+                                                <div className="select-input disabled-first-option"
+                                                     id="priceRentSubmit">
+                                                    <input type="text" data-unit="تومان"/>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-4">
+                                                <h5>قیمت رهن </h5>
+                                                <div className="select-input disabled-first-option"
+                                                     id="priceMortgageSubmit">
                                                     <input type="text" data-unit="تومان"/>
                                                 </div>
                                             </div>
@@ -182,10 +273,8 @@ class submit extends React.Component {
                                     </div>
 
                                     <h3>گالری</h3>
-                                    <div className="submit-section">
-                                        <form action="/file-upload" className="dropzone" id="gallerySubmit"></form>
-                                    </div>
 
+                                    <Doka/>
 
                                     <h3>موقعیت مکانی</h3>
                                     <div className="submit-section">
@@ -222,7 +311,8 @@ class submit extends React.Component {
 
                                         <div className="form">
                                             <h5>توضیحات</h5>
-                                            <textarea className="WYSIWYG" name="summary" cols="40" rows="3" id="summary"
+                                            <textarea className="WYSIWYG" name="summary" cols="40" rows="3"
+                                                      id="summary"
                                                       spellCheck="true" id="explainSubmit"/>
                                         </div>
 
@@ -243,7 +333,7 @@ class submit extends React.Component {
 
 
                                             <div className="col-md-4">
-                                                <h5>حمام <span>(اختیاری)</span></h5>
+                                                <h5>حمام و دستشویی <span>(اختیاری)</span></h5>
                                                 <select className="chosen-select-no-single" id="bathSubmit">
                                                     <option label="blank"></option>
                                                     <option>1</option>
@@ -256,9 +346,9 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>در اختیار مشاورین املاک <span></span></h5>
                                                 <div className="allow-house">
-                                                    <input type="radio" checked="checked" value="male" name="gender"
+                                                    <input type="radio" checked="checked" value="allow" name="allow"
                                                            id="yesSubmit"/> قرار بگیرد<br/>
-                                                    <input type="radio" value="female" name="gender"
+                                                    <input type="radio" value="notAllow" name="notAllow"
                                                            id="noSubmit"/> قرار نگیرد
 
 
@@ -270,32 +360,24 @@ class submit extends React.Component {
                                             <h5 className="margin-top-30">ویژگی های دیگر <span>(اختیاری)</span></h5>
                                             <div className="checkboxes in-row margin-bottom-20">
 
-                                                <input id="airConditionSubmit" type="checkbox" name="check"/>
-                                                <label htmlFor="airConditionSubmit">تهویه مطبوع</label>
-
-                                                <input id="poolSubmit" type="checkbox" name="check"/>
-                                                <label htmlFor="poolSubmit">استخر</label>
-
-                                                <input id="centerHeaterSubmit" type="checkbox" name="check"/>
-                                                <label htmlFor="centerHeaterSubmit">گرمایش مرکزی</label>
-
-                                                <input id="roomWashingSubmit" type="checkbox" name="check"/>
-                                                <label htmlFor="roomWashingSubmit">اتاق لباسشویی</label>
-
-
-                                                <input id="gymClubSubmit" type="checkbox" name="check"/>
-                                                <label htmlFor="gymClubSubmit">باشگاه
-                                                    بدنسازی</label>
-
-                                                <input id="dangerRingSubmit" type="checkbox"
-                                                       name="check"/>
-                                                <label htmlFor="dangerRingSubmit">زنگ
-                                                    خطر</label>
-
-                                                <input id="windowSubmit" type="checkbox"
-                                                       name="check"/>
-                                                <label htmlFor="windowSubmit">پوشش
-                                                    پنجره</label>
+                                                {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
+                                                    return (
+                                                        <div className='col-md-2'>
+                                                            <input id={equipment} type="checkbox"
+                                                                   name="check"
+                                                                   onChange={(e) => {
+                                                                       if (e.target.checked) {
+                                                                           !this.finalEquipmentList.includes(e.target.id) && this.finalEquipmentList.push(e.target.id)
+                                                                       } else {
+                                                                           if (this.finalEquipmentList.includes(e.target.id)) {
+                                                                               this.finalEquipmentList = this.finalEquipmentList.filter(equipment => equipment !== e.target.id)
+                                                                           }
+                                                                       }
+                                                                   }}/>
+                                                            <label htmlFor={equipment}>{equipment}</label>
+                                                        </div>
+                                                    )
+                                                })}
 
                                             </div>
 
@@ -328,8 +410,12 @@ class submit extends React.Component {
 
 
                                         <div className="divider"></div>
-                                        <a className="button preview margin-top-5">ثبت <i
-                                            className="fa fa-arrow-circle-left"></i></a>
+                                        {this.state.isLoading ?
+                                            <ScaleLoader loading={true} color={"#274abb"} size={150}/> :
+                                            <a onClick={this.submitAdvertise}
+                                               className="button preview margin-top-5">ثبت <i
+                                                className="fa fa-arrow-circle-left"></i></a>
+                                        }
 
                                     </div>
                                 </div>

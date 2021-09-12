@@ -4,14 +4,23 @@ import '../css/color.css';
 import 'react-awesome-slider/dist/styles.css';
 import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
+import ReactPaginate from 'react-paginate';
+import Services from "../../utils/Services";
 
 class advertisingPage extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            advertiseList: [],
+            offset: 0,
+            length: 6,
+            totalCount: 0
+        }
     }
 
     componentDidMount() {
+        this.getAdvertises(0, 6);
         let root = document.getElementById('root-div');
 
         var element = document.createElement("script");
@@ -83,6 +92,48 @@ class advertisingPage extends React.Component {
         })
     }
 
+    getAdvertises() {
+        let requestData = {
+            offset: this.state.offset,
+            length: this.state.length
+        };
+        Services.searchAdvertiseList(requestData).then(response => {
+            console.log('data=>', response.data)
+            this.setState({
+                totalCount: response.data.totalCount,
+                advertiseList: response.data.data
+            })
+        }).catch(error => {
+
+        })
+    }
+
+    handlePageClick = (data) => {
+        let selected = data.selected;
+        let offset = Math.ceil(selected * this.props.perPage);
+
+        this.setState({offset: offset, length: (this.state.length + offset)}, () => {
+            this.getAdvertises();
+        });
+    };
+
+    isSale(saleType) {
+        return saleType === 'فروش' || saleType === 'معاوضه' || saleType === 'مشارکت'
+    }
+
+    renderAmount(advertise) {
+        if (this.isSale(advertise.sale)) {
+            return (
+                <span className="listing-compact-title"><i>{advertise.totalPrice} تومان</i></span>
+            )
+        } else {
+            return (
+                <span
+                    className="listing-compact-title"><i>{advertise.mortgage ? advertise.mortgage : advertise.rent} تومان</i></span>
+            )
+        }
+    }
+
     render() {
         return (
             <div id="root-div">
@@ -109,188 +160,54 @@ class advertisingPage extends React.Component {
 
                             <div className="row">
 
-                                <div className="col-md-6">
-                                    <div className="listing-item compact">
+                                {this.state.advertiseList.map(advertise => {
+                                    return (
+                                        <div className="col-md-6">
+                                            <div className="listing-item compact">
 
-                                        <a href="single-property-page-1.html" className="listing-img-container">
+                                                <a href="single-property-page-1.html" className="listing-img-container">
 
-                                            <div className="listing-badges">
-                                                <span className="featured">ویژه</span>
-                                                <span>فروشی</span>
+                                                    <div className="listing-badges">
+                                                        <span className="featured">ویژه</span>
+                                                        <span>{advertise.sale}</span>
+                                                    </div>
+
+                                                    <div className="listing-img-content">
+                                                        <span className="listing-compact-title"><i>{advertise.title}</i></span>
+                                                        {this.renderAmount(advertise)}
+
+                                                        <ul className="listing-hidden-content">
+                                                            <li>مساحت <span>{advertise.area} متر مربع</span></li>
+                                                            <li>تعداد اتاق ها <span>{advertise.unitRoom}</span></li>
+                                                            <li>شهر <span>{advertise.city}</span></li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <img src={require("../image/listing-01.jpg")} alt=""/>
+                                                </a>
+
                                             </div>
-
-                                            <div className="listing-img-content">
-                                                <span className="listing-compact-title"><i>275,000 تومان</i></span>
-
-                                                <ul className="listing-hidden-content">
-                                                    <li>مساحت <span>530 متر مربع</span></li>
-                                                    <li>تعداد اتاق ها <span>3</span></li>
-                                                    <li>اتاق خواب <span>1</span></li>
-                                                    <li>حمام <span>1</span></li>
-                                                </ul>
-                                            </div>
-
-                                            <img src={require("../image/listing-01.jpg")} alt=""/>
-                                        </a>
-
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="listing-item compact">
-
-                                        <a href="single-property-page-1.html" className="listing-img-container">
-
-                                            <div className="listing-badges">
-                                                <span>فروشی</span>
-                                            </div>
-
-                                            <div className="listing-img-content">
-                                                <span
-                                                    className="listing-compact-title"> <i>900 تومان / ماهیانه</i></span>
-
-                                                <ul className="listing-hidden-content">
-                                                    <li>مساحت <span>440 متر مربع</span></li>
-                                                    <li>تعداد اتاق ها <span>3</span></li>
-                                                    <li>اتاق خواب <span>1</span></li>
-                                                    <li>حمام <span>1</span></li>
-                                                </ul>
-                                            </div>
-
-                                            <img src={require("../image/listing-02.jpg")} alt=""/>
-                                        </a>
-
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="listing-item compact">
-
-                                        <a href="single-property-page-1.html" className="listing-img-container">
-
-                                            <div className="listing-badges">
-                                                <span className="featured">ویژه</span>
-                                                <span>اجاره ای</span>
-                                            </div>
-
-                                            <div className="listing-img-content">
-                                                <span
-                                                    className="listing-compact-title"> <i>1700 تومان / ماهیانه</i></span>
-
-                                                <ul className="listing-hidden-content">
-                                                    <li>مساحت <span>1450 متر مربع</span></li>
-                                                    <li>تعداد اتاق ها <span>3</span></li>
-                                                    <li>اتاق خواب <span>2</span></li>
-                                                    <li>حمام <span>2</span></li>
-                                                </ul>
-                                            </div>
-
-                                            <img src={require("../image/listing-03.jpg")} alt=""/>
-                                        </a>
-
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="listing-item compact">
-
-                                        <a href="single-property-page-1.html" className="listing-img-container">
-
-                                            <div className="listing-badges">
-                                                <span>فروشی</span>
-                                            </div>
-
-                                            <div className="listing-img-content">
-                                                <span className="listing-compact-title"> <i>420,000 تومان</i></span>
-
-                                                <ul className="listing-hidden-content">
-                                                    <li>مساحت <span>540 متر مربع</span></li>
-                                                    <li>تعداد اتاق ها <span>2</span></li>
-                                                    <li>اتاق خواب <span>2</span></li>
-                                                    <li>حمام <span>1</span></li>
-                                                </ul>
-                                            </div>
-
-                                            <img src={require("../image/listing-04.jpg")} alt=""/>
-                                        </a>
-
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="listing-item compact">
-
-                                        <a href="single-property-page-1.html" className="listing-img-container">
-
-                                            <div className="listing-badges">
-                                                <span>فروشی</span>
-                                            </div>
-
-                                            <div className="listing-img-content">
-                                                <span className="listing-compact-title"> <i>535,000 تومان</i></span>
-
-                                                <ul className="listing-hidden-content">
-                                                    <li>مساحت <span>550 متر مربع</span></li>
-                                                    <li>تعداد اتاق ها <span>3</span></li>
-                                                    <li>اتاق خواب <span>2</span></li>
-                                                    <li>حمام <span>2</span></li>
-                                                </ul>
-                                            </div>
-
-                                            <img src={require("../image/listing-05.jpg")} alt=""/>
-                                        </a>
-
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="listing-item compact">
-
-                                        <a href="single-property-page-1.html" className="listing-img-container">
-
-                                            <div className="listing-badges">
-                                                <span>اجاره ای</span>
-                                            </div>
-
-                                            <div className="listing-img-content">
-                                                <span
-                                                    className="listing-compact-title"> <i>500 تومان / ماهیانه</i></span>
-
-                                                <ul className="listing-hidden-content">
-                                                    <li>مساحت <span>850 متر مربع</span></li>
-                                                    <li>تعداد اتاق ها <span>3</span></li>
-                                                    <li>اتاق خواب <span>2</span></li>
-                                                    <li>حمام <span>1</span></li>
-                                                </ul>
-                                            </div>
-
-                                            <img src={require("../image/listing-06.jpg")} alt=""/>
-                                        </a>
-
-                                    </div>
-                                </div>
+                                        </div>
+                                    )
+                                })}
 
                             </div>
 
 
                             <div className="clearfix"></div>
                             <div className="pagination-container margin-top-20">
-                                <nav className="pagination">
-                                    <ul>
-                                        <li><a href="#" className="current-page">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li className="blank">...</li>
-                                        <li><a href="#">22</a></li>
-                                    </ul>
-                                </nav>
-
-                                <nav className="pagination-next-prev">
-                                    <ul>
-                                        <li><a href="#" className="prev">قبلی</a></li>
-                                        <li><a href="#" className="next">بعدی</a></li>
-                                    </ul>
-                                </nav>
+                                <ReactPaginate
+                                    previousLabel={'قبلی'}
+                                    nextLabel={'بعدی'}
+                                    breakLabel={'...'}
+                                    breakClassName={'break-me'}
+                                    pageCount={(parseInt(this.state.totalCount) / 6)}
+                                    marginPagesDisplayed={2}
+                                    pageRangeDisplayed={5}
+                                    onPageChange={this.handlePageClick}
+                                    containerClassName={'pagination'}
+                                    activeClassName={'active'}
+                                />
                             </div>
 
                         </div>
@@ -380,60 +297,61 @@ class advertisingPage extends React.Component {
 
                                     <br/>
 
-                                        <div className="range-slider">
-                                            <label>مساحت</label>
-                                            <div id="area-range-advertise" data-min="0" data-max="1500" data-unit="مترمربع"></div>
-                                            <div className="clearfix"></div>
+                                    <div className="range-slider">
+                                        <label>مساحت</label>
+                                        <div id="area-range-advertise" data-min="0" data-max="1500"
+                                             data-unit="مترمربع"></div>
+                                        <div className="clearfix"></div>
+                                    </div>
+
+                                    <br/>
+
+                                    <div className="range-slider">
+                                        <label>قیمت</label>
+                                        <div id="sale-price-range" data-min="0" data-max="400000"
+                                             data-unit="تومان"></div>
+                                        <div className="clearfix"></div>
+                                    </div>
+
+
+                                    <a href="#"
+                                       className="more-search-options-trigger margin-bottom-10 margin-top-30"
+                                       data-open-title="گزینه های بیشتر" data-close-title="بستن"></a>
+
+                                    <div className="more-search-options relative">
+
+                                        <div className="checkboxes one-in-row margin-bottom-10">
+
+                                            <input id="check-2" type="checkbox" name="check"/>
+                                            <label htmlFor="check-2">تهویه مطبوع</label>
+
+                                            <input id="check-3" type="checkbox" name="check"/>
+                                            <label htmlFor="check-3">استخر</label>
+
+                                            <input id="check-4" type="checkbox" name="check"/>
+                                            <label htmlFor="check-4">گرمایش مرکزی</label>
+
+                                            <input id="check-5" type="checkbox" name="check"/>
+                                            <label htmlFor="check-5">اتاق لباسشویی</label>
+
+
+                                            <input id="check-6" type="checkbox" name="check"/>
+                                            <label htmlFor="check-6">باشگاه بدنسازی</label>
+
+                                            <input id="check-7" type="checkbox"
+                                                   name="check"/>
+                                            <label htmlFor="check-7">زنگ خطر</label>
+
+                                            <input id="check-8" type="checkbox"
+                                                   name="check"/>
+                                            <label htmlFor="check-8">پوشش
+                                                پنجره</label>
+
                                         </div>
 
-                                        <br/>
+                                    </div>
 
-                                            <div className="range-slider">
-                                                <label>قیمت</label>
-                                                <div id="sale-price-range" data-min="0" data-max="400000"
-                                                     data-unit="تومان"></div>
-                                                <div className="clearfix"></div>
-                                            </div>
-
-
-                                            <a href="#"
-                                               className="more-search-options-trigger margin-bottom-10 margin-top-30"
-                                               data-open-title="گزینه های بیشتر" data-close-title="بستن"></a>
-
-                                            <div className="more-search-options relative">
-
-                                                <div className="checkboxes one-in-row margin-bottom-10">
-
-                                                    <input id="check-2" type="checkbox" name="check"/>
-                                                        <label htmlFor="check-2">تهویه مطبوع</label>
-
-                                                        <input id="check-3" type="checkbox" name="check"/>
-                                                            <label htmlFor="check-3">استخر</label>
-
-                                                            <input id="check-4" type="checkbox" name="check"/>
-                                                                <label htmlFor="check-4">گرمایش مرکزی</label>
-
-                                                                <input id="check-5" type="checkbox" name="check"/>
-                                                                    <label htmlFor="check-5">اتاق لباسشویی</label>
-
-
-                                                                    <input id="check-6" type="checkbox" name="check"/>
-                                                                        <label htmlFor="check-6">باشگاه بدنسازی</label>
-
-                                                                        <input id="check-7" type="checkbox"
-                                                                               name="check"/>
-                                                                            <label htmlFor="check-7">زنگ خطر</label>
-
-                                                                            <input id="check-8" type="checkbox"
-                                                                                   name="check"/>
-                                                                                <label htmlFor="check-8">پوشش
-                                                                                    پنجره</label>
-
-                                                </div>
-
-                                            </div>
-
-                                            <button className="button fullwidth margin-top-30">جستجو</button>
+                                    <button className="button fullwidth margin-top-30">جستجو</button>
 
 
                                 </div>

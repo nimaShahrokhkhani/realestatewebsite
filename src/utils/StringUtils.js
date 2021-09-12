@@ -72,9 +72,32 @@ function convertMillisecondToShamsi(millisecond) {
     }
 }
 
+function separateNumberWithCommas(number) {
+    return (number + '').replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function commify(value){
+    if (!_.isEmpty(value)) {
+        value = value.replace(/,/g, '');
+        var chars = value.split("").reverse();
+        var withCommas = [];
+        for(var i = 1; i <= chars.length; i++ ){
+            withCommas.push(chars[i-1]);
+            if(i%3 === 0 && i !== chars.length ){
+                withCommas.push(",")
+            }
+        }
+        return withCommas.reverse().join("");
+    } else {
+        return '';
+    }
+}
+
 module.exports = {
     convertNumbersToEnglish,
     convertNumbersToPersian,
     convertShamsiToMillisecond,
-    convertMillisecondToShamsi
-}
+    convertMillisecondToShamsi,
+    separateNumberWithCommas,
+    commify
+};

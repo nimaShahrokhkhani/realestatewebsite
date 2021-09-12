@@ -5,18 +5,117 @@ import '../realstatepanel/realstatePanel.css'
 import 'react-awesome-slider/dist/styles.css';
 import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
+import Services from "../../utils/Services";
+import _ from "underscore";
+import ScriptTag from 'react-script-tag';
+import connect from "react-redux/es/connect/connect";
+import {setFileSearchRequest, setState, setUser} from "../../components/redux/actions";
 
 class realstatePanel extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            activeNav: 1
+            activeNav: 1,
+            configList: [],
+            regionNameList: []
+        };
+        this.finalEquipmentList = [];
+    }
+
+    getRegionNameListFromRegionCode(regionCode) {
+        let regionNameList = [];
+        if (!_.isEmpty(this.state.configList) && !_.isEmpty(this.state.configList.region)) {
+            for (let i = 0; i < this.state.configList.region.length; i++) {
+                if (regionCode === this.state.configList.region[i].regionCode) {
+                    regionNameList.push(this.state.configList.region[i].regionName)
+                }
+            }
         }
+        return regionNameList;
+    }
+
+    getRegionCodeList() {
+        let regionCodeList = [];
+        if (!_.isEmpty(this.state.configList) && !_.isEmpty(this.state.configList.region)) {
+            for (let i = 0; i < this.state.configList.region.length; i++) {
+                if (!_.contains(regionCodeList, this.state.configList.region[i].regionCode)) {
+                    regionCodeList.push(this.state.configList.region[i].regionCode)
+                }
+            }
+        }
+        return regionCodeList;
+    }
+
+    getConfigList() {
+        Services.getConfigList().then(response => {
+            this.setState({
+                configList: response.data[0]
+            })
+        }).catch(error => {
+
+        })
+    }
+
+    onRegionCodeChange = (event) => {
+        let regionCode = event.target.value;
+        this.setState({
+            regionNameList: this.getRegionNameListFromRegionCode(regionCode)
+        })
+    };
+
+    isSale(saleType) {
+        return saleType === 'فروش' || saleType === 'معاوضه' || saleType === 'مشارکت'
     }
 
 
+    searchFile = () => {
+        let saleType = document.getElementById('titlePanel').value;
+        let requestObject = {
+            sale: document.getElementById('titlePanel').value,
+            regionCode: document.getElementById('regionCode').value,
+            regionName: document.getElementById('regionName').value,
+            fromArea: parseInt(document.getElementById('area-range-panel-min').value.match(/\d+/)[0]),
+            toArea: parseInt(document.getElementById('area-range-panel-max').value.match(/\d+/)[0]),
+            fromTotalPrice: this.isSale(saleType) ? parseInt(document.getElementById('sale-price-range-min').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
+            toTotalPrice: this.isSale(saleType) ? parseInt(document.getElementById('sale-price-range-max').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
+            fromMortgage: !this.isSale(saleType) ? parseInt(document.getElementById('mortgage-price-range-min').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
+            toMortgage: !this.isSale(saleType) ? parseInt(document.getElementById('mortgage-price-range-max').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
+            fromRent: !this.isSale(saleType) ? parseInt(document.getElementById('rent-price-range-min').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
+            toRent: !this.isSale(saleType) ? parseInt(document.getElementById('rent-price-range-max').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
+            fromAge: document.getElementById('agePanel').value.match(/\d+/g) ?
+                parseInt(document.getElementById('agePanel').value.match(/\d+/g)[0]) : undefined,
+            toAge: document.getElementById('agePanel').value.match(/\d+/g) ?
+                parseInt(document.getElementById('agePanel').value.match(/\d+/g)[1]) : undefined,
+            unitRoom: document.getElementById('roomPanel').value ?
+                parseInt(document.getElementById('roomPanel').value) : undefined,
+            unitKitchen: document.getElementById('unitKitchen').value ?
+                parseInt(document.getElementById('unitKitchen').value) : undefined,
+            frontKind: document.getElementById('frontKind').value ?
+                parseInt(document.getElementById('frontKind').value) : undefined,
+            fromUnitNo: document.getElementById('numberHousePanel').value === '' ? 0 : undefined,
+            toUnitNo: document.getElementById('numberHousePanel').value === '' ?
+                parseInt(document.getElementById('numberHousePanel').value) : undefined,
+            documentKind: document.getElementById('documentKind').value === '' ?
+                document.getElementById('documentKind').value : undefined,
+            unitFloorCovering: document.getElementById('floorCovering').value === '' ?
+                document.getElementById('floorCovering').value : undefined,
+            north: document.querySelector('#direction').value ===  'شمالی' ? true : undefined,
+            south: document.querySelector('#direction').value === 'جنوبی' ? true : undefined,
+            east: document.querySelector('#direction').value === 'شرقی' ? true : undefined,
+            west: document.querySelector('#direction').value === 'غربی' ? true : undefined,
+            equipments: this.finalEquipmentList,
+        };
+        requestObject[document.getElementById('kindPanel').value] = true;
+        this.props.setFileSearchRequest(requestObject);
+        this.props.history.push({
+            pathname: '/realstate/fileSearchTable'
+        });
+    };
+
     componentDidMount() {
+        this.getConfigList();
+
         let root = document.getElementById('root-div');
 
         var element = document.createElement("script");
@@ -89,6 +188,7 @@ class realstatePanel extends React.Component {
     }
 
     render() {
+        let regionCodeList = this.getRegionCodeList();
         return (
             <div id="root-div" style={{marginTop: 0}}>
 
@@ -111,9 +211,12 @@ class realstatePanel extends React.Component {
                                             <select data-placeholder="وضعیت" className="chosen-select-no-single"
                                                     name="titlePanel" id="titlePanel">
                                                 <option label="وضعیت"></option>
-                                                <option>همه</option>
-                                                <option>فروشی</option>
-                                                <option>اجاره ای</option>
+                                                <option>فروش</option>
+                                                <option>اجاره</option>
+                                                <option>رهن</option>
+                                                <option>مشارکت</option>
+                                                <option>معاوضه</option>
+                                                <option>خارجی</option>
                                             </select>
                                         </div>
 
@@ -121,42 +224,47 @@ class realstatePanel extends React.Component {
                                             <select data-placeholder="نوع" className="chosen-select-no-single"
                                                     name="kindPanel" id="kindPanel">
                                                 <option label="نوع"></option>
-                                                <option>همه</option>
-                                                <option>آپارتمانی</option>
-                                                <option>خانه</option>
-                                                <option>تجاری</option>
+                                                <option>آپارتمان</option>
                                                 <option>ویلا</option>
-                                                <option>زمین کشاورزی</option>
-                                                <option>اداری</option>
-                                                <option>زمین</option>
                                                 <option>مستغلات</option>
+                                                <option>کلنگی</option>
+                                                <option>دفتر کار</option>
+                                                <option>زمین</option>
+                                                <option>مغازه</option>
+                                                <option>سوییت</option>
 
                                             </select>
                                         </div>
 
-                                        <div className="col-md-6">
+                                        <div className="col-md-2">
+                                            <select data-placeholder="کد منطقه را وارد کنید" style={{color: '#888'}}
+                                                    name="regionCode" id="regionCode"
+                                                    onChange={this.onRegionCodeChange}>
+                                                <option label="کد منطقه را وارد کنید" disabled selected></option>
+                                                {regionCodeList && regionCodeList.map(regionCode => {
+                                                    return (
+                                                        <option>{regionCode}</option>
+                                                    )
+                                                })}
+
+                                            </select>
+                                        </div>
+
+                                        <div className="col-md-4">
                                             <div className="main-search-input">
                                                 <select data-placeholder="نام منطقه را وارد کنید"
-                                                        className="chosen-select-no-single" name="addressPanel"
-                                                        id="addressPanel">
-                                                    <option label="نام منطقه را وارد کنید"></option>
-                                                    <option>گلسار</option>
-                                                    <option>شهرداری</option>
-                                                    <option>بلوار گیلان</option>
-                                                    <option>دیلمان</option>
-                                                    <option>سردار جنگل</option>
-                                                    <option>شریعتی</option>
-                                                    <option>امام خمینی</option>
-                                                    <option>امام حسین</option>
-                                                    <option>انقلاب</option>
-                                                    <option>خیابان طهماسبی</option>
-                                                    <option>خیابان</option>
-                                                    <option>معلم</option>
-
+                                                        name="regionName" style={{color: '#888'}}
+                                                        id="regionName">
+                                                    <option label="نام منطقه را وارد کنید" disabled selected></option>
+                                                    {this.state.regionNameList && this.state.regionNameList.map(regionName => {
+                                                        return (
+                                                            <option>{regionName}</option>
+                                                        )
+                                                    })}
 
                                                 </select>
 
-                                                <button className="button">جست و جو</button>
+                                                <button className="button" onClick={this.searchFile}>جست و جو</button>
                                             </div>
                                         </div>
 
@@ -169,7 +277,8 @@ class realstatePanel extends React.Component {
 
                                             <div className="range-slider">
                                                 <label>مساحت</label>
-                                                <div id="area-range-panel" data-min="0" data-max="999999" data-unit="مترمربع"
+                                                <div id="area-range-panel" data-min="0" data-max="999999"
+                                                     data-unit="مترمربع"
                                                      name="areaPanel"></div>
                                                 <div className="clearfix"></div>
                                             </div>
@@ -225,7 +334,6 @@ class realstatePanel extends React.Component {
                                                             className="chosen-select-no-single" name="agePanel"
                                                             id="agePanel">
                                                         <option label="عمر خانه"></option>
-                                                        <option>همه</option>
                                                         <option>0 تا 1 سال</option>
                                                         <option>0 تا 5 سال</option>
                                                         <option>0 تا 10 سال</option>
@@ -239,7 +347,6 @@ class realstatePanel extends React.Component {
                                                     <select data-placeholder="اتاق" className="chosen-select-no-single"
                                                             name="roomPanel" id="roomPanel">
                                                         <option label="اتاق"></option>
-                                                        <option>همه</option>
                                                         <option>1</option>
                                                         <option>2</option>
                                                         <option>3</option>
@@ -250,27 +357,25 @@ class realstatePanel extends React.Component {
 
 
                                                 <div className="col-md-3">
-                                                    <select data-placeholder="حمام" className="chosen-select-no-single"
-                                                            name="bathPanel" id="bathPanel">
-                                                        <option label="حمام"></option>
-                                                        <option>همه</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                    <select data-placeholder="آشپزخانه" className="chosen-select-no-single"
+                                                            name="unitKitchen" id="unitKitchen">
+                                                        <option label="آشپزخانه"></option>
+                                                        {this.state.configList.kitchenService && this.state.configList.kitchenService.map(kitchenService => {
+                                                            return (
+                                                                <option>{kitchenService}</option>
+                                                            )
+                                                        })}
                                                     </select>
                                                 </div>
                                                 <div className="col-md-3">
                                                     <select data-placeholder="نما" className="chosen-select-no-single"
-                                                            name="facadePanel" id="facadePanel">
+                                                            name="frontKind" id="frontKind">
                                                         <option label="نما"></option>
-                                                        <option>رومی</option>
-                                                        <option>سنگی</option>
-                                                        <option>شیشه ای</option>
-                                                        <option>سیمانی</option>
-                                                        <option>شیروونی</option>
-                                                        <option>گرانیت</option>
+                                                        {this.state.configList.frontKind && this.state.configList.frontKind.map(frontKind => {
+                                                            return (
+                                                                <option>{frontKind}</option>
+                                                            )
+                                                        })}
                                                     </select>
                                                 </div>
                                                 <div className="col-md-3">
@@ -278,45 +383,48 @@ class realstatePanel extends React.Component {
                                                             className="chosen-select-no-single" name="numberHousePanel"
                                                             id="numberHousePanel">
                                                         <option label="تعداد واحد در هر طبقه"></option>
-                                                        <option>همه</option>
                                                         <option>1</option>
                                                         <option>2</option>
                                                         <option>3</option>
                                                         <option>4</option>
                                                         <option>6</option>
-                                                        <option>+6</option>
 
                                                     </select>
                                                 </div>
                                                 <div className="col-md-3">
-                                                    <select data-placeholder="آشپزخانه"
-                                                            className="chosen-select-no-single" name="kitPanel"
-                                                            id="kitPanel">
-                                                        <option label="آشپزخانه"></option>
-                                                        <option>mdf</option>
-                                                        <option>فلزی</option>
-                                                        <option>چوبی فلزی</option>
+                                                    <select data-placeholder="سند"
+                                                            className="chosen-select-no-single" name="documentKind"
+                                                            id="documentKind">
+                                                        <option label="سند"></option>
+                                                        {this.state.configList.documentKind && this.state.configList.documentKind.map(documentKind => {
+                                                            return (
+                                                                <option>{documentKind}</option>
+                                                            )
+                                                        })}
 
                                                     </select>
                                                 </div>
                                                 <div className="col-md-3">
                                                     <select data-placeholder="کف" className="chosen-select-no-single"
-                                                            name="kafPanel" id="kafPanel">
-                                                        <option label="کف"></option>
-                                                        <option>سنگ</option>
-                                                        <option>سرامیک</option>
-                                                        <option>گرانیت</option>
-                                                        <option>موزاییک</option>
+                                                            name="floorCovering" id="floorCovering">
+                                                        <option label="کف پوش"></option>
+                                                        {this.state.configList.floorCovering && this.state.configList.floorCovering.map(floorCovering => {
+                                                            return (
+                                                                <option>{floorCovering}</option>
+                                                            )
+                                                        })}
 
                                                     </select>
                                                 </div>
                                                 <div className="col-md-3">
-                                                    <select data-placeholder="هوشمندی"
-                                                            className="chosen-select-no-single" name="bmsPanel"
-                                                            id="bmsPanel">
-                                                        <option label="هوشمندی"></option>
-                                                        <option>دارد</option>
-                                                        <option>ندارد</option>
+                                                    <select data-placeholder="جهت"
+                                                            className="chosen-select-no-single" name="direction"
+                                                            id="direction">
+                                                        <option label="جهت"></option>
+                                                        <option>شمالی</option>
+                                                        <option>جنوبی</option>
+                                                        <option>شرقی</option>
+                                                        <option>غربی</option>
 
 
                                                     </select>
@@ -327,106 +435,24 @@ class realstatePanel extends React.Component {
 
                                             <div className="checkboxes in-row">
 
-                                                <input type="checkbox" name="airConditionPanel" id="airConditionPanel"/>
-                                                <label htmlFor="airConditionPanel">تهویه مطبوع</label>
-
-                                                <input type="checkbox" name="poolPanel" id="poolPanel"/>
-                                                <label htmlFor="poolPanel">استخر شنا</label>
-
-                                                <input type="checkbox" name="centerHeaterPanel"
-                                                       id="centerHeaterPanel"/>
-                                                <label htmlFor="centerHeaterPanel">گرمایش مرکزی</label>
-
-                                                <input type="checkbox" name="washingPanel"
-                                                       id="washingPanel"/>
-                                                <label htmlFor="washingPanel">اتاق لباسشویی</label>
-
-
-                                                <input type="checkbox" name="gymPanel" id="gymPanel"/>
-                                                <label htmlFor="gymPanel">باشگاه بدنسازی</label>
-
-                                                <input type="checkbox" name="ringtonePanel"
-                                                       id="ringtonePanel"/>
-                                                <label htmlFor="ringtonePanel">زنگ خطر</label>
-
-                                                <input type="checkbox" name="windowPanel"
-                                                       id="windowPanel"/>
-                                                <label htmlFor="windowPanel">پوشش
-                                                    پنجره</label>
-
-                                                <input type="checkbox" name="gazPanel"
-                                                       id="gazPanel"/>
-                                                <label htmlFor="gazPanel">گاز</label>
-
-                                                <input type="checkbox" name="hurryPanel"
-                                                       id="hurryPanel"/>
-                                                <label htmlFor="hurryPanel">مالک
-                                                    عجله دارد</label>
-                                                <br/>
-
-                                                <input type="checkbox"
-                                                       name="heaterKafPanel"
-                                                       id="heaterKafPanel"/>
-                                                <label htmlFor="heaterKafPanel">گرمایش
-                                                    از کف</label>
-
-                                                <input type="checkbox"
-                                                       name="chilerPanel"
-                                                       id="chilerPanel"/>
-                                                <label
-                                                    htmlFor="chilerPanel">چیلر</label>
-
-                                                <input type="checkbox"
-                                                       name="trasPanel"
-                                                       id="trasPanel"/>
-                                                <label
-                                                    htmlFor="trasPanel">بالکن</label>
-
-                                                <input type="checkbox"
-                                                       name="fanPanel"
-                                                       id="fanPanel"/>
-                                                <label
-                                                    htmlFor="fanPanel">فن
-                                                    کويل</label>
-
-                                                <input
-                                                    type="checkbox"
-                                                    name="spiletPanel"
-                                                    id="spiletPanel"/>
-                                                <label
-                                                    htmlFor="spiletPanel">داکت
-                                                    اسپیلت</label>
-
-                                                <input
-                                                    type="checkbox"
-                                                    name="remotePanel"
-                                                    id="remotePanel"/>
-                                                <label
-                                                    htmlFor="remotePanel">درب
-                                                    ریموت
-                                                    کنترل </label>
-
-                                                <input
-                                                    type="checkbox"
-                                                    name="centerAntenPanel"
-                                                    id="centerAntenPanel"/>
-                                                <label
-                                                    htmlFor="centerAntenPanel">آنتن
-                                                    مرکزی</label>
-
-                                                <input
-                                                    type="checkbox"
-                                                    name="shofPanel"
-                                                    id="shofPanel"/>
-                                                <label
-                                                    htmlFor="shofPanel">شوفاژ</label>
-
-                                                <input
-                                                    type="checkbox"
-                                                    name="anbarPanel"
-                                                    id="anbarPanel"/>
-                                                <label
-                                                    htmlFor="anbarPanel">انباری</label>
+                                                {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
+                                                    return (
+                                                        <div className='col-md-2'>
+                                                            <input id={equipment} type="checkbox"
+                                                                   name="check"
+                                                                   onChange={(e) => {
+                                                                       if (e.target.checked) {
+                                                                           !this.finalEquipmentList.includes(e.target.id) && this.finalEquipmentList.push(e.target.id)
+                                                                       } else {
+                                                                           if (this.finalEquipmentList.includes(e.target.id)) {
+                                                                               this.finalEquipmentList = this.finalEquipmentList.filter(equipment => equipment !== e.target.id)
+                                                                           }
+                                                                       }
+                                                                   }}/>
+                                                            <label htmlFor={equipment}>{equipment}</label>
+                                                        </div>
+                                                    )
+                                                })}
 
                                             </div>
 
@@ -483,7 +509,7 @@ class realstatePanel extends React.Component {
                                         <td>۵ درصد</td>
                                         <td>
                                             <button className="btn btn-primary"
-                                                    style={{backgroundColor: '#1C3706',color: 'white'}}>خرید
+                                                    style={{backgroundColor: '#1C3706', color: 'white'}}>خرید
                                             </button>
                                         </td>
                                     </tr>
@@ -494,7 +520,7 @@ class realstatePanel extends React.Component {
                                         <td>۵ درصد</td>
                                         <td>
                                             <button className="btn btn-primary"
-                                                    style={{backgroundColor: '#1C3706',color: 'white'}}>خرید
+                                                    style={{backgroundColor: '#1C3706', color: 'white'}}>خرید
                                             </button>
                                         </td>
                                     </tr>
@@ -505,7 +531,7 @@ class realstatePanel extends React.Component {
                                         <td>۵ درصد</td>
                                         <td>
                                             <button className="btn btn-primary"
-                                                    style={{backgroundColor: '#1C3706',color: 'white'}}>خرید
+                                                    style={{backgroundColor: '#1C3706', color: 'white'}}>خرید
                                             </button>
                                         </td>
                                     </tr>
@@ -516,7 +542,7 @@ class realstatePanel extends React.Component {
                                         <td>۵ درصد</td>
                                         <td>
                                             <button className="btn btn-primary"
-                                                    style={{backgroundColor: '#1C3706',color: 'white'}}>خرید
+                                                    style={{backgroundColor: '#1C3706', color: 'white'}}>خرید
                                             </button>
                                         </td>
                                     </tr>
@@ -527,7 +553,7 @@ class realstatePanel extends React.Component {
                                         <td className="border-bottom-0">۵ درصد</td>
                                         <td className="border-bottom-0">
                                             <button className="btn btn-primary"
-                                                    style={{backgroundColor: '#1C3706',color: 'white'}}>خرید
+                                                    style={{backgroundColor: '#1C3706', color: 'white'}}>خرید
                                             </button>
                                         </td>
                                     </tr>
@@ -538,7 +564,7 @@ class realstatePanel extends React.Component {
                                         <td className="border-bottom-0">۵ درصد</td>
                                         <td className="border-bottom-0">
                                             <button className="btn btn-primary"
-                                                    style={{backgroundColor: '#1C3706',color: 'white'}}>خرید
+                                                    style={{backgroundColor: '#1C3706', color: 'white'}}>خرید
                                             </button>
                                         </td>
                                     </tr>
@@ -549,7 +575,7 @@ class realstatePanel extends React.Component {
                                         <td className="border-bottom-0">۵ درصد</td>
                                         <td className="border-bottom-0">
                                             <button className="btn btn-primary"
-                                                    style={{backgroundColor: '#1C3706',color: 'white'}}>خرید
+                                                    style={{backgroundColor: '#1C3706', color: 'white'}}>خرید
                                             </button>
                                         </td>
                                     </tr>
@@ -560,7 +586,7 @@ class realstatePanel extends React.Component {
                                         <td className="border-bottom-0">۵ درصد</td>
                                         <td className="border-bottom-0">
                                             <button className="btn btn-primary"
-                                                    style={{backgroundColor: '#1C3706',color: 'white'}}>خرید
+                                                    style={{backgroundColor: '#1C3706', color: 'white'}}>خرید
                                             </button>
                                         </td>
                                     </tr>
@@ -612,4 +638,10 @@ class realstatePanel extends React.Component {
     }
 }
 
-export default withTranslation()(realstatePanel);
+const mapStateToProps = state => {
+    const user = state.user;
+    const fileRequestObject = state.fileRequestObject;
+    return {user, fileRequestObject};
+};
+
+export default connect(mapStateToProps, {setUser, setState, setFileSearchRequest})(withTranslation()(realstatePanel));

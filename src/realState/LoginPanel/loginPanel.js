@@ -11,7 +11,7 @@ import {setState, setUser} from "../../components/redux/actions";
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
-class LoginRegister extends React.Component {
+class LoginPanel extends React.Component {
 
     constructor(props) {
         super(props);
@@ -95,31 +95,14 @@ class LoginRegister extends React.Component {
     onLoginBtnClick = () => {
         let username = document.getElementById('username').value;
         let password = document.getElementById('password').value;
-        Services.signInClient({username: username, password: password}).then((res) => {
+        Services.signInPanel({username: username, password: password}).then((res) => {
             this.props.setUser(res.data);
             this.props.history.push({
-                pathname: '/realstate/profile'
+                pathname: '/realstate/realstatePanel'
             });
         }).catch((error) => {
             NotificationManager.error('خطا', 'نام کاربری یا کلمه عبور اشتباه است', 5000);
         })
-    };
-
-    onRegisterBtnClick = () => {
-        let username = document.getElementById('username1').value;
-        let password = document.getElementById('password1').value;
-        let repeatPassword = document.getElementById('password2').value;
-        let email = document.getElementById('email').value;
-        if (password === repeatPassword) {
-            Services.registerClient({username: username, password: password, email: email}).then((res) => {
-                this.props.setUser({username: username, email: email});
-                this.props.history.push({
-                    pathname: '/realstate/profile'
-                });
-            }).catch((error) => {
-                NotificationManager.error('خطا', 'خطا در ثبت نام', 5000);
-            })
-        }
     };
 
     render() {
@@ -140,7 +123,6 @@ class LoginRegister extends React.Component {
 
                                 <ul className="tabs-nav">
                                     <li className=""><a href="#tab1">ورود</a></li>
-                                    <li><a href="#tab2">ثبت نام</a></li>
                                 </ul>
 
                                 <div className="tabs-container alt">
@@ -167,60 +149,6 @@ class LoginRegister extends React.Component {
                                             <p className="form-row">
                                                 <input type="submit" className="button border margin-top-10"
                                                        name="login" value="ورود" onClick={this.onLoginBtnClick}/>
-
-                                                <label htmlFor="rememberme" className="rememberme">
-                                                    <input name="rememberme" type="checkbox" id="rememberme"
-                                                           value="forever"/> من را
-                                                    به خاطر بسپار</label>
-                                            </p>
-
-                                            <p className="lost_password">
-                                                <a href="#">رمز خود را فراموش کرده اید؟</a>
-                                            </p>
-
-                                        </div>
-                                    </div>
-
-                                    <div className="tab-content" id="tab2" style={{display: 'none'}}>
-
-                                        <div className="register">
-
-                                            <p className="form-row form-row-wide">
-                                                <label htmlFor="username2">نام کاربری:
-                                                    <i className="im im-icon-Male"></i>
-                                                    <input type="text" className="input-text" name="username"
-                                                           id="username1"/>
-                                                </label>
-                                            </p>
-
-                                            <p className="form-row form-row-wide">
-                                                <label htmlFor="email2">ایمیل:
-                                                    <i className="im im-icon-Mail"></i>
-                                                    <input type="text" className="input-text" name="email" id="email"/>
-                                                </label>
-                                            </p>
-
-                                            <p className="form-row form-row-wide">
-                                                <label htmlFor="password1">رمز عبور:
-                                                    <i className="im im-icon-Lock-2"></i>
-                                                    <input className="input-text" type="password" name="password1"
-                                                           id="password1"/>
-                                                </label>
-                                            </p>
-
-                                            <p className="form-row form-row-wide">
-                                                <label htmlFor="password2">تکرار رمز عبور:
-                                                    <i className="im im-icon-Lock-2"></i>
-                                                    <input className="input-text" type="password" name="password2"
-                                                           id="password2"/>
-                                                </label>
-                                            </p>
-
-                                            <p className="form-row">
-                                                <input type="submit" className="button border fw margin-top-10"
-                                                       name="register"
-                                                       value="ثبت نام"
-                                                       onClick={this.onRegisterBtnClick}/>
                                             </p>
 
                                         </div>
@@ -245,4 +173,4 @@ const mapStateToProps = state => {
     return {user};
 };
 
-export default connect(mapStateToProps, {setUser, setState})(withTranslation()(LoginRegister));
+export default connect(mapStateToProps, {setUser, setState})(withTranslation()(LoginPanel));

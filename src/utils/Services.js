@@ -3,7 +3,19 @@ import history from "../history";
 
 export default class Services {
 
+    // static baseUrl = 'http://5.201.177.202:3600/';
     static baseUrl = 'http://localhost:3600/';
+
+    static signInPanel(requestData) {
+        axios.defaults.headers['content-Type'] = 'application/json';
+        axios.defaults.headers['Accept'] = '/';
+        axios.defaults.headers['Cache-Control'] = 'no-cache';
+        axios.defaults.withCredentials = true;
+        return axios.post(`/base/realStateLogin`, {
+            username: requestData.username,
+            password: requestData.password,
+        })
+    }
 
     static signIn(requestData) {
         axios.defaults.headers['content-Type'] = 'application/json';
@@ -54,16 +66,41 @@ export default class Services {
     }
 
     static getConfigList(requestData) {
-        // 'content-Type': 'application/json',
-        //     "Accept": "/",
-        //     "Cache-Control": "no-cache",
-        axios.defaults.headers['content-Type'] = 'application/json';
-        axios.defaults.headers['Accept'] = '/';
-        axios.defaults.headers['Cache-Control'] = 'no-cache';
-        axios.defaults.withCredentials = true;
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        console.log('session: ', localStorage.getItem('session'))
-        return axios.get(`/configs/list`, {
+        return axios.get(`/base/clientConfig/list`, {
+            params: requestData
+        })
+    }
+
+    static getFileById(requestData) {
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.get(`/base/agencyFiles/file`, {
+            params: requestData
+        })
+    }
+
+    static getNextFile(requestData) {
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.get(`/base/agencyFiles/nextFile`, {
+            params: requestData
+        })
+    }
+
+    static getPrevFile(requestData) {
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.get(`/base/agencyFiles/prevFile`, {
+            params: requestData
+        })
+    }
+
+    static searchAgencyFiles(requestData) {
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.post(`/base/agencyFiles/list`, requestData)
+    }
+
+    static searchFiles(requestData) {
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.get(`/base/getFiles/list`, {
             params: requestData
         })
     }
@@ -103,5 +140,21 @@ export default class Services {
     static async editRegionPrice(requestData) {
         axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.post(`/regionPrice/edit`, requestData)
+    }
+
+    static async insertAdvertise(requestData) {
+        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.post(`/client/advertising/insert`, requestData)
+    }
+
+    static searchAdvertiseList(requestData) {
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.get(`/client/advertise/list`, {
+            params: requestData
+        })
+    }
+
+    static getAdvertiseImageDownloadUrl(fileName){
+        return this.baseUrl + `/client/advertise/download?fileName=` + fileName;
     }
 }

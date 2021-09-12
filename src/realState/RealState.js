@@ -26,9 +26,15 @@ class RealState extends React.Component {
     }
 
     onLoginClick = () => {
-        this.props.history.push({
-            pathname: '/realstate/login'
-        });
+        if (this.props.location.pathname !== "/realstate/realstatePanel") {
+            this.props.history.push({
+                pathname: '/realstate/login'
+            });
+        } else {
+            this.props.history.push({
+                pathname: '/realstate/loginPanel'
+            });
+        }
         this.clearAllMenuSelect();
     };
 
@@ -82,6 +88,9 @@ class RealState extends React.Component {
     };
 
     clearAllMenuSelect() {
+        [...document.getElementsByName('loginContainer')].map(item => {
+            item.innerText = 'ورود / ثبت نام';
+        });
         [...document.getElementsByName('home')].map(item => {
             item.className = '';
         });
@@ -116,6 +125,9 @@ class RealState extends React.Component {
                 [...document.getElementsByName('realStatePanel')].map(item => {
                     item.className = 'current';
                 });
+                [...document.getElementsByName('loginContainer')].map(item => {
+                    item.innerText = 'ورود به پنل املاک';
+                });
                 break;
             case "/realstate/contact":
                 [...document.getElementsByName('contact')].map(item => {
@@ -132,7 +144,7 @@ class RealState extends React.Component {
     }
 
     componentDidMount() {
-        this.props.setState(JSON.parse(localStorage.getItem('state')));
+        // this.props.setState(JSON.parse(localStorage.getItem('state')));
         this.changeCurrentMenu();
     }
 
@@ -190,8 +202,7 @@ class RealState extends React.Component {
                                     {this.props.user.username ?
                                         <a id="loginContainer" className="sign-in-username" onClick={this.onProfileClick}>
                                             {this.props.user.username} خوش آمدید</a> :
-                                        <a id="loginContainer" onClick={this.onLoginClick} className="sign-in"><i
-                                            className="fa fa-user"></i>
+                                        <a id="loginContainer" onClick={this.onLoginClick} className="sign-in">
                                             ورود / ثبت نام</a>}
                                     <a id="userContainer" href="my-profile.html" className="sign-in" hidden>
                                         <span id="usernameHeader"></span></a>

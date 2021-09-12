@@ -1,10 +1,11 @@
 import {
     SET_STATE,
-    SET_USER
+    SET_USER,
+    SET_FILE_SEARCH
 } from "./actions";
 
 function saveState(state) {
-    localStorage.setItem('state', JSON.stringify({user: state.user}));
+    localStorage.setItem('state', JSON.stringify({user: state.user, fileRequestObject: state.fileRequestObject}));
 }
 
 function dataReducer(state = {user: {}, products: []}, action) {
@@ -18,6 +19,13 @@ function dataReducer(state = {user: {}, products: []}, action) {
             result = {
                 ...state,
                 user: action.user
+            };
+            saveState(result);
+            return result;
+        case SET_FILE_SEARCH:
+            result = {
+                ...state,
+                fileRequestObject: action.fileRequestObject
             };
             saveState(result);
             return result;
