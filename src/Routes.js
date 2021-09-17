@@ -11,6 +11,7 @@ export default class Routes extends Component {
             <Router history={history}>
                 <Switch>
                     <Route path="/" component={RealState}/>
+                    <Route path="/panelManagement" component={PanelManagement}/>
                 </Switch>
             </Router>
         )

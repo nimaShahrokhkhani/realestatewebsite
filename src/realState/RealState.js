@@ -199,7 +199,7 @@ class RealState extends React.Component {
                             </div>
                             <div className="right-side">
                                 <div className="header-widget">
-                                    {this.props.user.username ?
+                                    {(this.props.user && this.props.user.username) ?
                                         <a id="loginContainer" className="sign-in-username" onClick={this.onProfileClick}>
                                             {this.props.user.username} خوش آمدید</a> :
                                         <a id="loginContainer" onClick={this.onLoginClick} className="sign-in">
@@ -257,7 +257,7 @@ class RealState extends React.Component {
                             </div>
                             <div className="right-side">
                                 <div className="header-widget">
-                                    {this.props.user.username ?
+                                    {(this.props.user && this.props.user.username) ?
                                         <a id="loginContainer" className="sign-in-username" onClick={this.onProfileClick}>
                                             {this.props.user.username} خوش آمدید</a> :
                                         <a id="loginContainer" onClick={this.onLoginClick} className="sign-in"><i

@@ -104,14 +104,14 @@ class profile extends React.Component {
         Services.logoutRealEstate().then(() => {
             sessionStorage.clear();
             localStorage.clear();
-            this.props.setUser(undefined);
+            this.props.setUser({});
             this.props.history.push({
                 pathname: '/'
             });
         }).catch(() => {
             sessionStorage.clear();
             localStorage.clear();
-            this.props.setUser(undefined);
+            this.props.setUser({});
             this.props.history.push({
                 pathname: '/'
             });
