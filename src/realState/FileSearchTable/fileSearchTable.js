@@ -152,7 +152,7 @@ class fileSearchTable extends React.Component {
             rowContainer.id = files[i].Id;
             rowContainer.onclick = function () {
                 me.props.history.push({
-                    pathname: '/realstate/fileDetail',
+                    pathname: '/fileDetail',
                     state: {
                         fileId: this.id
                     }

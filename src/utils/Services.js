@@ -28,6 +28,14 @@ export default class Services {
         })
     }
 
+    static logoutUser() {
+        return axios.get(`/client/logout`)
+    }
+
+    static logoutRealEstate() {
+        return axios.get(`/base/logout`)
+    }
+
     static signInClient(requestData) {
         axios.defaults.headers['content-Type'] = 'application/json';
         axios.defaults.headers['Accept'] = '/';
@@ -52,16 +60,14 @@ export default class Services {
     }
 
     static editClientProfile(requestData) {
-        axios.defaults.headers['content-Type'] = 'application/json';
-        axios.defaults.headers['Accept'] = '/';
-        axios.defaults.headers['Cache-Control'] = 'no-cache';
-        axios.defaults.withCredentials = true;
+        return axios.post(`/client/clientUsers/edit`, requestData)
+    }
+
+    static changeClientPassword(requestData) {
         return axios.post(`/client/clientUsers/edit`, {
             username: requestData.username,
-            name: requestData.name,
-            telephone: requestData.telephone,
-            email: requestData.email,
-            aboutMe: requestData.aboutMe,
+            currentPassword: requestData.currentPassword,
+            newPassword: requestData.newPassword
         })
     }
 
@@ -155,6 +161,26 @@ export default class Services {
     }
 
     static getAdvertiseImageDownloadUrl(fileName){
-        return this.baseUrl + `/client/advertise/download?fileName=` + fileName;
+        // var url = `/client/advertise/download?fileName=` + fileName;
+        // return axios.get(url);
+        return this.baseUrl + `client/advertise/download?fileName=` + fileName;
+
+    }
+
+    static geAdvertiseTotalCount(requestData) {
+        return axios.get(`/client/advertise/totalCount`, requestData)
+    }
+
+    static async editRealStateProfile(requestData) {
+        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.post(`/base/agencyProfile/edit`, requestData)
+    }
+
+    static getRealStateProfileImageDownloadUrl(fileName){
+        return this.baseUrl + `base/agencyProfile/download?fileName=` + fileName;
+    }
+
+    static getUserProfileImageDownloadUrl(fileName){
+        return this.baseUrl + `client/clientUsers/download?fileName=` + fileName;
     }
 }

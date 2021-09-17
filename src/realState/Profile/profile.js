@@ -7,13 +7,16 @@ import $ from 'jquery';
 import connect from "react-redux/es/connect/connect";
 import {setState, setUser} from "../../components/redux/actions";
 import Services from "../../utils/Services";
+import Doka, {imageList} from "./dropZone";
+import {NotificationContainer, NotificationManager} from "react-notifications";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 class profile extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            activeNav: 1
+            isLoading: false
         }
     }
 
@@ -89,18 +92,29 @@ class profile extends React.Component {
         })
     }
 
+    hideLoading() {
+        this.setState({
+            isLoading: false
+        })
+    }
+
     onSubmitChangesClick = () => {
         let name = document.getElementById('name').value;
         let telephone = document.getElementById('telephone').value;
         let email = document.getElementById('email').value;
         let aboutMe = document.getElementById('aboutMe').value;
-            Services.editClientProfile({
-                username: this.props.user.username,
-                name: name,
-                telephone: telephone,
-                aboutMe: aboutMe,
-                email: email
-            }).then((res) => {
+        this.setState({
+            isLoading: true
+        }, () => {
+            const data = new FormData();
+            data.append('file', imageList[0]);
+            data.append('username', this.props.user.username);
+            data.append('name', name);
+            data.append('telephone', telephone);
+            data.append('email', email);
+            data.append('aboutMe', aboutMe);
+            Services.editClientProfile(data).then((response) => {
+                this.hideLoading();
                 this.props.setUser({
                     username: this.props.user.username,
                     name: name,
@@ -108,14 +122,49 @@ class profile extends React.Component {
                     aboutMe: aboutMe,
                     email: email
                 });
+                NotificationManager.success('موفق', 'تغییرات آژانس با موفقیت ثبت شد');
             }).catch((error) => {
+                this.hideLoading();
+                NotificationManager.error('خطا', 'خطا در تغییرات آژانس', 5000);
+            });
+        })
+    };
 
-            })
+    changePasswordScreen = () => {
+        this.props.history.push({
+            pathname: '/changePassword'
+        });
+    };
+
+    insertAdvertise = () => {
+        this.props.history.push({
+            pathname: '/submitAdvertise'
+        });
+    };
+
+    logoutUser = () => {
+        Services.logoutUser().then(() => {
+            sessionStorage.clear();
+            localStorage.clear();
+            this.props.setUser(undefined);
+            this.props.history.push({
+                pathname: '/'
+            });
+        }).catch(() => {
+            sessionStorage.clear();
+            localStorage.clear();
+            this.props.setUser(undefined);
+            this.props.history.push({
+                pathname: '/'
+            });
+        })
+
     };
 
     render() {
         return (
             <div id='root-div' style={{marginTop: 0}}>
+                <NotificationContainer/>
                 <div id="wrapper">
 
                     <div className="clearfix"></div>
@@ -145,25 +194,25 @@ class profile extends React.Component {
 
                                         <ul className="my-account-nav">
                                             <li className="sub-nav-title">مدیریت حساب کاربری</li>
-                                            <li><a href="my-profile.html" className="current"><i
+                                            <li><a className="current"><i
                                                 className="sl sl-icon-user"></i> پروفایل من</a></li>
-                                            <li><a href="my-bookmarks.html"><i className="sl sl-icon-star"></i> آگهی های
+                                            <li><a><i className="sl sl-icon-star"></i> آگهی های
                                                 مورد علاقه</a></li>
                                         </ul>
 
                                         <ul className="my-account-nav">
                                             <li className="sub-nav-title">مدیریت آگهی ها</li>
-                                            <li><a href="my-properties.html"><i className="sl sl-icon-docs"></i> املاک
+                                            <li><a><i className="sl sl-icon-docs"></i> املاک
                                                 من</a></li>
-                                            <li><a href="submit-property.html"><i
+                                            <li><a onClick={this.insertAdvertise}><i
                                                 className="sl sl-icon-action-redo"></i> ثبت ملک جدید</a></li>
                                         </ul>
 
                                         <ul className="my-account-nav">
-                                            <li><a href="change-password.html"><i className="sl sl-icon-lock"></i> تغییر
+                                            <li><a onClick={this.changePasswordScreen}><i className="sl sl-icon-lock"></i> تغییر
                                                 رمز
                                                 عبور</a></li>
-                                            <li><a href="#"><i className="sl sl-icon-power"></i> خروج</a></li>
+                                            <li><a onClick={this.logoutUser}><i className="sl sl-icon-power"></i> خروج</a></li>
                                         </ul>
 
                                     </div>
@@ -190,21 +239,20 @@ class profile extends React.Component {
                                         <textarea value={this.props.user.aboutMe} name="about" id="aboutMe" cols="30" rows="10"/>
 
 
-                                        <button className="button margin-top-20 margin-bottom-20" onClick={this.onSubmitChangesClick}>ذخیره ی
-                                            تغییرات
-                                        </button>
+                                        {this.state.isLoading ?
+                                            <ScaleLoader loading={true} color={"#274abb"} size={150}/> :
+                                            <button className="button margin-top-20 margin-bottom-20" onClick={this.onSubmitChangesClick}>ذخیره ی
+                                                تغییرات
+                                            </button>
+                                        }
+
                                     </div>
 
                                     <div className="col-md-4">
                                         <div className="edit-profile-photo">
-                                            <img src="#" alt=""/>
-                                            <div className="change-photo-btn">
-                                                <div className="photoUpload">
-                                                    <span><i className="fa fa-upload"></i> بارگذاری تصویر</span>
-                                                    <input type="file" className="upload"/>
-                                                </div>
-                                            </div>
+                                            <Doka/>
                                         </div>
+                                        {this.props.user.image && <img src={Services.getUserProfileImageDownloadUrl(this.props.user.image)} alt=""/>}
 
                                     </div>
 

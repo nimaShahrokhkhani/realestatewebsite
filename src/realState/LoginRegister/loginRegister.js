@@ -98,7 +98,7 @@ class LoginRegister extends React.Component {
         Services.signInClient({username: username, password: password}).then((res) => {
             this.props.setUser(res.data);
             this.props.history.push({
-                pathname: '/realstate/profile'
+                pathname: '/profile'
             });
         }).catch((error) => {
             NotificationManager.error('خطا', 'نام کاربری یا کلمه عبور اشتباه است', 5000);
@@ -114,7 +114,7 @@ class LoginRegister extends React.Component {
             Services.registerClient({username: username, password: password, email: email}).then((res) => {
                 this.props.setUser({username: username, email: email});
                 this.props.history.push({
-                    pathname: '/realstate/profile'
+                    pathname: '/profile'
                 });
             }).catch((error) => {
                 NotificationManager.error('خطا', 'خطا در ثبت نام', 5000);

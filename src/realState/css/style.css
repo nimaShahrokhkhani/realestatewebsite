@@ -2959,6 +2959,9 @@ span.like-icon {
 .checkboxes {
 	list-style: none;
 	padding: 0;
+	display: flex;
+	overflow: hidden;
+	flex-wrap: wrap;
 }
 
 .checkboxes.in-row label { margin-top: 9px;}
@@ -4836,7 +4839,7 @@ section.fullwidth.border-bottom { border-bottom: 1px solid #e4e4e4;}
 	margin: 0;
 }
 
-.my-account-nav li a { color: #333; }
+.my-account-nav li a { color: #333; cursor: pointer;}
 .my-account-nav li a.current,
 .my-account-nav li a:hover { color: #66676b; }
 
@@ -4868,9 +4871,10 @@ section.fullwidth.border-bottom { border-bottom: 1px solid #e4e4e4;}
 	display: inline-block;
 	position: absolute;
 	font-size: 13px;
-	bottom: 15px;
+	bottom: 50px;
 	right: 15px;
 	width: auto;
+	height: 100px;
 	background-color: #fff;
 	color: #333;
 	transition: 0.3s;
@@ -7274,7 +7278,8 @@ a.read-more i {
 {
     position: relative;
 
-    display: block;
+    display: flex;
+	justify-content: center;
     overflow: hidden;
 
     margin: 0;

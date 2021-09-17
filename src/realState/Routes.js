@@ -17,6 +17,8 @@ import history from '../history';
 import ScrollToTop from "./ScrollToTop";
 import loginPanel from "./LoginPanel/loginPanel";
 import fileDetail from "./FileDetail/fileDetail";
+import advertiseDetail from "./AdvertiseDetail/advertiseDetail";
+import realStateProfile from "./RealStateProfile/realStateProfile";
 
 export default class Routes extends Component {
     render() {
@@ -24,18 +26,20 @@ export default class Routes extends Component {
             <Router history={history}>
                 <ScrollToTop>
                     <Switch>
-                        <Route path="/realstate" exact component={Home}/>
-                        <Route path="/realstate/login" component={loginRegister}/>
-                        <Route path="/realstate/loginPanel" component={loginPanel}/>
-                        <Route path="/realstate/advertise" component={advertisingPage}/>
-                        <Route path="/realstate/realstatePanel" component={realstatePanel}/>
-                        <Route path="/realstate/submitAdvertise" component={submit}/>
-                        <Route path="/realstate/submitAdvertise" component={submit}/>
-                        <Route path="/realstate/contact" component={contact}/>
-                        <Route path="/realstate/bestAgencies" component={bestAgencies}/>
-                        <Route path="/realstate/profile" component={profile}/>
-                        <Route path="/realstate/fileSearchTable" component={fileSearchTable}/>
-                        <Route path="/realstate/fileDetail" component={fileDetail}/>
+                        <Route path="/" exact component={Home}/>
+                        <Route path="/login" component={loginRegister}/>
+                        <Route path="/loginPanel" component={loginPanel}/>
+                        <Route path="/advertise" component={advertisingPage}/>
+                        <Route path="/realstatePanel" component={realstatePanel}/>
+                        <Route path="/submitAdvertise" component={submit}/>
+                        <Route path="/contact" component={contact}/>
+                        <Route path="/bestAgencies" component={bestAgencies}/>
+                        <Route path="/profile" component={profile}/>
+                        <Route path="/fileSearchTable" component={fileSearchTable}/>
+                        <Route path="/fileDetail" component={fileDetail}/>
+                        <Route path="/advertiseDetail" component={advertiseDetail}/>
+                        <Route path="/realStateProfile" component={realStateProfile}/>
+                        <Route path="/changePassword" component={changePassword}/>
                     </Switch>
                 </ScrollToTop>
             </Router>

@@ -52,7 +52,7 @@ export default function Doka(props) {
         onDropRejected: () => {
             props.onDropRejected();
         },
-        maxFiles: 4,
+        maxFiles: 1,
         accept: "image/*",
         onDrop: (acceptedFiles) => {
             imageList = acceptedFiles;
@@ -71,21 +71,6 @@ export default function Doka(props) {
             <div style={thumbInner}>
                 <img src={file.preview} style={img} alt=""/>
             </div>
-            <button
-                style={thumbButton}
-                onClick={() => {
-                    files.splice(index, 1);
-                    setFiles(
-                        files.map((file) =>
-                            Object.assign(file, {
-                                preview: URL.createObjectURL(file)
-                            })
-                        )
-                    );
-                }}
-            >
-                حذف
-            </button>
         </div>
     ));
 
@@ -98,12 +83,15 @@ export default function Doka(props) {
     );
 
     return (
-        <section className="container">
-            <div {...getRootProps({className: "dropzone"})}>
-                <input {...getInputProps()} />
-                <p>تصاویر را در این قسمت آپلود کنید</p>
+        <section>
+
+            <div className="change-photo-btn">
+                <div className="photoUpload" {...getRootProps({className: "dropzone"})}>
+                    <span><i className="fa fa-upload"></i> بارگذاری تصویر</span>
+                    <input {...getInputProps()}/>
+                    <aside style={thumbsContainer}>{thumbs}</aside>
+                </div>
             </div>
-            <aside style={thumbsContainer}>{thumbs}</aside>
         </section>
     );
 }

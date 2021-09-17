@@ -109,7 +109,7 @@ class realstatePanel extends React.Component {
         requestObject[document.getElementById('kindPanel').value] = true;
         this.props.setFileSearchRequest(requestObject);
         this.props.history.push({
-            pathname: '/realstate/fileSearchTable'
+            pathname: '/fileSearchTable'
         });
     };
 

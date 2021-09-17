@@ -6,36 +6,50 @@ import 'react-awesome-slider/dist/styles.css';
 import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
 import ScriptTag from 'react-script-tag';
+import Services from "../../utils/Services";
+import _ from "underscore";
 
 class Home extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            configList: []
+        };
+        this.finalEquipmentListSale = [];
+        this.finalEquipmentListRent = [];
     }
 
-    // onClick = () => {
-    //     this.props.history.replace({
-    //         pathname: '/Market/Products',
-    //         state: {
-    //             masterCategory
-    //         }
-    //     });
-    // };
+    getConfigList() {
+        Services.getConfigList().then(response => {
+            this.setState({
+                configList: response.data[0]
+            })
+        }).catch(error => {
+
+        })
+    }
 
     onTabClick(tab) {
-        var tab1 = document.getElementById('tab1')
-        var tab2 = document.getElementById('tab2')
+        let tab1 = document.getElementById('tab1');
+        let tab2 = document.getElementById('tab2');
+        let titleTable1 = document.getElementById('titleTable1');
+        let titleTable2 = document.getElementById('titleTable2');
         if (tab === 'tab1') {
-            tab1.style.display = 'block'
-            tab2.style.display = 'none'
+            tab1.style.display = 'block';
+            tab2.style.display = 'none';
+            titleTable1.className = 'active';
+            titleTable2.className = '';
         } else {
-            tab2.style.display = 'block'
-            tab1.style.display = 'none'
+            tab2.style.display = 'block';
+            tab1.style.display = 'none';
+            titleTable1.className = '';
+            titleTable2.className = 'active';
         }
     }
 
     componentDidMount() {
+        this.getConfigList();
         let root = document.getElementById('home-div');
 
         var element = document.createElement("script");
@@ -107,6 +121,58 @@ class Home extends React.Component {
         })
     }
 
+    searchSale = () => {
+        let requestData = {
+            address: _.compact([
+                !_.isEmpty(document.querySelector('#addressTab1').value) ? document.querySelector('#addressTab1').value : undefined,
+            ]),
+            sale: _.compact([
+                'فروشی'
+            ]),
+            type: document.getElementById('typeTab1').value !== '' ? document.getElementById('typeTab1').value : undefined,
+            room: document.getElementById('roomNumberTab1').value !== '' ? document.getElementById('roomNumberTab1').value : undefined,
+            unitWC: document.getElementById('wcTab1').value !== '' ? document.getElementById('wcTab1').value : undefined,
+            fromTotalPrice: document.getElementById('minTotalPriceTab1').value !== '' ? parseInt(document.getElementById('minTotalPriceTab1').value) : undefined,
+            toTotalPrice: document.getElementById('maxTotalPriceTab1').value !== '' ? parseInt(document.getElementById('maxTotalPriceTab1').value) : undefined,
+            fromArea: document.getElementById('areaMinTab1').value !== '' ? parseInt(document.getElementById('areaMinTab1').value) : undefined,
+            toArea: document.getElementById('areaMaxTab1').value !== '' ? parseInt(document.getElementById('areaMaxTab1').value) : undefined,
+            equipments: this.finalEquipmentListSale
+        };
+        this.props.history.push({
+            pathname: '/advertise',
+            state: {
+                requestData: requestData
+            }
+        });
+    };
+
+    searchRent = () => {
+        let requestData = {
+            address: _.compact([
+                !_.isEmpty(document.querySelector('#addressTab2').value) ? document.querySelector('#addressTab2').value : undefined,
+            ]),
+            sale: _.compact([
+                'اجاره ای'
+            ]),
+            type: document.getElementById('typeTab2').value !== '' ? document.getElementById('typeTab2').value : undefined,
+            room: document.getElementById('roomNumberTab2').value !== '' ? document.getElementById('roomNumberTab2').value : undefined,
+            unitWC: document.getElementById('wcTab2').value !== '' ? document.getElementById('wcTab2').value : undefined,
+            fromRent: document.getElementById('minRentTab2').value !== '' ? parseInt(document.getElementById('minRentTab2').value) : undefined,
+            toRent: document.getElementById('maxRentTab2').value !== '' ? parseInt(document.getElementById('maxRentTab2').value) : undefined,
+            fromMortgage: document.getElementById('minMortgageTab2').value !== '' ? parseInt(document.getElementById('minMortgageTab2').value) : undefined,
+            toMortgage: document.getElementById('maxMortgageTab2').value !== '' ? parseInt(document.getElementById('maxMortgageTab2').value) : undefined,
+            fromArea: document.getElementById('areaMinTab2').value !== '' ? parseInt(document.getElementById('areaMinTab2').value) : undefined,
+            toArea: document.getElementById('areaMaxTab2').value !== '' ? parseInt(document.getElementById('areaMaxTab2').value) : undefined,
+            equipments: this.finalEquipmentListSale
+        };
+        this.props.history.push({
+            pathname: '/advertise',
+            state: {
+                requestData: requestData
+            }
+        });
+    };
+
     render() {
         return (
             <div id='home-div'>
@@ -123,25 +189,27 @@ class Home extends React.Component {
                                         <h2>اولین بانک اطلاعات املاک رشت</h2>
                                         <form className="main-search-form">
                                             <div className="search-type">
-                                                <label className="active"><input className="first-tab" name="tab[]"
-                                                                                 onClick={() => this.onTabClick('tab1')}
-                                                                                 type="radio"/>فروشی</label>
-                                                <label><input name="tab[]" onClick={() => this.onTabClick('tab2')}
-                                                              type="radio"/>اجاره</label>
+                                                <label id='titleTable1' className="active"><input className="first-tab"
+                                                                                                  name="tab[]"
+                                                                                                  onClick={() => this.onTabClick('tab1')}
+                                                                                                  type="radio"/>فروشی</label>
+                                                <label id='titleTable2'><input name="tab[]"
+                                                                               onClick={() => this.onTabClick('tab2')}
+                                                                               type="radio"/>اجاره</label>
                                             </div>
                                             <div id="tab1" className="main-search-box">
                                                 <div className="main-search-input larger-input">
                                                     <input type="text" className="ico-01"
                                                            placeholder="آدرس را وارد کنید."
-                                                           id="searchSaleAddress"/>
-                                                    <button className="button">جست و جو</button>
+                                                           id="addressTab1"/>
+                                                    <button onClick={this.searchSale} className="button">جست و جو</button>
                                                 </div>
                                                 <div className="row with-forms">
                                                     <div className="col-md-4">
-                                                        <select data-placeholder="Any Type"
+                                                        <select data-placeholder="نوع"
                                                                 className="chosen-select-no-single"
-                                                                id="selectKind">
-                                                            <option>همه</option>
+                                                                id="typeTab1">
+                                                            <option></option>
                                                             <option>آپارتمانی</option>
                                                             <option>خانه</option>
                                                             <option>تجاری</option>
@@ -156,9 +224,9 @@ class Home extends React.Component {
                                                         <div className="select-input disabled-first-option">
                                                             <input type="text" placeholder="حداقل قیمت"
                                                                    data-unit="تومان"
-                                                                   id="saleMin"/>
+                                                                   id="minTotalPriceTab1"/>
                                                             <select>
-                                                                <option>همه</option>
+                                                                <option></option>
                                                                 <option>1000</option>
                                                                 <option>2000</option>
                                                                 <option>3000</option>
@@ -188,9 +256,9 @@ class Home extends React.Component {
                                                         <div className="select-input disabled-first-option">
                                                             <input type="text" placeholder="حداکثر قیمت"
                                                                    data-unit="تومان"
-                                                                   id="saleMax"/>
+                                                                   id="maxTotalPriceTab1"/>
                                                             <select>
-                                                                <option>همه</option>
+                                                                <option></option>
                                                                 <option>1000</option>
                                                                 <option>2000</option>
                                                                 <option>3000</option>
@@ -211,9 +279,7 @@ class Home extends React.Component {
                                                                 <option>120000</option>
                                                                 <option>130000</option>
                                                                 <option>140000</option>
-                                                                <option>150
-                                                                    000
-                                                                </option>
+                                                                <option>150000</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -229,9 +295,9 @@ class Home extends React.Component {
                                                             <div className="col-md-6">
                                                                 <div className="select-input disabled-first-option">
                                                                     <input type="text" placeholder="حداقل مساحت"
-                                                                           data-unit="متر مربع" id="areaMin"/>
+                                                                           data-unit="متر مربع" id="areaMinTab1"/>
                                                                     <select>
-                                                                        <option>حداقل مساحت</option>
+                                                                        <option></option>
                                                                         <option>300</option>
                                                                         <option>400</option>
                                                                         <option>500</option>
@@ -245,9 +311,9 @@ class Home extends React.Component {
                                                             <div className="col-md-6">
                                                                 <div className="select-input disabled-first-option">
                                                                     <input type="text" placeholder="حداکثر مساحت"
-                                                                           data-unit="متر مربع" id="areaMax"/>
+                                                                           data-unit="متر مربع" id="areaMaxTab1"/>
                                                                     <select>
-                                                                        <option>حداکثر مساحت</option>
+                                                                        <option></option>
                                                                         <option>300</option>
                                                                         <option>400</option>
                                                                         <option>500</option>
@@ -264,9 +330,8 @@ class Home extends React.Component {
                                                             <div className="col-md-6">
                                                                 <select data-placeholder="تعداد اتاق ها"
                                                                         className="chosen-select-no-single"
-                                                                        id="roomNumber">
-                                                                    <option label="blank"></option>
-                                                                    <option>همه</option>
+                                                                        id="roomNumberTab1">
+                                                                    <option></option>
                                                                     <option>1</option>
                                                                     <option>2</option>
                                                                     <option>3</option>
@@ -275,10 +340,9 @@ class Home extends React.Component {
                                                                 </select>
                                                             </div>
                                                             <div className="col-md-6">
-                                                                <select data-placeholder="حمام"
+                                                                <select data-placeholder="حمام/دستشویی" id='wcTab1'
                                                                         className="chosen-select-no-single">
-                                                                    <option label="blank" id="bath"></option>
-                                                                    <option>همه</option>
+                                                                    <option></option>
                                                                     <option>1</option>
                                                                     <option>2</option>
                                                                     <option>3</option>
@@ -290,35 +354,24 @@ class Home extends React.Component {
                                                         </div>
                                                         <div className="checkboxes in-row">
 
-                                                            <input id="airCondition" type="checkbox" name="check"/>
-                                                            <label htmlFor="airCondition">تهویه مطبوع</label>
-
-                                                            <input id="pool" type="checkbox" name="check"/>
-                                                            <label htmlFor="pool">استخر</label>
-
-                                                            <input id="centerHeat" type="checkbox" name="check"/>
-                                                            <label htmlFor="centerHeat">گرمایش مرکزی</label>
-
-                                                            <input id="roomWashing" type="checkbox"
-                                                                   name="check"/>
-                                                            <label htmlFor="roomWashing">اتاق
-                                                                لباسشویی</label>
-
-
-                                                            <input id="gymClub" type="checkbox"
-                                                                   name="check"/>
-                                                            <label htmlFor="gymClub">باشگاه
-                                                                بدنسازی</label>
-
-                                                            <input id="dangerRing" type="checkbox"
-                                                                   name="check"/>
-                                                            <label htmlFor="dangerRing">زنگ
-                                                                خطر</label>
-
-                                                            <input id="window" type="checkbox"
-                                                                   name="check"/>
-                                                            <label htmlFor="window">پوشش
-                                                                پنجره</label>
+                                                            {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
+                                                                return (
+                                                                    <div style={{width: '25%'}}>
+                                                                        <input id={equipment} type="checkbox"
+                                                                               name="check"
+                                                                               onChange={(e) => {
+                                                                                   if (e.target.checked) {
+                                                                                       !this.finalEquipmentListSale.includes(e.target.id) && this.finalEquipmentListSale.push(e.target.id)
+                                                                                   } else {
+                                                                                       if (this.finalEquipmentListSale.includes(e.target.id)) {
+                                                                                           this.finalEquipmentListSale = this.finalEquipmentListSale.filter(equipment => equipment !== e.target.id)
+                                                                                       }
+                                                                                   }
+                                                                               }}/>
+                                                                        <label htmlFor={equipment}>{equipment}</label>
+                                                                    </div>
+                                                                )
+                                                            })}
 
                                                         </div>
                                                     </div>
@@ -328,15 +381,15 @@ class Home extends React.Component {
                                                 <div className="main-search-input larger-input">
                                                     <input type="text" className="ico-01"
                                                            placeholder="آدرس را وارد کنید."
-                                                           id="searchRentAddress"/>
-                                                    <button className="button">جست و جو</button>
+                                                           id="addressTab2"/>
+                                                    <button onClick={this.searchRent} className="button">جست و جو</button>
                                                 </div>
                                                 <div className="row with-forms">
                                                     <div className="col-md-4">
                                                         <select data-placeholder="Any Type"
                                                                 className="chosen-select-no-single"
-                                                                id="selectKindRent">
-                                                            <option>همه</option>
+                                                                id="typeTab2">
+                                                            <option></option>
                                                             <option>آپارتمانی</option>
                                                             <option>خانه</option>
                                                             <option>تجاری</option>
@@ -351,9 +404,9 @@ class Home extends React.Component {
                                                         <div className="select-input disabled-first-option">
                                                             <input type="text" placeholder="حداقل قیمت رهن"
                                                                    data-unit="تومان"
-                                                                   id="rentRahnMin"/>
+                                                                   id="minMortgageTab2"/>
                                                             <select>
-                                                                <option>همه</option>
+                                                                <option></option>
                                                                 <option>1000</option>
                                                                 <option>2000</option>
                                                                 <option>3000</option>
@@ -382,9 +435,9 @@ class Home extends React.Component {
                                                         <div className="select-input disabled-first-option">
                                                             <input type="text" placeholder="حداکثر قیمت رهن"
                                                                    data-unit="تومان"
-                                                                   id="rentRahnMax"/>
+                                                                   id="maxMortgageTab2"/>
                                                             <select>
-                                                                <option>همه</option>
+                                                                <option></option>
                                                                 <option>1000</option>
                                                                 <option>2000</option>
                                                                 <option>3000</option>
@@ -405,9 +458,7 @@ class Home extends React.Component {
                                                                 <option>120000</option>
                                                                 <option>130000</option>
                                                                 <option>140000</option>
-                                                                <option>150
-                                                                    000
-                                                                </option>
+                                                                <option>150000</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -415,9 +466,9 @@ class Home extends React.Component {
                                                         <div className="select-input disabled-first-option">
                                                             <input type="text" placeholder="حداقل قیمت اجاره"
                                                                    data-unit="تومان"
-                                                                   id="rentMin"/>
+                                                                   id="minRentTab2"/>
                                                             <select>
-                                                                <option>همه</option>
+                                                                <option></option>
                                                                 <option>1000</option>
                                                                 <option>2000</option>
                                                                 <option>3000</option>
@@ -446,9 +497,9 @@ class Home extends React.Component {
                                                         <div className="select-input disabled-first-option">
                                                             <input type="text" placeholder="حداکثر قیمت اجاره"
                                                                    data-unit="تومان"
-                                                                   id="rentMax"/>
+                                                                   id="maxRentTab2"/>
                                                             <select>
-                                                                <option>همه</option>
+                                                                <option></option>
                                                                 <option>1000</option>
                                                                 <option>2000</option>
                                                                 <option>3000</option>
@@ -484,9 +535,9 @@ class Home extends React.Component {
                                                             <div className="col-md-6">
                                                                 <div className="select-input disabled-first-option">
                                                                     <input type="text" placeholder="حداقل مساحت"
-                                                                           data-unit="متر مربع" id="areaMinRent"/>
+                                                                           data-unit="متر مربع" id="areaMinTab2"/>
                                                                     <select>
-                                                                        <option>حداقل مساحت</option>
+                                                                        <option></option>
                                                                         <option>300</option>
                                                                         <option>400</option>
                                                                         <option>500</option>
@@ -500,9 +551,9 @@ class Home extends React.Component {
                                                             <div className="col-md-6">
                                                                 <div className="select-input disabled-first-option">
                                                                     <input type="text" placeholder="حداکثر مساحت"
-                                                                           data-unit="متر مربع" id="areaMaxRent"/>
+                                                                           data-unit="متر مربع" id="areaMaxTab2"/>
                                                                     <select>
-                                                                        <option>حداکثر مساحت</option>
+                                                                        <option></option>
                                                                         <option>300</option>
                                                                         <option>400</option>
                                                                         <option>500</option>
@@ -519,9 +570,8 @@ class Home extends React.Component {
                                                             <div className="col-md-6">
                                                                 <select data-placeholder="تعداد اتاق ها"
                                                                         className="chosen-select-no-single"
-                                                                        id="roomNumberRent">
-                                                                    <option label="blank"></option>
-                                                                    <option>همه</option>
+                                                                        id="roomNumberTab2">
+                                                                    <option></option>
                                                                     <option>1</option>
                                                                     <option>2</option>
                                                                     <option>3</option>
@@ -532,9 +582,8 @@ class Home extends React.Component {
                                                             <div className="col-md-6">
                                                                 <select data-placeholder="حمام"
                                                                         className="chosen-select-no-single"
-                                                                        id="bathRent">
-                                                                    <option label="blank"></option>
-                                                                    <option>همه</option>
+                                                                        id="wcTab2">
+                                                                    <option></option>
                                                                     <option>1</option>
                                                                     <option>2</option>
                                                                     <option>3</option>
@@ -546,36 +595,24 @@ class Home extends React.Component {
                                                         </div>
                                                         <div className="checkboxes in-row">
 
-                                                            <input id="airConditionRent" type="checkbox" name="check"/>
-                                                            <label htmlFor="airConditionRent">تهویه مطبوع</label>
-
-                                                            <input id="poolRent" type="checkbox" name="check"/>
-                                                            <label htmlFor="poolRent">استخر</label>
-
-                                                            <input id="centerHeatRent" type="checkbox"
-                                                                   name="check"/>
-                                                            <label htmlFor="centerHeatRent">گرمایش مرکزی</label>
-
-                                                            <input id="roomWashingRent" type="checkbox"
-                                                                   name="check"/>
-                                                            <label htmlFor="roomWashingRent">اتاق
-                                                                لباسشویی</label>
-
-
-                                                            <input id="gymClubRent" type="checkbox"
-                                                                   name="check"/>
-                                                            <label htmlFor="gymClubRent">باشگاه
-                                                                بدنسازی</label>
-
-                                                            <input id="dangerRingRent"
-                                                                   type="checkbox" name="check"/>
-                                                            <label htmlFor="dangerRingRent">زنگ
-                                                                خطر</label>
-
-                                                            <input id="windowRent"
-                                                                   type="checkbox" name="check"/>
-                                                            <label htmlFor="windowRent">پوشش
-                                                                پنجره</label>
+                                                            {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
+                                                                return (
+                                                                    <div style={{width: '25%'}}>
+                                                                        <input id={equipment} type="checkbox"
+                                                                               name="check"
+                                                                               onChange={(e) => {
+                                                                                   if (e.target.checked) {
+                                                                                       !this.finalEquipmentListRent.includes(e.target.id) && this.finalEquipmentListRent.push(e.target.id)
+                                                                                   } else {
+                                                                                       if (this.finalEquipmentListRent.includes(e.target.id)) {
+                                                                                           this.finalEquipmentListRent = this.finalEquipmentListRent.filter(equipment => equipment !== e.target.id)
+                                                                                       }
+                                                                                   }
+                                                                               }}/>
+                                                                        <label htmlFor={equipment}>{equipment}</label>
+                                                                    </div>
+                                                                )
+                                                            })}
 
                                                         </div>
                                                     </div>

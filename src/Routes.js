@@ -10,7 +10,7 @@ export default class Routes extends Component {
         return (
             <Router history={history}>
                 <Switch>
-                    <Route path="/realstate" component={RealState}/>
+                    <Route path="/" component={RealState}/>
                 </Switch>
             </Router>
         )

@@ -98,7 +98,7 @@ class LoginPanel extends React.Component {
         Services.signInPanel({username: username, password: password}).then((res) => {
             this.props.setUser(res.data);
             this.props.history.push({
-                pathname: '/realstate/realstatePanel'
+                pathname: '/realStateProfile'
             });
         }).catch((error) => {
             NotificationManager.error('خطا', 'نام کاربری یا کلمه عبور اشتباه است', 5000);

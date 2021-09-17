@@ -26,13 +26,13 @@ class RealState extends React.Component {
     }
 
     onLoginClick = () => {
-        if (this.props.location.pathname !== "/realstate/realstatePanel") {
+        if (this.props.location.pathname !== "/realstatePanel") {
             this.props.history.push({
-                pathname: '/realstate/login'
+                pathname: '/login'
             });
         } else {
             this.props.history.push({
-                pathname: '/realstate/loginPanel'
+                pathname: '/loginPanel'
             });
         }
         this.clearAllMenuSelect();
@@ -40,49 +40,49 @@ class RealState extends React.Component {
 
     onHomePageClick = () => {
         this.props.history.push({
-            pathname: '/realstate'
+            pathname: '/'
         });
-        this.changeCurrentMenu('/realstate');
+        this.changeCurrentMenu('/');
     };
 
     onAdvertisingPageClick = () => {
         this.props.history.push({
-            pathname: '/realstate/advertise'
+            pathname: '/advertise'
         });
-        this.changeCurrentMenu('/realstate/advertise');
+        this.changeCurrentMenu('/advertise');
     };
 
     onRealstatePanelClick = () => {
         this.props.history.push({
-            pathname: '/realstate/realstatePanel'
+            pathname: '/realstatePanel'
         });
-        this.changeCurrentMenu('/realstate/realstatePanel');
+        this.changeCurrentMenu('/realstatePanel');
     };
 
     onSubmitAdvertiseClick = () => {
         this.props.history.push({
-            pathname: '/realstate/submitAdvertise'
+            pathname: '/submitAdvertise'
         });
         this.clearAllMenuSelect();
     };
 
     onContactClick = () => {
         this.props.history.push({
-            pathname: '/realstate/contact'
+            pathname: '/contact'
         });
-        this.changeCurrentMenu('/realstate/contact');
+        this.changeCurrentMenu('/contact');
     };
 
     onBestAgenciesClick = () => {
         this.props.history.push({
-            pathname: '/realstate/bestAgencies'
+            pathname: '/bestAgencies'
         });
-        this.changeCurrentMenu('/realstate/bestAgencies');
+        this.changeCurrentMenu('/bestAgencies');
     };
 
     onProfileClick = () => {
         this.props.history.push({
-            pathname: '/realstate/profile'
+            pathname: '/profile'
         });
         this.clearAllMenuSelect();
     };
@@ -111,17 +111,17 @@ class RealState extends React.Component {
     changeCurrentMenu(pathName) {
         this.clearAllMenuSelect();
         switch (pathName || this.props.location.pathname) {
-            case "/realstate":
+            case "/":
                 [...document.getElementsByName('home')].map(item => {
                     item.className = 'current';
                 });
                 break;
-            case "/realstate/advertise":
+            case "/advertise":
                 [...document.getElementsByName('advertise')].map(item => {
                     item.className = 'current';
                 });
                 break;
-            case "/realstate/realstatePanel":
+            case "/realstatePanel":
                 [...document.getElementsByName('realStatePanel')].map(item => {
                     item.className = 'current';
                 });
@@ -129,12 +129,12 @@ class RealState extends React.Component {
                     item.innerText = 'ورود به پنل املاک';
                 });
                 break;
-            case "/realstate/contact":
+            case "/contact":
                 [...document.getElementsByName('contact')].map(item => {
                     item.className = 'current';
                 });
                 break;
-            case "/realstate/bestAgencies":
+            case "/bestAgencies":
                 [...document.getElementsByName('bestAgencies')].map(item => {
                     item.className = 'current';
                 });
@@ -144,7 +144,7 @@ class RealState extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.setState(JSON.parse(localStorage.getItem('state')));
+        this.props.setState(JSON.parse(localStorage.getItem('state')));
         this.changeCurrentMenu();
     }
 

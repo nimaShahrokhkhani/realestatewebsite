@@ -38,7 +38,7 @@ class fileDetail extends React.Component {
         requestObject.agencyCode = this.props.user.agencyCode;
         Services.getNextFile(requestObject).then(response => {
             this.props.history.push({
-                pathname: '/realstate/fileDetail',
+                pathname: '/fileDetail',
                 state: {
                     fileId: response.data.Id
                 }
@@ -52,7 +52,7 @@ class fileDetail extends React.Component {
         requestObject.agencyCode = this.props.user.agencyCode;
         Services.getPrevFile(requestObject).then(response => {
             this.props.history.push({
-                pathname: '/realstate/fileDetail',
+                pathname: '/fileDetail',
                 state: {
                     fileId: response.data.Id
                 }
