@@ -5,17 +5,18 @@ import '../realstatepanel/realstatePanel.css'
 import 'react-awesome-slider/dist/styles.css';
 import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
+import Services from "../../utils/Services";
 
 class bestAgencies extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeNav: 1
+            bestAgencyList: []
         }
     }
 
-
     componentDidMount() {
+        this.getBestAgencyList();
         let root = document.getElementById('root-div');
 
         var element = document.createElement("script");
@@ -87,8 +88,16 @@ class bestAgencies extends React.Component {
         })
     }
 
+    getBestAgencyList() {
+        Services.bestAgenciesList({offset: 0, length: 10}).then(response => {
+            this.setState({
+                bestAgencyList: response.data
+            })
+        })
+    }
+
     render() {
-        return(
+        return (
             <div id='root-div' style={{marginBottom: 150}}>
                 <div className="clearfix"></div>
 
@@ -102,113 +111,30 @@ class bestAgencies extends React.Component {
                         <div className="col-md-12">
                             <div className="carousel">
 
-                                <div className="carousel-item">
-                                    <div className="listing-item compact">
+                                {this.state.bestAgencyList.map(agency => {
+                                    return (
+                                        <div className="carousel-item">
+                                            <div className="listing-item compact">
 
 
-                                        <div className="listing-img-content">
+                                                <div className="listing-img-content">
 
-                                            <ul className="listing-hidden-content">
-                                                <li>موقعیت <span>گلسار</span></li>
-                                                <li>تعداد مشاورین <span>3</span></li>
+                                                    <ul className="listing-hidden-content">
+                                                        <li>اسم آژانس <span>{agency.agencyName}</span></li>
+                                                        <li>نام مدیر آژانس <span>{agency.managementName}</span></li>
+                                                        <li>تلفن آژانس <span>{agency.telephone}</span></li>
 
-                                            </ul>
+                                                    </ul>
+                                                </div>
+
+                                                {agency.image ?
+                                                    <img src={Services.getRealStateProfileImageDownloadUrl(agency.image)} alt=""/> :
+                                                    <img src={require("../image/real_estate_icon.jpeg")} alt=""/>}
+
+                                            </div>
                                         </div>
-
-                                        <img src={require("../image/agency-01.jpg")} alt=""/>
-
-                                    </div>
-                                </div>
-
-                                <div className="carousel-item">
-                                    <div className="listing-item compact">
-
-
-                                        <div className="listing-img-content">
-
-                                            <ul className="listing-hidden-content">
-                                                <li>موقعیت <span>گلسار</span></li>
-                                                <li>تعداد مشاورین <span>3</span></li>
-
-                                            </ul>
-                                        </div>
-
-                                        <img src={require("../image/agency-03.jpg")} alt=""/>
-
-                                    </div>
-                                </div>
-
-                                <div className="carousel-item">
-                                    <div className="listing-item compact">
-
-
-                                        <div className="listing-img-content">
-
-                                            <ul className="listing-hidden-content">
-                                                <li>موقعیت <span>گلسار</span></li>
-                                                <li>تعداد مشاورین <span>3</span></li>
-
-                                            </ul>
-                                        </div>
-
-                                        <img src={require("../image/agency-02.jpg")} alt=""/>
-
-                                    </div>
-                                </div>
-
-                                <div className="carousel-item">
-                                    <div className="listing-item compact">
-
-
-                                        <div className="listing-img-content">
-
-                                            <ul className="listing-hidden-content">
-                                                <li>موقعیت <span>گلسار</span></li>
-                                                <li>تعداد مشاورین <span>3</span></li>
-
-                                            </ul>
-                                        </div>
-
-                                        <img src={require("../image/agency-03.jpg")} alt=""/>
-
-                                    </div>
-                                </div>
-
-                                <div className="carousel-item">
-                                    <div className="listing-item compact">
-
-
-                                        <div className="listing-img-content">
-
-                                            <ul className="listing-hidden-content">
-                                                <li>موقعیت <span>گلسار</span></li>
-                                                <li>تعداد مشاورین <span>3</span></li>
-
-                                            </ul>
-                                        </div>
-
-                                        <img src={require("../image/agency-03.jpg")} alt=""/>
-
-                                    </div>
-                                </div>
-
-                                <div className="carousel-item">
-                                    <div className="listing-item compact">
-
-
-                                        <div className="listing-img-content">
-
-                                            <ul className="listing-hidden-content">
-                                                <li>موقعیت <span>گلسار</span></li>
-                                                <li>تعداد مشاورین <span>3</span></li>
-
-                                            </ul>
-                                        </div>
-
-                                        <img src={require("../image/agency-02.jpg")} alt=""/>
-
-                                    </div>
-                                </div>
+                                    )
+                                })}
 
                             </div>
                         </div>

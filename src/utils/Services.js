@@ -167,6 +167,13 @@ export default class Services {
         })
     }
 
+    static bestAgenciesList(requestData) {
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.get(`/base/bestAgencies/list`, {
+            params: requestData
+        })
+    }
+
     static getAdvertiseImageDownloadUrl(fileName){
         // var url = `/client/advertise/download?fileName=` + fileName;
         // return axios.get(url);
