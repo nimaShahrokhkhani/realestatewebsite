@@ -19,6 +19,8 @@ import loginPanel from "./LoginPanel/loginPanel";
 import fileDetail from "./FileDetail/fileDetail";
 import advertiseDetail from "./AdvertiseDetail/advertiseDetail";
 import realStateProfile from "./RealStateProfile/realStateProfile";
+import BlogManager from "./Blogs/BlogManager";
+import Login from "./Login/login";
 
 export default class Routes extends Component {
     render() {
@@ -40,6 +42,8 @@ export default class Routes extends Component {
                         <Route path="/advertiseDetail" component={advertiseDetail}/>
                         <Route path="/realStateProfile" component={realStateProfile}/>
                         <Route path="/changePassword" component={changePassword}/>
+                        <Route path="/blogManager" component={BlogManager}/>
+                        <Route path="/panelManagerLogin" component={Login}/>
                     </Switch>
                 </ScrollToTop>
             </Router>

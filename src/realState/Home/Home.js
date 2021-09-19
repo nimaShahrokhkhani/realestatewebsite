@@ -14,10 +14,17 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            configList: []
+            configList: [],
+            blogList: []
         };
         this.finalEquipmentListSale = [];
         this.finalEquipmentListRent = [];
+    }
+
+    getBlogList() {
+        Services.getBlogList({offset: 0, length: 3}).then((response) => {
+            this.setState({blogList: response.data.data})
+        })
     }
 
     getConfigList() {
@@ -50,6 +57,7 @@ class Home extends React.Component {
 
     componentDidMount() {
         this.getConfigList();
+        this.getBlogList();
         let root = document.getElementById('home-div');
 
         var element = document.createElement("script");
@@ -879,62 +887,26 @@ class Home extends React.Component {
                     <div className="container">
                         <div className="row">
 
-                            <div className="col-md-4">
-                                <div className="blog-post">
-                                    <a href="blog-post.html" className="post-img">
-                                        <img src={require("../image/real-estate1.jpeg")} alt=""/>
-                                    </a>
-                                    <div className="post-content">
-                                        <h3><a href="#">مقاله شماره 1</a></h3>
+                            {this.state.blogList.map(blog => {
+                                return(
+                                    <div className="col-md-4">
+                                        <div className="blog-post">
+                                            <a className="post-img">
+                                                <img src={blog.contentImage} alt=""/>
+                                            </a>
+                                            <div className="post-content">
+                                                <h3><a href="#">{blog.title}1</a></h3>
 
 
-                                        <a href="blog-post.html" className="read-more">ادامه <i
-                                            className="fa fa-angle-left"></i></a>
+                                                <a href="blog-post.html" className="read-more">ادامه <i
+                                                    className="fa fa-angle-left"></i></a>
+                                            </div>
+
+                                        </div>
+
                                     </div>
-
-                                </div>
-
-                            </div>
-
-                            <div className="col-md-4">
-
-                                <div className="blog-post">
-
-                                    <a href="blog-post.html" className="post-img">
-                                        <img src={require("../image/real-estate1.jpeg")} alt=""/>
-                                    </a>
-
-                                    <div className="post-content">
-                                        <h3><a href="#">مقاله شماره 2</a></h3>
-
-
-                                        <a href="blog-post.html" className="read-more">ادامه <i
-                                            className="fa fa-angle-left"></i></a>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div className="col-md-4">
-
-                                <div className="blog-post">
-
-                                    <a href="blog-post.html" className="post-img">
-                                        <img src={require("../image/REAL-ESTATE.jpg")} alt=""/>
-                                    </a>
-
-                                    <div className="post-content">
-                                        <h3><a href="#">مقاله شماره 3</a></h3>
-
-
-                                        <a href="blog-post.html" className="read-more">ادامه <i
-                                            className="fa fa-angle-left"></i></a>
-                                    </div>
-
-                                </div>
-
-                            </div>
+                                )
+                            })}
 
                         </div>
                     </div>

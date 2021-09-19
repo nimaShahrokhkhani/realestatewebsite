@@ -22,7 +22,7 @@ class advertisingPage extends React.Component {
             offset: 0,
             length: 6,
             totalCount: 0,
-            requestData: requestData
+            requestData: requestData ? requestData : {}
         };
         this.finalEquipmentList = [];
     }

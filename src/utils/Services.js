@@ -183,4 +183,31 @@ export default class Services {
     static getUserProfileImageDownloadUrl(fileName){
         return this.baseUrl + `client/clientUsers/download?fileName=` + fileName;
     }
+
+    static getBlogImageDownloadUrl(fileName){
+        return this.baseUrl + `base/blogList/download?fileName=` + fileName;
+    }
+
+    static getBlogList(requestData) {
+        return axios.get(`/base/blogList/list`, {
+            params: requestData
+        })
+    }
+
+    static async insertBlog(requestData) {
+        return axios.post(`/base/blogManager/insert`, requestData)
+    }
+
+    static async deleteBlog(requestData) {
+        return axios.post(`/base/blogManager/delete`, requestData)
+    }
+
+    static async editBlog(requestData) {
+        return axios.post(`/base/blogManager/edit`, requestData)
+    }
+
+    static uploadBlogImage(requestData){
+        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.post(`/base/blogManager/uploadImage`, requestData)
+    }
 }
