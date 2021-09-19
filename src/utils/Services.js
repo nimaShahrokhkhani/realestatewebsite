@@ -160,6 +160,13 @@ export default class Services {
         })
     }
 
+    static latestAdvertiseList(requestData) {
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        return axios.get(`/client/advertise/latestList`, {
+            params: requestData
+        })
+    }
+
     static getAdvertiseImageDownloadUrl(fileName){
         // var url = `/client/advertise/download?fileName=` + fileName;
         // return axios.get(url);

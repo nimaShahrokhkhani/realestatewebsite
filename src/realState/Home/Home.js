@@ -15,10 +15,17 @@ class Home extends React.Component {
         super(props);
         this.state = {
             configList: [],
-            blogList: []
+            blogList: [],
+            latestAdvertiseList: []
         };
         this.finalEquipmentListSale = [];
         this.finalEquipmentListRent = [];
+    }
+
+    getLatestAdvertiseList() {
+        Services.latestAdvertiseList({offset: 0, length: 6}).then(response => {
+            this.setState({latestAdvertiseList: response.data.data})
+        })
     }
 
     getBlogList() {
@@ -56,6 +63,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
+        this.getLatestAdvertiseList();
         this.getConfigList();
         this.getBlogList();
         let root = document.getElementById('home-div');
@@ -181,6 +189,41 @@ class Home extends React.Component {
         });
     };
 
+    advertiseDetail = (advertise) => {
+        this.props.history.push({
+            pathname: '/advertiseDetail',
+            state: {
+                advertise: advertise
+            }
+        });
+    };
+
+    onBlogClick = (blog) => {
+        this.props.history.push({
+            pathname: '/blogDetail',
+            state: {
+                blog: blog
+            }
+        });
+    };
+
+    isSale(saleType) {
+        return saleType === 'فروشی' || saleType === 'معاوضه' || saleType === 'مشارکت'
+    }
+
+    renderAmount(advertise) {
+        if (this.isSale(advertise.sale)) {
+            return (
+                <span className="listing-compact-title"><i>{advertise.totalPrice} تومان</i></span>
+            )
+        } else {
+            return (
+                <span
+                    className="listing-compact-title"><i>{advertise.mortgage ? advertise.mortgage : advertise.rent} تومان</i></span>
+            )
+        }
+    }
+
     render() {
         return (
             <div id='home-div'>
@@ -197,10 +240,11 @@ class Home extends React.Component {
                                         <h2>اولین بانک اطلاعات املاک رشت</h2>
                                         <form className="main-search-form">
                                             <div className="search-type">
-                                                <label id='titleTable1' className="active"><input className="first-tab"
-                                                                                                  name="tab[]"
-                                                                                                  onClick={() => this.onTabClick('tab1')}
-                                                                                                  type="radio"/>فروشی</label>
+                                                <label id='titleTable1' className="active"><input
+                                                    className="first-tab"
+                                                    name="tab[]"
+                                                    onClick={() => this.onTabClick('tab1')}
+                                                    type="radio"/>فروشی</label>
                                                 <label id='titleTable2'><input name="tab[]"
                                                                                onClick={() => this.onTabClick('tab2')}
                                                                                type="radio"/>اجاره</label>
@@ -210,7 +254,8 @@ class Home extends React.Component {
                                                     <input type="text" className="ico-01"
                                                            placeholder="آدرس را وارد کنید."
                                                            id="addressTab1"/>
-                                                    <button onClick={this.searchSale} className="button">جست و جو</button>
+                                                    <button onClick={this.searchSale} className="button">جست و جو
+                                                    </button>
                                                 </div>
                                                 <div className="row with-forms">
                                                     <div className="col-md-4">
@@ -376,7 +421,8 @@ class Home extends React.Component {
                                                                                        }
                                                                                    }
                                                                                }}/>
-                                                                        <label htmlFor={equipment}>{equipment}</label>
+                                                                        <label
+                                                                            htmlFor={equipment}>{equipment}</label>
                                                                     </div>
                                                                 )
                                                             })}
@@ -390,7 +436,8 @@ class Home extends React.Component {
                                                     <input type="text" className="ico-01"
                                                            placeholder="آدرس را وارد کنید."
                                                            id="addressTab2"/>
-                                                    <button onClick={this.searchRent} className="button">جست و جو</button>
+                                                    <button onClick={this.searchRent} className="button">جست و جو
+                                                    </button>
                                                 </div>
                                                 <div className="row with-forms">
                                                     <div className="col-md-4">
@@ -617,7 +664,8 @@ class Home extends React.Component {
                                                                                        }
                                                                                    }
                                                                                }}/>
-                                                                        <label htmlFor={equipment}>{equipment}</label>
+                                                                        <label
+                                                                            htmlFor={equipment}>{equipment}</label>
                                                                     </div>
                                                                 )
                                                             })}
@@ -643,224 +691,61 @@ class Home extends React.Component {
                         </div>
                         <div className="col-md-12">
                             <div className="carousel">
-                                <div className="carousel-item">
-                                    <div className="listing-item">
+                                {this.state.latestAdvertiseList.map(advertise => {
+                                    return (
+                                        <a onClick={() => {
+                                            this.advertiseDetail(advertise);
+                                        }} className="carousel-item">
+                                            <div className="listing-item">
 
-                                        <a href="single-property-page-1.html" className="listing-img-container">
+                                                <a className="listing-img-container">
 
-                                            <div className="listing-badges">
-                                                <span className="featured">ویژه</span>
-                                                <span>فروشی</span>
-                                            </div>
+                                                    <div className="listing-badges">
+                                                        <span className="featured">ویژه</span>
+                                                        <span>{advertise.sale}</span>
+                                                    </div>
 
-                                            <div className="listing-img-content">
-                                                <span
-                                                    className="listing-price">275,000 تومان <i>520 تومان / متر مربع</i></span>
-                                                <span className="like-icon with-tip" data-tip-content=""></span>
+                                                    <div className="listing-img-content">
+                                                        {this.renderAmount(advertise)}
 
-                                            </div>
+                                                    </div>
 
-                                            <div className="listing-carousel">
-                                                <div><img src={require("../image/listing-01.jpg")} alt=""/></div>
-                                                <div><img src={require("../image/listing-01b.jpg")} alt=""/></div>
-                                                <div><img src={require("../image/listing-01c.jpg")} alt=""/></div>
+                                                    <div className="listing-carousel">
+                                                        {advertise.images.map(image => {
+                                                            return (
+                                                                <div><img
+                                                                    src={Services.getAdvertiseImageDownloadUrl(image.filename)}
+                                                                    alt=""/></div>
+                                                            )
+                                                        })}
+                                                    </div>
+
+                                                </a>
+
+                                                <div className="listing-content">
+
+                                                    <div className="listing-title">
+                                                        <h4><a
+                                                            href="single-property-page-1.html">{advertise.title}</a>
+                                                        </h4>
+                                                        <i className="fa fa-map-marker"></i>
+                                                    </div>
+                                                </div>
+
+                                                <ul className="listing-features">
+                                                    <li>مساحت <span>{advertise.area} متر مربع</span></li>
+                                                    <li>تعداد اتاق ها <span>{advertise.unitRoom}</span></li>
+                                                    <li>شهر <span>{advertise.city}</span></li>
+                                                </ul>
+
+                                                <div className="listing-footer">
+                                                </div>
+
                                             </div>
 
                                         </a>
-
-                                        <div className="listing-content">
-
-                                            <div className="listing-title">
-                                                <h4><a href="single-property-page-1.html">مجتمع آپارتمانی عقاب</a></h4>
-                                                <i className="fa fa-map-marker"></i>
-                                            </div>
-                                        </div>
-
-                                        <ul className="listing-features">
-                                            <li>مساحت <span>530 متر مربع</span></li>
-                                            <li>اتاق <span>2</span></li>
-                                            <li>حمام <span>1</span></li>
-                                        </ul>
-
-                                        <div className="listing-footer">
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div className="carousel-item">
-                                    <div className="listing-item">
-
-                                        <a href="single-property-page-2.html" className="listing-img-container">
-
-                                            <div className="listing-badges">
-                                                <span>اجاره ای</span>
-                                            </div>
-
-                                            <div className="listing-img-content">
-                                                <span className="listing-price">900 تومان <i>ماهیانه</i></span>
-                                                <span className="like-icon with-tip" data-tip-content=""></span>
-
-                                            </div>
-
-                                            <img src={require("../image/listing-02.jpg")} alt=""/>
-
-                                        </a>
-
-                                        <div className="listing-content">
-
-                                            <div className="listing-title">
-                                                <h4><a href="single-property-page-2.html">یک طبقه</a></h4>
-
-                                                <i className="fa fa-map-marker"></i>
-                                            </div>
-                                        </div>
-
-                                        <ul className="listing-features">
-                                            <li>مساحت <span>440 متر مربع</span></li>
-                                            <li>اتاق <span>2</span></li>
-                                            <li>حمام <span>1</span></li>
-                                        </ul>
-
-                                        <div className="listing-footer">
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div className="carousel-item">
-                                    <div className="listing-item">
-
-                                        <a href="single-property-page-1.html" className="listing-img-container">
-
-                                            <div className="listing-badges">
-                                                <span className="featured">ویژه</span>
-                                                <span>اجاره ای</span>
-                                            </div>
-
-                                            <div className="listing-img-content">
-                                                <span className="listing-price">1700 تومان <i>ماهیانه</i></span>
-                                                <span className="like-icon with-tip" data-tip-content=""></span>
-
-                                            </div>
-
-                                            <img src={require("../image/listing-03.jpg")} alt=""/>
-
-                                        </a>
-
-                                        <div className="listing-content">
-
-                                            <div className="listing-title">
-                                                <h4><a href="single-property-page-1.html">ویلایی</a></h4>
-
-                                                <i className="fa fa-map-marker"></i>
-                                            </div>
-                                        </div>
-
-                                        <ul className="listing-features">
-                                            <li>مساحت <span>1450 متر مربع</span></li>
-                                            <li>اتاق <span>2</span></li>
-                                            <li>حمام <span>3</span></li>
-                                        </ul>
-
-                                        <div className="listing-footer">
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div className="carousel-item">
-                                    <div className="listing-item">
-
-
-                                        <a href="single-property-page-3.html" className="listing-img-container">
-
-                                            <div className="listing-badges">
-                                                <span>فروشی</span>
-                                            </div>
-
-                                            <div className="listing-img-content">
-                                                <span
-                                                    className="listing-price">420,000 تومان <i>770 تومان / متر مربع</i></span>
-                                                <span className="like-icon with-tip" data-tip-content=""></span>
-                                                <span className="compare-button with-tip" data-tip-content=""></span>
-                                            </div>
-
-                                            <div className="listing-carousel">
-                                                <div><img src={require("../image/listing-04.jpg")} alt=""/></div>
-                                                <div><img src={require("../image/listing-04b.jpg")} alt=""/></div>
-                                            </div>
-
-                                        </a>
-
-                                        <div className="listing-content">
-
-                                            <div className="listing-title">
-                                                <h4><a href="single-property-page-3.html">آپارتمان</a></h4>
-
-                                                <i className="fa fa-map-marker"></i>
-                                            </div>
-                                        </div>
-
-                                        <ul className="listing-features">
-                                            <li>مساحت <span>540 متر مربع</span></li>
-                                            <li>اتاق <span>2</span></li>
-                                            <li>حمام <span>2</span></li>
-                                        </ul>
-
-                                        <div className="listing-footer">
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div className="carousel-item">
-                                    <div className="listing-item">
-
-
-                                        <a href="single-property-page-1.html" className="listing-img-container">
-                                            <div className="listing-badges">
-                                                <span>فروشی</span>
-                                            </div>
-
-                                            <div className="listing-img-content">
-                                                <span
-                                                    className="listing-price">535,000 تومان <i>640 تومان / متر مربع</i></span>
-                                                <span className="like-icon with-tip" data-tip-content=""></span>
-                                                <span className="compare-button with-tip" data-tip-content=""></span>
-                                            </div>
-
-                                            <img src={require("../image/listing-05.jpg")} alt=""/>
-                                        </a>
-
-                                        <div className="listing-content">
-
-                                            <div className="listing-title">
-                                                <h4><a href="single-property-page-1.html">خانه ویلایی</a></h4>
-
-                                                <i className="fa fa-map-marker"></i>
-                                            </div>
-                                        </div>
-
-                                        <ul className="listing-features">
-                                            <li>مساحت <span>350 متر مربع</span></li>
-                                            <li>اتاق <span>2</span></li>
-                                            <li>حمام <span>1</span></li>
-                                        </ul>
-
-                                        <div className="listing-footer">
-                                            <a href="#"><i className="fa fa-user"></i> </a>
-                                            <span><i className="fa fa-calendar-o"></i> </span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
+                                    )
+                                })}
                             </div>
 
                         </div>
@@ -898,7 +783,9 @@ class Home extends React.Component {
                                                 <h3><a href="#">{blog.title}1</a></h3>
 
 
-                                                <a href="blog-post.html" className="read-more">ادامه <i
+                                                <a onClick={() => {
+                                                    this.onBlogClick(blog)
+                                                }} className="read-more">ادامه <i
                                                     className="fa fa-angle-left"></i></a>
                                             </div>
 

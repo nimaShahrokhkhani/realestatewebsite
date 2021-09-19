@@ -37,6 +37,7 @@ class submit extends React.Component {
                     data.append('files', image);
                 }
                 data.append('advertisingCode', response.data);
+                data.append('date', new Date().getTime());
                 data.append('title', document.getElementById('titleSubmit').value);
                 data.append('sale', document.getElementById('conditionSubmit').value);
                 data.append('type', document.getElementById('kindSubmit').value);

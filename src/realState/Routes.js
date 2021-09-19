@@ -21,6 +21,7 @@ import advertiseDetail from "./AdvertiseDetail/advertiseDetail";
 import realStateProfile from "./RealStateProfile/realStateProfile";
 import BlogManager from "./Blogs/BlogManager";
 import Login from "./Login/login";
+import blogDetail from "./BlogDetail/blogDetail";
 
 export default class Routes extends Component {
     render() {
@@ -44,6 +45,7 @@ export default class Routes extends Component {
                         <Route path="/changePassword" component={changePassword}/>
                         <Route path="/blogManager" component={BlogManager}/>
                         <Route path="/panelManagerLogin" component={Login}/>
+                        <Route path="/blogDetail" component={blogDetail}/>
                     </Switch>
                 </ScrollToTop>
             </Router>
