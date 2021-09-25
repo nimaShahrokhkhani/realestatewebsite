@@ -252,16 +252,9 @@ class realstatePanel extends React.Component {
                                     <div className="row with-forms">
 
                                         <div className="col-md-3">
-                                            <select data-placeholder="وضعیت" className="chosen-select-no-single"
-                                                    name="titlePanel" id="titlePanel">
-                                                <option label="وضعیت"></option>
-                                                <option>فروش</option>
-                                                <option>اجاره</option>
-                                                <option>رهن</option>
-                                                <option>مشارکت</option>
-                                                <option>معاوضه</option>
-                                                <option>خارجی</option>
-                                            </select>
+                                            <input type="text" className="ico-01"
+                                                   placeholder="متراژ را وارد کنید."
+                                                   id="area1"/>
                                         </div>
 
                                         <div className="col-md-3">
@@ -320,11 +313,9 @@ class realstatePanel extends React.Component {
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
-                                                <label>مساحت</label>
-                                                <div id="area-range-panel" data-min="0" data-max="999999"
-                                                     data-unit="مترمربع"
-                                                     name="areaPanel"></div>
-                                                <div className="clearfix"></div>
+                                                <input type="text" className="ico-01"
+                                                       placeholder="قیمت متری از"
+                                                       id="price"/>
                                             </div>
 
                                         </div>
@@ -332,10 +323,9 @@ class realstatePanel extends React.Component {
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
-                                                <label>قیمت خرید و فروش</label>
-                                                <div id="sale-price-range" data-min="0" data-max="900000000000"
-                                                     data-unit="تومان" name="priceSellPanel"></div>
-                                                <div className="clearfix"></div>
+                                                <input type="text" className="ico-01"
+                                                       placeholder="قیمت متری تا"
+                                                       id="price"/>
                                             </div>
 
                                         </div>
@@ -344,10 +334,9 @@ class realstatePanel extends React.Component {
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
-                                                <label>قیمت رهن</label>
-                                                <div id="mortgage-price-range" data-min="0" data-max="9000000000"
-                                                     data-unit="تومان" name="priceRahnPanel"></div>
-                                                <div className="clearfix"></div>
+                                                <input type="text" className="ico-01"
+                                                       placeholder="قیمت کل از"
+                                                       id="price"/>
                                             </div>
                                         </div>
 
@@ -355,10 +344,9 @@ class realstatePanel extends React.Component {
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
-                                                <label> قیمت اجاره</label>
-                                                <div id="rent-price-range" data-min="0" data-max="500000000"
-                                                     data-unit="تومان" name="priceRentPanel"></div>
-                                                <div className="clearfix"></div>
+                                                <input type="text" className="ico-01"
+                                                       placeholder="قیمت کل تا"
+                                                       id="price"/>
                                             </div>
                                         </div>
 
@@ -512,16 +500,9 @@ class realstatePanel extends React.Component {
                                     <div className="row with-forms">
 
                                         <div className="col-md-3">
-                                            <select data-placeholder="وضعیت" className="chosen-select-no-single"
-                                                    name="titlePanel" id="titlePanel">
-                                                <option label="وضعیت"></option>
-                                                <option>فروش</option>
-                                                <option>اجاره</option>
-                                                <option>رهن</option>
-                                                <option>مشارکت</option>
-                                                <option>معاوضه</option>
-                                                <option>خارجی</option>
-                                            </select>
+                                            <input type="text" className="ico-01"
+                                                   placeholder="متراژ را وارد کنید."
+                                                   id="area2"/>
                                         </div>
 
                                         <div className="col-md-3">
@@ -580,11 +561,9 @@ class realstatePanel extends React.Component {
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
-                                                <label>مساحت</label>
-                                                <div id="area-range-panel" data-min="0" data-max="999999"
-                                                     data-unit="مترمربع"
-                                                     name="areaPanel"></div>
-                                                <div className="clearfix"></div>
+                                                <input type="text" className="ico-01"
+                                                       placeholder="قیمت رهن از"
+                                                       id="price"/>
                                             </div>
 
                                         </div>
@@ -592,10 +571,9 @@ class realstatePanel extends React.Component {
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
-                                                <label>قیمت خرید و فروش</label>
-                                                <div id="sale-price-range" data-min="0" data-max="900000000000"
-                                                     data-unit="تومان" name="priceSellPanel"></div>
-                                                <div className="clearfix"></div>
+                                                <input type="text" className="ico-01"
+                                                       placeholder="قیمت رهن تا"
+                                                       id="price"/>
                                             </div>
 
                                         </div>
@@ -604,10 +582,9 @@ class realstatePanel extends React.Component {
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
-                                                <label>قیمت رهن</label>
-                                                <div id="mortgage-price-range" data-min="0" data-max="9000000000"
-                                                     data-unit="تومان" name="priceRahnPanel"></div>
-                                                <div className="clearfix"></div>
+                                                <input type="text" className="ico-01"
+                                                       placeholder="قیمت اجاره از"
+                                                       id="price"/>
                                             </div>
                                         </div>
 
@@ -615,10 +592,9 @@ class realstatePanel extends React.Component {
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
-                                                <label> قیمت اجاره</label>
-                                                <div id="rent-price-range" data-min="0" data-max="500000000"
-                                                     data-unit="تومان" name="priceRentPanel"></div>
-                                                <div className="clearfix"></div>
+                                                <input type="text" className="ico-01"
+                                                       placeholder="قیمت اجاره تا"
+                                                       id="price"/>
                                             </div>
                                         </div>
 
@@ -772,16 +748,9 @@ class realstatePanel extends React.Component {
                                     <div className="row with-forms">
 
                                         <div className="col-md-3">
-                                            <select data-placeholder="وضعیت" className="chosen-select-no-single"
-                                                    name="titlePanel" id="titlePanel">
-                                                <option label="وضعیت"></option>
-                                                <option>فروش</option>
-                                                <option>اجاره</option>
-                                                <option>رهن</option>
-                                                <option>مشارکت</option>
-                                                <option>معاوضه</option>
-                                                <option>خارجی</option>
-                                            </select>
+                                            <input type="text" className="ico-01"
+                                                   placeholder=" متراژ را وارد کنید"
+                                                   id="area3"/>
                                         </div>
 
                                         <div className="col-md-3">
@@ -840,11 +809,9 @@ class realstatePanel extends React.Component {
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
-                                                <label>مساحت</label>
-                                                <div id="area-range-panel" data-min="0" data-max="999999"
-                                                     data-unit="مترمربع"
-                                                     name="areaPanel"></div>
-                                                <div className="clearfix"></div>
+                                                <input type="text" className="ico-01"
+                                                       placeholder="قیمت رهن کل از"
+                                                       id="price"/>
                                             </div>
 
                                         </div>
@@ -852,35 +819,16 @@ class realstatePanel extends React.Component {
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
-                                                <label>قیمت خرید و فروش</label>
-                                                <div id="sale-price-range" data-min="0" data-max="900000000000"
-                                                     data-unit="تومان" name="priceSellPanel"></div>
-                                                <div className="clearfix"></div>
+                                                <input type="text" className="ico-01"
+                                                       placeholder="قیمت رهن کل تا"
+                                                       id="price"/>
                                             </div>
 
                                         </div>
 
 
-                                        <div className="col-md-3">
-
-                                            <div className="range-slider">
-                                                <label>قیمت رهن</label>
-                                                <div id="mortgage-price-range" data-min="0" data-max="9000000000"
-                                                     data-unit="تومان" name="priceRahnPanel"></div>
-                                                <div className="clearfix"></div>
-                                            </div>
-                                        </div>
 
 
-                                        <div className="col-md-3">
-
-                                            <div className="range-slider">
-                                                <label> قیمت اجاره</label>
-                                                <div id="rent-price-range" data-min="0" data-max="500000000"
-                                                     data-unit="تومان" name="priceRentPanel"></div>
-                                                <div className="clearfix"></div>
-                                            </div>
-                                        </div>
 
                                     </div>
 
