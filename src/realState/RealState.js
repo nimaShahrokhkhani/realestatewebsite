@@ -148,6 +148,13 @@ class RealState extends React.Component {
         this.changeCurrentMenu();
     }
 
+    isLoginPage() {
+        if (this.props.location.pathname.includes('login')) {
+            return true;
+        }
+        return false;
+    }
+
     render() {
         return (
             <div id="wrapper">
@@ -197,19 +204,25 @@ class RealState extends React.Component {
                                 </nav>
                                 <div className="clearfix"></div>
                             </div>
-                            <div className="right-side">
-                                <div className="header-widget">
-                                    {(this.props.user && this.props.user.username) ?
-                                        <a id="loginContainer" className="sign-in-username" onClick={this.onProfileClick}>
-                                            {this.props.user.username} خوش آمدید</a> :
-                                        <a id="loginContainer" onClick={this.onLoginClick} className="sign-in">
-                                            ورود / ثبت نام</a>}
-                                    <a id="userContainer" href="my-profile.html" className="sign-in" hidden>
-                                        <span id="usernameHeader"></span></a>
-                                    <a onClick={this.onSubmitAdvertiseClick} className="button border">ثبت آگهی
-                                        رایگان</a>
+                            {!this.isLoginPage() ?
+                                <div className="right-side">
+                                    <div className="header-widget">
+                                        {(this.props.user && this.props.user.username) ?
+                                            <a id="loginContainer" className="sign-in-username"
+                                               onClick={this.onProfileClick}>
+                                                {this.props.user.username} خوش آمدید</a> :
+                                            <a id="loginContainer" onClick={this.onLoginClick} className="sign-in">
+                                                {this.props.location.pathname === "/realstatePanel" ? 'ورود به پنل املاک' : 'ورود / ثبت نام'}
+                                            </a>}
+                                        <a id="userContainer" href="my-profile.html" className="sign-in" hidden>
+                                            <span id="usernameHeader"></span></a>
+                                        <a onClick={this.onSubmitAdvertiseClick} className="button border">ثبت آگهی
+                                            رایگان</a>
+                                    </div>
+                                </div> :
+                                <div className="right-side">
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                     <div id="header" className='cloned unsticky'>
@@ -255,20 +268,25 @@ class RealState extends React.Component {
                                 </nav>
                                 <div className="clearfix"></div>
                             </div>
-                            <div className="right-side">
-                                <div className="header-widget">
-                                    {(this.props.user && this.props.user.username) ?
-                                        <a id="loginContainer" className="sign-in-username" onClick={this.onProfileClick}>
-                                            {this.props.user.username} خوش آمدید</a> :
-                                        <a id="loginContainer" onClick={this.onLoginClick} className="sign-in"><i
-                                            className="fa fa-user"></i>
-                                            ورود / ثبت نام</a>}
-                                    <a id="userContainer" href="my-profile.html" className="sign-in" hidden>
-                                        <span id="usernameHeader"></span></a>
-                                    <a onClick={this.onSubmitAdvertiseClick} className="button border">ثبت آگهی
-                                        رایگان</a>
+                            {!this.isLoginPage() ?
+                                <div className="right-side">
+                                    <div className="header-widget">
+                                        {(this.props.user && this.props.user.username) ?
+                                            <a id="loginContainer" className="sign-in-username" onClick={this.onProfileClick}>
+                                                {this.props.user.username} خوش آمدید</a> :
+                                            <a id="loginContainer" onClick={this.onLoginClick} className="sign-in">
+                                                <i className="fa fa-user"></i>
+                                                {this.props.location.pathname === "/realstatePanel" ? 'ورود به پنل املاک' : 'ورود / ثبت نام'}
+                                            </a>}
+                                        <a id="userContainer" href="my-profile.html" className="sign-in" hidden>
+                                            <span id="usernameHeader"></span></a>
+                                        <a onClick={this.onSubmitAdvertiseClick} className="button border">ثبت آگهی
+                                            رایگان</a>
+                                    </div>
+                                </div> :
+                                <div className="right-side">
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </header>
@@ -365,3 +383,19 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {setUser, setState})(withTranslation()(RealState));
+
+
+{/*
+<div className="d-flex align-items-center">
+    <a referrerPolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=184185&amp;Code=hOMhSUQs1Y4sKnO6xS2M">
+        <img
+            referrerPolicy="origin"
+            src="https://Trustseal.eNamad.ir/logo.aspx?id=184185&amp;Code=hOMhSUQs1Y4sKnO6xS2M"
+            alt="" style={{cursor:'pointer'}} id="hOMhSUQs1Y4sKnO6xS2M"/>
+    </a>
+    <img
+        id="nbqeesgtfukzoeukjzpejxlz" style={{cursor:'pointer'}}
+        onClick="window.open(&quot;https://logo.samandehi.ir/Verify.aspx?id=206871&amp;p=uiwkobpdgvkamcsijyoerfth&quot;, &quot;Popup&quot;,&quot;toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30&quot;)"
+        alt=""
+        src="https://logo.samandehi.ir/logo.aspx?id=206871&amp;p=odrflymawlbqaqgwyndtnbpd"/>
+</div>*/}

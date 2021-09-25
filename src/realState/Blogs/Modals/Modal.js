@@ -24,7 +24,7 @@ class ModalForm extends Component {
       let button = ''
       let title = ''
 
-      if(label === 'Edit'){
+      if(label === 'ویرایش'){
         button = <Button
                   color="warning"
                   onClick={this.toggle}

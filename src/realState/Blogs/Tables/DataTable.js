@@ -7,7 +7,7 @@ import './DataTable.css';
 class DataTable extends Component {
 
     deleteItem = id => {
-        let confirmDelete = window.confirm('Delete item forever?')
+        let confirmDelete = window.confirm('آیا از حذف اطمینان دارید؟')
         if (confirmDelete) {
             this.props.deleteItemFromState(id)
         }
@@ -38,7 +38,7 @@ class DataTable extends Component {
                                 justifyContent: "center",
                                 alignItems: "center"
                             }}>
-                                <ModalForm buttonLabel="Edit" item={item} updateState={this.props.updateState}
+                                <ModalForm buttonLabel="ویرایش" item={item} updateState={this.props.updateState}
                                            getItems={this.props.getItems}/>
                                 {' '}
                                 <Button color="danger" onClick={() => this.deleteItem(item.id)}>حذف</Button>
