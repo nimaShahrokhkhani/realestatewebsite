@@ -148,8 +148,8 @@ class Home extends React.Component {
             type: document.getElementById('typeTab1').value !== '' ? document.getElementById('typeTab1').value : undefined,
             room: document.getElementById('roomNumberTab1').value !== '' ? document.getElementById('roomNumberTab1').value : undefined,
             unitWC: document.getElementById('wcTab1').value !== '' ? document.getElementById('wcTab1').value : undefined,
-            fromTotalPrice: document.getElementById('minTotalPriceTab1').value !== '' ? parseInt(document.getElementById('minTotalPriceTab1').value) : undefined,
-            toTotalPrice: document.getElementById('maxTotalPriceTab1').value !== '' ? parseInt(document.getElementById('maxTotalPriceTab1').value) : undefined,
+            fromTotalPrice: document.getElementById('minTotalPriceTab1').value !== '' ? this.convertAmount(document.getElementById('minTotalPriceTab1').value) : undefined,
+            toTotalPrice: document.getElementById('maxTotalPriceTab1').value !== '' ? this.convertAmount(document.getElementById('maxTotalPriceTab1').value) : undefined,
             fromArea: document.getElementById('areaMinTab1').value !== '' ? parseInt(document.getElementById('areaMinTab1').value) : undefined,
             toArea: document.getElementById('areaMaxTab1').value !== '' ? parseInt(document.getElementById('areaMaxTab1').value) : undefined,
             equipments: this.finalEquipmentListSale
@@ -173,10 +173,10 @@ class Home extends React.Component {
             type: document.getElementById('typeTab2').value !== '' ? document.getElementById('typeTab2').value : undefined,
             room: document.getElementById('roomNumberTab2').value !== '' ? document.getElementById('roomNumberTab2').value : undefined,
             unitWC: document.getElementById('wcTab2').value !== '' ? document.getElementById('wcTab2').value : undefined,
-            fromRent: document.getElementById('minRentTab2').value !== '' ? parseInt(document.getElementById('minRentTab2').value) : undefined,
-            toRent: document.getElementById('maxRentTab2').value !== '' ? parseInt(document.getElementById('maxRentTab2').value) : undefined,
-            fromMortgage: document.getElementById('minMortgageTab2').value !== '' ? parseInt(document.getElementById('minMortgageTab2').value) : undefined,
-            toMortgage: document.getElementById('maxMortgageTab2').value !== '' ? parseInt(document.getElementById('maxMortgageTab2').value) : undefined,
+            fromRent: document.getElementById('minRentTab2').value !== '' ? this.convertAmount(document.getElementById('minRentTab2').value) : undefined,
+            toRent: document.getElementById('maxRentTab2').value !== '' ? this.convertAmount(document.getElementById('maxRentTab2').value) : undefined,
+            fromMortgage: document.getElementById('minMortgageTab2').value !== '' ? this.convertAmount(document.getElementById('minMortgageTab2').value) : undefined,
+            toMortgage: document.getElementById('maxMortgageTab2').value !== '' ? this.convertAmount(document.getElementById('maxMortgageTab2').value) : undefined,
             fromArea: document.getElementById('areaMinTab2').value !== '' ? parseInt(document.getElementById('areaMinTab2').value) : undefined,
             toArea: document.getElementById('areaMaxTab2').value !== '' ? parseInt(document.getElementById('areaMaxTab2').value) : undefined,
             equipments: this.finalEquipmentListSale
@@ -211,6 +211,16 @@ class Home extends React.Component {
         return saleType === 'فروشی' || saleType === 'معاوضه' || saleType === 'مشارکت'
     }
 
+    convertAmount(amount) {
+        if (amount.includes('هزار')) {
+            return parseInt(amount.match(/\d+/g)[0]) * 1000;
+        } else if (amount.includes('میلیون')) {
+            return parseInt(amount.match(/\d+/g)[0]) * 1000000;
+        } else if (amount.includes('میلیارد')){
+            return parseInt(amount.match(/\d+/g)[0]) * 1000000000;
+        }
+    }
+
     renderAmount(advertise) {
         if (this.isSale(advertise.sale)) {
             return (
@@ -237,7 +247,7 @@ class Home extends React.Component {
                             <div className="row">
                                 <div className="col-md-12">
                                     <div className="main-search-container">
-                                        <h2>اولین بانک اطلاعات املاک رشت</h2>
+                                        <h2>اولین بانک اطلاعات املاک گیلان</h2>
                                         <form className="main-search-form">
                                             <div className="search-type">
                                                 <label id='titleTable1' className="active"><input
@@ -280,27 +290,20 @@ class Home extends React.Component {
                                                                    id="minTotalPriceTab1"/>
                                                             <select>
                                                                 <option></option>
-                                                                <option>1000</option>
-                                                                <option>2000</option>
-                                                                <option>3000</option>
-                                                                <option>4000</option>
-                                                                <option>5000</option>
-                                                                <option>10000</option>
-                                                                <option>15000</option>
-                                                                <option>20000</option>
-                                                                <option>30000</option>
-                                                                <option>40000</option>
-                                                                <option>50000</option>
-                                                                <option>60000</option>
-                                                                <option>70000</option>
-                                                                <option>80000</option>
-                                                                <option>90000</option>
-                                                                <option>100000</option>
-                                                                <option>110000</option>
-                                                                <option>120000</option>
-                                                                <option>130000</option>
-                                                                <option>140000</option>
-                                                                <option>150000</option>
+                                                                <option>200 میلیون</option>
+                                                                <option>300 میلیون</option>
+                                                                <option>500 میلیون</option>
+                                                                <option>750 میلیون</option>
+                                                                <option>1 میلیارد</option>
+                                                                <option>2 میلیارد</option>
+                                                                <option>3 میلیارد</option>
+                                                                <option>4 میلیارد</option>
+                                                                <option>8 میلیارد</option>
+                                                                <option>10 میلیارد</option>
+                                                                <option>15 میلیارد</option>
+                                                                <option>30 میلیارد</option>
+                                                                <option>50 میلیارد </option>
+
                                                             </select>
                                                         </div>
 
@@ -312,27 +315,22 @@ class Home extends React.Component {
                                                                    id="maxTotalPriceTab1"/>
                                                             <select>
                                                                 <option></option>
-                                                                <option>1000</option>
-                                                                <option>2000</option>
-                                                                <option>3000</option>
-                                                                <option>4000</option>
-                                                                <option>5000</option>
-                                                                <option>10000</option>
-                                                                <option>15000</option>
-                                                                <option>20000</option>
-                                                                <option>30000</option>
-                                                                <option>40000</option>
-                                                                <option>50000</option>
-                                                                <option>60000</option>
-                                                                <option>70000</option>
-                                                                <option>80000</option>
-                                                                <option>90000</option>
-                                                                <option>100000</option>
-                                                                <option>110000</option>
-                                                                <option>120000</option>
-                                                                <option>130000</option>
-                                                                <option>140000</option>
-                                                                <option>150000</option>
+                                                                <option> 1 میلیارد </option>
+                                                                <option> 1.5 میلیارد</option>
+                                                                <option> 2 میلیارد </option>
+                                                                <option> 3 میلیارد </option>
+                                                                <option>  5 میلیارد </option>
+                                                                <option> 10 میلیارد</option>
+                                                                <option>20 میلیارد</option>
+                                                                <option>30 میلیارد</option>
+                                                                <option>40 میلیارد</option>
+                                                                <option>50 میلیارد</option>
+                                                                <option>60 میلیارد</option>
+                                                                <option> 80 میلیارد</option>
+                                                                <option>100 میلیارد</option>
+                                                                <option> 120 میلیارد</option>
+
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -462,27 +460,24 @@ class Home extends React.Component {
                                                                    id="minMortgageTab2"/>
                                                             <select>
                                                                 <option></option>
-                                                                <option>1000</option>
-                                                                <option>2000</option>
-                                                                <option>3000</option>
-                                                                <option>4000</option>
-                                                                <option>5000</option>
-                                                                <option>10000</option>
-                                                                <option>15000</option>
-                                                                <option>20000</option>
-                                                                <option>30000</option>
-                                                                <option>40000</option>
-                                                                <option>50000</option>
-                                                                <option>60000</option>
-                                                                <option>70000</option>
-                                                                <option>80000</option>
-                                                                <option>90000</option>
-                                                                <option>100000</option>
-                                                                <option>110000</option>
-                                                                <option>120000</option>
-                                                                <option>130000</option>
-                                                                <option>140000</option>
-                                                                <option>150000</option>
+                                                                <option>10 میلیون</option>
+                                                                <option>20 میلیون</option>
+                                                                <option>30 میلیون</option>
+                                                                <option>40 میلیون</option>
+                                                                <option> 50 میلیون</option>
+                                                                <option>100 میلیون</option>
+                                                                <option>150 میلیون</option>
+                                                                <option>250 میلیون</option>
+                                                                <option>350 میلیون</option>
+                                                                <option>500 میلیون</option>
+                                                                <option>750 میلیون</option>
+                                                                <option>1 میلیارد</option>
+                                                                <option>1.2 میلیارد</option>
+                                                                <option>1.5 میلیارد</option>
+                                                                <option>2 میلیارد</option>
+                                                                <option>3 میلیارد</option>
+                                                                <option>5 میلیارد</option>
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -492,28 +487,27 @@ class Home extends React.Component {
                                                                    data-unit="تومان"
                                                                    id="maxMortgageTab2"/>
                                                             <select>
-                                                                <option></option>
-                                                                <option>1000</option>
-                                                                <option>2000</option>
-                                                                <option>3000</option>
-                                                                <option>4000</option>
-                                                                <option>5000</option>
-                                                                <option>10000</option>
-                                                                <option>15000</option>
-                                                                <option>20000</option>
-                                                                <option>30000</option>
-                                                                <option>40000</option>
-                                                                <option>50000</option>
-                                                                <option>60000</option>
-                                                                <option>70000</option>
-                                                                <option>80000</option>
-                                                                <option>90000</option>
-                                                                <option>100000</option>
-                                                                <option>110000</option>
-                                                                <option>120000</option>
-                                                                <option>130000</option>
-                                                                <option>140000</option>
-                                                                <option>150000</option>
+                                                                <option>10 میلیون</option>
+                                                                <option>20 میلیون</option>
+                                                                <option>30 میلیون</option>
+                                                                <option>40 میلیون</option>
+                                                                <option> 50 میلیون</option>
+                                                                <option>100 میلیون</option>
+                                                                <option>150 میلیون</option>
+                                                                <option>250 میلیون</option>
+                                                                <option>350 میلیون</option>
+                                                                <option>500 میلیون</option>
+                                                                <option>750 میلیون</option>
+                                                                <option>1 میلیارد</option>
+                                                                <option>1.2 میلیارد</option>
+                                                                <option>1.5 میلیارد</option>
+                                                                <option>2 میلیارد</option>
+                                                                <option>3 میلیارد</option>
+                                                                <option>5 میلیارد</option>
+                                                                <option>8 میلیارد</option>
+                                                                <option>10 میلیارد</option>
+                                                                <option>15 میلیارد</option>
+                                                                <option>20 میلیارد</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -524,27 +518,15 @@ class Home extends React.Component {
                                                                    id="minRentTab2"/>
                                                             <select>
                                                                 <option></option>
-                                                                <option>1000</option>
-                                                                <option>2000</option>
-                                                                <option>3000</option>
-                                                                <option>4000</option>
-                                                                <option>5000</option>
-                                                                <option>10000</option>
-                                                                <option>15000</option>
-                                                                <option>20000</option>
-                                                                <option>30000</option>
-                                                                <option>40000</option>
-                                                                <option>50000</option>
-                                                                <option>60000</option>
-                                                                <option>70000</option>
-                                                                <option>80000</option>
-                                                                <option>90000</option>
-                                                                <option>100000</option>
-                                                                <option>110000</option>
-                                                                <option>120000</option>
-                                                                <option>130000</option>
-                                                                <option>140000</option>
-                                                                <option>150000</option>
+                                                                <option>100 هزار</option>
+                                                                <option>500 هزار</option>
+                                                                <option>1 میلیون</option>
+                                                                <option>1.5 میلیون</option>
+                                                                <option>2 میلیون</option>
+                                                                <option>5 میلیون</option>
+                                                                <option>10 میلیون</option>
+                                                                <option>20 میلیون</option>
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -554,28 +536,15 @@ class Home extends React.Component {
                                                                    data-unit="تومان"
                                                                    id="maxRentTab2"/>
                                                             <select>
-                                                                <option></option>
-                                                                <option>1000</option>
-                                                                <option>2000</option>
-                                                                <option>3000</option>
-                                                                <option>4000</option>
-                                                                <option>5000</option>
-                                                                <option>10000</option>
-                                                                <option>15000</option>
-                                                                <option>20000</option>
-                                                                <option>30000</option>
-                                                                <option>40000</option>
-                                                                <option>50000</option>
-                                                                <option>60000</option>
-                                                                <option>70000</option>
-                                                                <option>80000</option>
-                                                                <option>90000</option>
-                                                                <option>100000</option>
-                                                                <option>110000</option>
-                                                                <option>120000</option>
-                                                                <option>130000</option>
-                                                                <option>140000</option>
-                                                                <option>150000</option>
+                                                                <option>500 هزار</option>
+                                                                <option>1 میلیون</option>
+                                                                <option>2 میلیون</option>
+                                                                <option>4 میلیون</option>
+                                                                <option>8 میلیون</option>
+                                                                <option>10 میلیون</option>
+                                                                <option>15 میلیون</option>
+                                                                <option>20 میلیون</option>
+                                                                <option>30 میلیون</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -593,13 +562,17 @@ class Home extends React.Component {
                                                                            data-unit="متر مربع" id="areaMinTab2"/>
                                                                     <select>
                                                                         <option></option>
+                                                                        <option>40</option>
+                                                                        <option>60</option>
+                                                                        <option>80</option>
+                                                                        <option>90</option>
+                                                                        <option>100</option>
+                                                                        <option>140</option>
+                                                                        <option>160</option>
+                                                                        <option>200</option>
+                                                                        <option>250</option>
                                                                         <option>300</option>
-                                                                        <option>400</option>
-                                                                        <option>500</option>
-                                                                        <option>700</option>
-                                                                        <option>800</option>
-                                                                        <option>1000</option>
-                                                                        <option>1500</option>
+                                                                        <option>360 متر</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -609,13 +582,21 @@ class Home extends React.Component {
                                                                            data-unit="متر مربع" id="areaMaxTab2"/>
                                                                     <select>
                                                                         <option></option>
+                                                                        <option>140</option>
+                                                                        <option>160</option>
+                                                                        <option>180</option>
+                                                                        <option>190</option>
+                                                                        <option>200</option>
+                                                                        <option>250</option>
                                                                         <option>300</option>
-                                                                        <option>400</option>
-                                                                        <option>500</option>
+                                                                        <option>350</option>
+                                                                        <option>450</option>
+                                                                        <option>600</option>
                                                                         <option>700</option>
                                                                         <option>800</option>
-                                                                        <option>1000</option>
-                                                                        <option>1500</option>
+
+
+
                                                                     </select>
                                                                 </div>
                                                             </div>

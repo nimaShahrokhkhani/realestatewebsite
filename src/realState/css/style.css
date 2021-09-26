@@ -2069,8 +2069,8 @@ em.mm-counter+a.mm-fullsubopen+span {
 .main-search-container h1,
 .main-search-container h2 {
 	text-align: center;
-	color: #fff;
-	font-size: 36px;
+	color: black;
+	font-size: 40px;
 }
 
 .main-search-form {
@@ -8926,7 +8926,7 @@ ul.select-options li {
 	list-style: none;
 	line-height: 15px;
 	border-radius: 3px;
-	direction: ltr;
+	direction:rtl;
 }
 
 .select-options li:hover {

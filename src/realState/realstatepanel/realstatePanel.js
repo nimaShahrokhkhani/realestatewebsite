@@ -274,10 +274,10 @@ class realstatePanel extends React.Component {
                                         </div>
 
                                         <div className="col-md-2">
-                                            <select data-placeholder="کد منطقه را وارد کنید" style={{color: '#888'}}
+                                            <select data-placeholder="کد منطقه " style={{color: '#888'}}
                                                     name="regionCode" id="regionCode"
                                                     onChange={this.onRegionCodeChange}>
-                                                <option label="کد منطقه را وارد کنید" disabled selected></option>
+                                                <option label="کد منطقه " disabled selected></option>
                                                 {regionCodeList && regionCodeList.map(regionCode => {
                                                     return (
                                                         <option>{regionCode}</option>
@@ -522,10 +522,10 @@ class realstatePanel extends React.Component {
                                         </div>
 
                                         <div className="col-md-2">
-                                            <select data-placeholder="کد منطقه را وارد کنید" style={{color: '#888'}}
+                                            <select data-placeholder="کد منطقه " style={{color: '#888'}}
                                                     name="regionCode" id="regionCode"
                                                     onChange={this.onRegionCodeChange}>
-                                                <option label="کد منطقه را وارد کنید" disabled selected></option>
+                                                <option label="کد منطقه " disabled selected></option>
                                                 {regionCodeList && regionCodeList.map(regionCode => {
                                                     return (
                                                         <option>{regionCode}</option>
@@ -770,10 +770,10 @@ class realstatePanel extends React.Component {
                                         </div>
 
                                         <div className="col-md-2">
-                                            <select data-placeholder="کد منطقه را وارد کنید" style={{color: '#888'}}
+                                            <select data-placeholder="کد منطقه " style={{color: '#888'}}
                                                     name="regionCode" id="regionCode"
                                                     onChange={this.onRegionCodeChange}>
-                                                <option label="کد منطقه را وارد کنید" disabled selected></option>
+                                                <option label="کد منطقه " disabled selected></option>
                                                 {regionCodeList && regionCodeList.map(regionCode => {
                                                     return (
                                                         <option>{regionCode}</option>
