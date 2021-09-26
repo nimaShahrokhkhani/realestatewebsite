@@ -28,7 +28,16 @@ class fileDetail extends React.Component {
             this.file = response.data;
             this.showFile(response.data)
         }).catch(error => {
-            this.setState({isErrorPage: true})
+            if (error.message.includes('403')) {
+                sessionStorage.clear();
+                localStorage.clear();
+                this.props.setUser({});
+                this.props.history.push({
+                    pathname: '/login'
+                });
+            } else {
+                this.setState({isErrorPage: true})
+            }
         })
     }
 
@@ -43,6 +52,15 @@ class fileDetail extends React.Component {
                     fileId: response.data.Id
                 }
             });
+        }).catch(error => {
+            if (error.message.includes('403')) {
+                sessionStorage.clear();
+                localStorage.clear();
+                this.props.setUser({});
+                this.props.history.push({
+                    pathname: '/login'
+                });
+            }
         })
     };
 
@@ -57,6 +75,15 @@ class fileDetail extends React.Component {
                     fileId: response.data.Id
                 }
             });
+        }).catch(error => {
+            if (error.message.includes('403')) {
+                sessionStorage.clear();
+                localStorage.clear();
+                this.props.setUser({});
+                this.props.history.push({
+                    pathname: '/login'
+                });
+            }
         })
     };
 

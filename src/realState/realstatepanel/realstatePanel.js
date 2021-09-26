@@ -21,6 +21,7 @@ class realstatePanel extends React.Component {
             regionNameList: []
         };
         this.finalEquipmentList = [];
+        this.saleType = undefined;
     }
 
     getRegionNameListFromRegionCode(regionCode) {
@@ -68,21 +69,55 @@ class realstatePanel extends React.Component {
         return saleType === 'فروش' || saleType === 'معاوضه' || saleType === 'مشارکت'
     }
 
+    getAreaRange() {
+        let area = document.getElementById('area').value;
+        switch (area) {
+            case '-۵۰':
+                return [0, 50];
+            case '۵۰ تا ۱۰۰':
+                return [50, 100];
+            case '۱۰۰ تا ۱۲۰':
+                return [100, 120];
+            case '۱۲۰ تا ۱۵۰':
+                return [120, 150];
+            case '۱۵۰ تا ۳۰۰':
+                return [150, 300];
+            case '۳۰۰ تا ۱۰۰۰':
+                return [300, 1000];
+            case '۱۰۰۰ تا ۱۰۰۰۰':
+                return [1000, 10000];
+            case '+۱۰۰۰۰':
+                return [10000, Number.MAX_SAFE_INTEGER];
+            default:
+                return undefined;
+        }
+    }
 
     searchFile = () => {
-        let saleType = document.getElementById('titlePanel').value;
+        let saleType = this.saleType;
+        let areaRange = this.getAreaRange();
         let requestObject = {
-            sale: document.getElementById('titlePanel').value,
+            sale: saleType,
             regionCode: document.getElementById('regionCode').value,
             regionName: document.getElementById('regionName').value,
-            fromArea: parseInt(document.getElementById('area-range-panel-min').value.match(/\d+/)[0]),
-            toArea: parseInt(document.getElementById('area-range-panel-max').value.match(/\d+/)[0]),
-            fromTotalPrice: this.isSale(saleType) ? parseInt(document.getElementById('sale-price-range-min').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
-            toTotalPrice: this.isSale(saleType) ? parseInt(document.getElementById('sale-price-range-max').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
-            fromMortgage: !this.isSale(saleType) ? parseInt(document.getElementById('mortgage-price-range-min').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
-            toMortgage: !this.isSale(saleType) ? parseInt(document.getElementById('mortgage-price-range-max').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
-            fromRent: !this.isSale(saleType) ? parseInt(document.getElementById('rent-price-range-min').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
-            toRent: !this.isSale(saleType) ? parseInt(document.getElementById('rent-price-range-max').value.split(' تومان')[0].replace(/,/g, '')) : undefined,
+            fromArea: areaRange ? areaRange[0] : undefined,
+            toArea: areaRange ? areaRange[1] : undefined,
+            fromUnitPrice: this.isSale(saleType) ? (document.getElementById('fromUnitPrice').value ?
+                parseInt(document.getElementById('fromUnitPrice').value) : undefined) : undefined,
+            toUnitPrice: this.isSale(saleType) ? (document.getElementById('toUnitPrice').value ?
+                parseInt(document.getElementById('toUnitPrice').value) : undefined) : undefined,
+            fromTotalPrice: this.isSale(saleType) ? (document.getElementById('fromTotalPrice').value ?
+                parseInt(document.getElementById('fromTotalPrice').value) : undefined) : undefined,
+            toTotalPrice: this.isSale(saleType) ? (document.getElementById('toTotalPrice').value ?
+                parseInt(document.getElementById('toTotalPrice').value) : undefined) : undefined,
+            fromMortgage: !this.isSale(saleType) ? (document.getElementById('fromMortgage').value ?
+                parseInt(document.getElementById('fromMortgage').value) : undefined) : undefined,
+            toMortgage: !this.isSale(saleType) ? (document.getElementById('toMortgage').value ?
+                parseInt(document.getElementById('toMortgage').value) : undefined) : undefined,
+            fromRent: !this.isSale(saleType) ? (document.getElementById('fromRent').value ?
+                parseInt(document.getElementById('fromRent').value) : undefined) : undefined,
+            toRent: !this.isSale(saleType) ? (document.getElementById('toRent').value ?
+                parseInt(document.getElementById('toRent').value) : undefined) : undefined,
             fromAge: document.getElementById('agePanel').value.match(/\d+/g) ?
                 parseInt(document.getElementById('agePanel').value.match(/\d+/g)[0]) : undefined,
             toAge: document.getElementById('agePanel').value.match(/\d+/g) ?
@@ -188,6 +223,7 @@ class realstatePanel extends React.Component {
     }
 
     onTabClick(tab) {
+        this.clearPriceInputsOnTabChange();
         let tab1 = document.getElementById('tab1');
         let tab2 = document.getElementById('tab2');
         let tab3 = document.getElementById('tab3');
@@ -201,6 +237,7 @@ class realstatePanel extends React.Component {
             titleTable1.className = 'active';
             titleTable2.className = '';
             titleTable3.className = '';
+            this.saleType = 'فروش';
         } else if (tab === 'tab2') {
             tab2.style.display = 'block';
             tab1.style.display = 'none';
@@ -208,6 +245,7 @@ class realstatePanel extends React.Component {
             titleTable1.className = '';
             titleTable3.className = '';
             titleTable2.className = 'active';
+            this.saleType = 'اجاره';
         } else {
             tab3.style.display = 'block';
             tab1.style.display = 'none';
@@ -215,7 +253,23 @@ class realstatePanel extends React.Component {
             titleTable1.className = '';
             titleTable2.className = '';
             titleTable3.className = 'active';
+            this.saleType = 'رهن';
         }
+    }
+
+    clearPriceInputsOnTabChange() {
+        document.getElementById('fromUnitPrice').value = '';
+        document.getElementById('toUnitPrice').value = '';
+        document.getElementById('fromTotalPrice').value = '';
+        document.getElementById('toTotalPrice').value = '';
+
+        document.getElementById('fromMortgage').value = '';
+        document.getElementById('toMortgage').value = '';
+        document.getElementById('fromRent').value = '';
+        document.getElementById('toRent').value = '';
+
+        document.getElementById('fromTotalMortgage').value = '';
+        document.getElementById('toTotalMortgage').value = '';
     }
 
     render() {
@@ -246,15 +300,26 @@ class realstatePanel extends React.Component {
                                                                    onClick={() => this.onTabClick('tab3')}
                                                                    type="radio"/>رهن</label>
                                 </div>
-                                <div id='tab1' className="main-search-box no-shadow">
+
+                                <div className="main-search-box no-shadow">
 
 
                                     <div className="row with-forms">
 
                                         <div className="col-md-3">
-                                            <input type="text" className="ico-01"
-                                                   placeholder="متراژ را وارد کنید."
-                                                   id="area1"/>
+                                            <select data-placeholder="متراژ" className="chosen-select-no-single"
+                                                    name="area" id="area">
+                                                <option label="متراژ"></option>
+                                                <option>-۵۰</option>
+                                                <option>۵۰ تا ۱۰۰</option>
+                                                <option>۱۰۰ تا ۱۲۰</option>
+                                                <option>۱۲۰ تا ۱۵۰</option>
+                                                <option>۱۵۰ تا ۳۰۰</option>
+                                                <option>۳۰۰ تا ۱۰۰۰</option>
+                                                <option>۱۰۰۰ تا ۱۰۰۰۰</option>
+                                                <option>+۱۰۰۰۰</option>
+
+                                            </select>
                                         </div>
 
                                         <div className="col-md-3">
@@ -289,10 +354,10 @@ class realstatePanel extends React.Component {
 
                                         <div className="col-md-4">
                                             <div className="main-search-input">
-                                                <select data-placeholder="نام منطقه را وارد کنید"
+                                                <select data-placeholder="نام منطقه"
                                                         name="regionName" style={{color: '#888'}}
                                                         id="regionName">
-                                                    <option label="نام منطقه را وارد کنید" disabled selected></option>
+                                                    <option label="نام منطقه" disabled selected></option>
                                                     {this.state.regionNameList && this.state.regionNameList.map(regionName => {
                                                         return (
                                                             <option>{regionName}</option>
@@ -308,14 +373,14 @@ class realstatePanel extends React.Component {
                                     </div>
 
 
-                                    <div className="row with-forms">
+                                    <div id='tab1' className="row with-forms">
 
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
                                                 <input type="text" className="ico-01"
                                                        placeholder="قیمت متری از"
-                                                       id="price"/>
+                                                       id="fromUnitPrice"/>
                                             </div>
 
                                         </div>
@@ -325,7 +390,7 @@ class realstatePanel extends React.Component {
                                             <div className="range-slider">
                                                 <input type="text" className="ico-01"
                                                        placeholder="قیمت متری تا"
-                                                       id="price"/>
+                                                       id="toUnitPrice"/>
                                             </div>
 
                                         </div>
@@ -336,7 +401,7 @@ class realstatePanel extends React.Component {
                                             <div className="range-slider">
                                                 <input type="text" className="ico-01"
                                                        placeholder="قیمت کل از"
-                                                       id="price"/>
+                                                       id="fromTotalPrice"/>
                                             </div>
                                         </div>
 
@@ -346,224 +411,19 @@ class realstatePanel extends React.Component {
                                             <div className="range-slider">
                                                 <input type="text" className="ico-01"
                                                        placeholder="قیمت کل تا"
-                                                       id="price"/>
+                                                       id="toTotalPrice"/>
                                             </div>
                                         </div>
 
                                     </div>
-
-                                    <a href="#" className="more-search-options-trigger margin-top-10"
-                                       data-open-title="گزینه های بیشتر"
-                                       data-close-title="بستن"></a>
-
-                                    <div className="more-search-options relative">
-                                        <div className="more-search-options-container">
-
-                                            <div className="row with-forms">
-
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="عمر خانه"
-                                                            className="chosen-select-no-single" name="agePanel"
-                                                            id="agePanel">
-                                                        <option label="عمر خانه"></option>
-                                                        <option>0 تا 1 سال</option>
-                                                        <option>0 تا 5 سال</option>
-                                                        <option>0 تا 10 سال</option>
-                                                        <option>0 تا 20 سال</option>
-                                                        <option>0 تا 50 سال</option>
-                                                        <option>بالای 50 سال</option>
-                                                    </select>
-                                                </div>
-
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="اتاق" className="chosen-select-no-single"
-                                                            name="roomPanel" id="roomPanel">
-                                                        <option label="اتاق"></option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </select>
-                                                </div>
-
-
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="آشپزخانه" className="chosen-select-no-single"
-                                                            name="unitKitchen" id="unitKitchen">
-                                                        <option label="آشپزخانه"></option>
-                                                        {this.state.configList.kitchenService && this.state.configList.kitchenService.map(kitchenService => {
-                                                            return (
-                                                                <option>{kitchenService}</option>
-                                                            )
-                                                        })}
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="نما" className="chosen-select-no-single"
-                                                            name="frontKind" id="frontKind">
-                                                        <option label="نما"></option>
-                                                        {this.state.configList.frontKind && this.state.configList.frontKind.map(frontKind => {
-                                                            return (
-                                                                <option>{frontKind}</option>
-                                                            )
-                                                        })}
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="تعداد واحد در هر طبقه"
-                                                            className="chosen-select-no-single" name="numberHousePanel"
-                                                            id="numberHousePanel">
-                                                        <option label="تعداد واحد در هر طبقه"></option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>6</option>
-
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="سند"
-                                                            className="chosen-select-no-single" name="documentKind"
-                                                            id="documentKind">
-                                                        <option label="سند"></option>
-                                                        {this.state.configList.documentKind && this.state.configList.documentKind.map(documentKind => {
-                                                            return (
-                                                                <option>{documentKind}</option>
-                                                            )
-                                                        })}
-
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="کف" className="chosen-select-no-single"
-                                                            name="floorCovering" id="floorCovering">
-                                                        <option label="کف پوش"></option>
-                                                        {this.state.configList.floorCovering && this.state.configList.floorCovering.map(floorCovering => {
-                                                            return (
-                                                                <option>{floorCovering}</option>
-                                                            )
-                                                        })}
-
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="جهت"
-                                                            className="chosen-select-no-single" name="direction"
-                                                            id="direction">
-                                                        <option label="جهت"></option>
-                                                        <option>شمالی</option>
-                                                        <option>جنوبی</option>
-                                                        <option>شرقی</option>
-                                                        <option>غربی</option>
-
-
-                                                    </select>
-                                                </div>
-
-
-                                            </div>
-
-                                            <div className="checkboxes in-row">
-
-                                                {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
-                                                    return (
-                                                        <div className='col-md-2'>
-                                                            <input id={equipment} type="checkbox"
-                                                                   name="check"
-                                                                   onChange={(e) => {
-                                                                       if (e.target.checked) {
-                                                                           !this.finalEquipmentList.includes(e.target.id) && this.finalEquipmentList.push(e.target.id)
-                                                                       } else {
-                                                                           if (this.finalEquipmentList.includes(e.target.id)) {
-                                                                               this.finalEquipmentList = this.finalEquipmentList.filter(equipment => equipment !== e.target.id)
-                                                                           }
-                                                                       }
-                                                                   }}/>
-                                                            <label htmlFor={equipment}>{equipment}</label>
-                                                        </div>
-                                                    )
-                                                })}
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-                                <div id='tab2' style={{display: "none"}} className="main-search-box no-shadow">
-
-
-                                    <div className="row with-forms">
-
-                                        <div className="col-md-3">
-                                            <input type="text" className="ico-01"
-                                                   placeholder="متراژ را وارد کنید."
-                                                   id="area2"/>
-                                        </div>
-
-                                        <div className="col-md-3">
-                                            <select data-placeholder="نوع" className="chosen-select-no-single"
-                                                    name="kindPanel" id="kindPanel">
-                                                <option label="نوع"></option>
-                                                <option>آپارتمان</option>
-                                                <option>ویلا</option>
-                                                <option>مستغلات</option>
-                                                <option>کلنگی</option>
-                                                <option>دفتر کار</option>
-                                                <option>زمین</option>
-                                                <option>مغازه</option>
-                                                <option>سوییت</option>
-
-                                            </select>
-                                        </div>
-
-                                        <div className="col-md-2">
-                                            <select data-placeholder="کد منطقه " style={{color: '#888'}}
-                                                    name="regionCode" id="regionCode"
-                                                    onChange={this.onRegionCodeChange}>
-                                                <option label="کد منطقه " disabled selected></option>
-                                                {regionCodeList && regionCodeList.map(regionCode => {
-                                                    return (
-                                                        <option>{regionCode}</option>
-                                                    )
-                                                })}
-
-                                            </select>
-                                        </div>
-
-                                        <div className="col-md-4">
-                                            <div className="main-search-input">
-                                                <select data-placeholder="نام منطقه را وارد کنید"
-                                                        name="regionName" style={{color: '#888'}}
-                                                        id="regionName">
-                                                    <option label="نام منطقه را وارد کنید" disabled selected></option>
-                                                    {this.state.regionNameList && this.state.regionNameList.map(regionName => {
-                                                        return (
-                                                            <option>{regionName}</option>
-                                                        )
-                                                    })}
-
-                                                </select>
-
-                                                <button className="button" onClick={this.searchFile}>جست و جو</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div className="row with-forms">
+                                    <div id='tab2' style={{display: "none"}} className="row with-forms">
 
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
                                                 <input type="text" className="ico-01"
                                                        placeholder="قیمت رهن از"
-                                                       id="price"/>
+                                                       id="fromMortgage"/>
                                             </div>
 
                                         </div>
@@ -573,7 +433,7 @@ class realstatePanel extends React.Component {
                                             <div className="range-slider">
                                                 <input type="text" className="ico-01"
                                                        placeholder="قیمت رهن تا"
-                                                       id="price"/>
+                                                       id="toMortgage"/>
                                             </div>
 
                                         </div>
@@ -584,7 +444,7 @@ class realstatePanel extends React.Component {
                                             <div className="range-slider">
                                                 <input type="text" className="ico-01"
                                                        placeholder="قیمت اجاره از"
-                                                       id="price"/>
+                                                       id="fromRent"/>
                                             </div>
                                         </div>
 
@@ -594,224 +454,19 @@ class realstatePanel extends React.Component {
                                             <div className="range-slider">
                                                 <input type="text" className="ico-01"
                                                        placeholder="قیمت اجاره تا"
-                                                       id="price"/>
+                                                       id="toRent"/>
                                             </div>
                                         </div>
 
                                     </div>
-
-                                    <a href="#" className="more-search-options-trigger margin-top-10"
-                                       data-open-title="گزینه های بیشتر"
-                                       data-close-title="بستن"></a>
-
-                                    <div className="more-search-options relative">
-                                        <div className="more-search-options-container">
-
-                                            <div className="row with-forms">
-
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="عمر خانه"
-                                                            className="chosen-select-no-single" name="agePanel"
-                                                            id="agePanel">
-                                                        <option label="عمر خانه"></option>
-                                                        <option>0 تا 1 سال</option>
-                                                        <option>0 تا 5 سال</option>
-                                                        <option>0 تا 10 سال</option>
-                                                        <option>0 تا 20 سال</option>
-                                                        <option>0 تا 50 سال</option>
-                                                        <option>بالای 50 سال</option>
-                                                    </select>
-                                                </div>
-
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="اتاق" className="chosen-select-no-single"
-                                                            name="roomPanel" id="roomPanel">
-                                                        <option label="اتاق"></option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </select>
-                                                </div>
-
-
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="آشپزخانه" className="chosen-select-no-single"
-                                                            name="unitKitchen" id="unitKitchen">
-                                                        <option label="آشپزخانه"></option>
-                                                        {this.state.configList.kitchenService && this.state.configList.kitchenService.map(kitchenService => {
-                                                            return (
-                                                                <option>{kitchenService}</option>
-                                                            )
-                                                        })}
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="نما" className="chosen-select-no-single"
-                                                            name="frontKind" id="frontKind">
-                                                        <option label="نما"></option>
-                                                        {this.state.configList.frontKind && this.state.configList.frontKind.map(frontKind => {
-                                                            return (
-                                                                <option>{frontKind}</option>
-                                                            )
-                                                        })}
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="تعداد واحد در هر طبقه"
-                                                            className="chosen-select-no-single" name="numberHousePanel"
-                                                            id="numberHousePanel">
-                                                        <option label="تعداد واحد در هر طبقه"></option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>6</option>
-
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="سند"
-                                                            className="chosen-select-no-single" name="documentKind"
-                                                            id="documentKind">
-                                                        <option label="سند"></option>
-                                                        {this.state.configList.documentKind && this.state.configList.documentKind.map(documentKind => {
-                                                            return (
-                                                                <option>{documentKind}</option>
-                                                            )
-                                                        })}
-
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="کف" className="chosen-select-no-single"
-                                                            name="floorCovering" id="floorCovering">
-                                                        <option label="کف پوش"></option>
-                                                        {this.state.configList.floorCovering && this.state.configList.floorCovering.map(floorCovering => {
-                                                            return (
-                                                                <option>{floorCovering}</option>
-                                                            )
-                                                        })}
-
-                                                    </select>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <select data-placeholder="جهت"
-                                                            className="chosen-select-no-single" name="direction"
-                                                            id="direction">
-                                                        <option label="جهت"></option>
-                                                        <option>شمالی</option>
-                                                        <option>جنوبی</option>
-                                                        <option>شرقی</option>
-                                                        <option>غربی</option>
-
-
-                                                    </select>
-                                                </div>
-
-
-                                            </div>
-
-                                            <div className="checkboxes in-row">
-
-                                                {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
-                                                    return (
-                                                        <div className='col-md-2'>
-                                                            <input id={equipment} type="checkbox"
-                                                                   name="check"
-                                                                   onChange={(e) => {
-                                                                       if (e.target.checked) {
-                                                                           !this.finalEquipmentList.includes(e.target.id) && this.finalEquipmentList.push(e.target.id)
-                                                                       } else {
-                                                                           if (this.finalEquipmentList.includes(e.target.id)) {
-                                                                               this.finalEquipmentList = this.finalEquipmentList.filter(equipment => equipment !== e.target.id)
-                                                                           }
-                                                                       }
-                                                                   }}/>
-                                                            <label htmlFor={equipment}>{equipment}</label>
-                                                        </div>
-                                                    )
-                                                })}
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-                                <div id='tab3' style={{display: "none"}} className="main-search-box no-shadow">
-
-
-                                    <div className="row with-forms">
-
-                                        <div className="col-md-3">
-                                            <input type="text" className="ico-01"
-                                                   placeholder=" متراژ را وارد کنید"
-                                                   id="area3"/>
-                                        </div>
-
-                                        <div className="col-md-3">
-                                            <select data-placeholder="نوع" className="chosen-select-no-single"
-                                                    name="kindPanel" id="kindPanel">
-                                                <option label="نوع"></option>
-                                                <option>آپارتمان</option>
-                                                <option>ویلا</option>
-                                                <option>مستغلات</option>
-                                                <option>کلنگی</option>
-                                                <option>دفتر کار</option>
-                                                <option>زمین</option>
-                                                <option>مغازه</option>
-                                                <option>سوییت</option>
-
-                                            </select>
-                                        </div>
-
-                                        <div className="col-md-2">
-                                            <select data-placeholder="کد منطقه " style={{color: '#888'}}
-                                                    name="regionCode" id="regionCode"
-                                                    onChange={this.onRegionCodeChange}>
-                                                <option label="کد منطقه " disabled selected></option>
-                                                {regionCodeList && regionCodeList.map(regionCode => {
-                                                    return (
-                                                        <option>{regionCode}</option>
-                                                    )
-                                                })}
-
-                                            </select>
-                                        </div>
-
-                                        <div className="col-md-4">
-                                            <div className="main-search-input">
-                                                <select data-placeholder="نام منطقه را وارد کنید"
-                                                        name="regionName" style={{color: '#888'}}
-                                                        id="regionName">
-                                                    <option label="نام منطقه را وارد کنید" disabled selected></option>
-                                                    {this.state.regionNameList && this.state.regionNameList.map(regionName => {
-                                                        return (
-                                                            <option>{regionName}</option>
-                                                        )
-                                                    })}
-
-                                                </select>
-
-                                                <button className="button" onClick={this.searchFile}>جست و جو</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div className="row with-forms">
+                                    <div id='tab3' style={{display: "none"}} className="row with-forms">
 
                                         <div className="col-md-3">
 
                                             <div className="range-slider">
                                                 <input type="text" className="ico-01"
                                                        placeholder="قیمت رهن کل از"
-                                                       id="price"/>
+                                                       id="fromTotalMortgage"/>
                                             </div>
 
                                         </div>
@@ -821,7 +476,7 @@ class realstatePanel extends React.Component {
                                             <div className="range-slider">
                                                 <input type="text" className="ico-01"
                                                        placeholder="قیمت رهن کل تا"
-                                                       id="price"/>
+                                                       id="toTotalMortgage"/>
                                             </div>
 
                                         </div>

@@ -174,7 +174,16 @@ class fileSearchTable extends React.Component {
                 this.setState({isErrorPage: true})
             }
         }).catch(error => {
-            this.setState({isErrorPage: true})
+            if (error.message.includes('403')) {
+                sessionStorage.clear();
+                localStorage.clear();
+                this.props.setUser({});
+                this.props.history.push({
+                    pathname: '/login'
+                });
+            } else {
+                this.setState({isErrorPage: true})
+            }
         })
     }
 
