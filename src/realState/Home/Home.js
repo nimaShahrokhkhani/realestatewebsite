@@ -437,7 +437,7 @@ class Home extends React.Component {
                                                 </div>
                                                 <div className="row with-forms">
                                                     <div className="col-md-4">
-                                                        <select data-placeholder="Any Type"
+                                                        <select data-placeholder="نوع"
                                                                 className="chosen-select-no-single"
                                                                 id="typeTab2">
                                                             <option></option>

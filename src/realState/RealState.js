@@ -65,6 +65,30 @@ class RealState extends React.Component {
         });
         this.changeCurrentMenu('/realstatePanel');
     };
+    onLogin = () => {
+        this.props.history.push({
+            pathname: '/login'
+        });
+        this.changeCurrentMenu('/login');
+    };
+    onRegisterClick = () => {
+        this.props.history.push({
+            pathname: '/loginRegister'
+        });
+        this.changeCurrentMenu('/loginRegister');
+    };
+    onMyProfile = () => {
+        this.props.history.push({
+            pathname: '/profile'
+        });
+        this.changeCurrentMenu('/profile');
+    };
+    onSubmit = () => {
+        this.props.history.push({
+            pathname: '/submitAdvertise'
+        });
+        this.changeCurrentMenu('/submitAdvertise');
+    };
 
     onSubmitAdvertiseClick = () => {
         this.props.history.push({
@@ -359,15 +383,18 @@ class RealState extends React.Component {
                             <div className="col-md-4 col-sm-6 ">
                                 <h4>پیوندهای مفید</h4>
                                 <ul className="footer-links">
-                                    <li><a href="login-register.html">ورود</a></li>
-                                    <li><a href="login-register.html">ثبت نام</a></li>
-                                    <li><a href="my-profile.html">حساب کاربری من</a></li>
-                                    <li><a href="submit-property.html">ثبت ملک</a></li>
+                                    <li><a  name='realStatePanel'
+                                           onClick={this.onLogin}>ورود</a></li>
+                                    <li><a  name='realStatePanel'
+                                           onClick={this.onRegisterClick}>ثبت نام</a></li>
+                                    <li><a  name='realStatePanel'
+                                           onClick={this.onMyProfile}>حساب کاربری من</a></li>
+                                    <li><a  name='realStatePanel'
+                                           onClick={this.onSubmit}>ثبت ملک</a></li>
 
                                 </ul>
 
                                 <ul className="footer-links">
-                                    <li><a href="#">پرسش های متداول</a></li>
 
                                     <li><a href="contact.html">تماس</a></li>
                                 </ul>

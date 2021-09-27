@@ -350,7 +350,7 @@ class advertisingPage extends React.Component {
 
                                     <div className="range-slider">
                                         <label>قیمت</label>
-                                        <div id="sale-price-range" data-min="0" data-max="400000"
+                                        <div id="sale-price-range" data-min="0" data-max="4000000000"
                                              data-unit="تومان"></div>
                                         <div className="clearfix"></div>
                                     </div>
