@@ -73,9 +73,9 @@ class RealState extends React.Component {
     };
     onRegisterClick = () => {
         this.props.history.push({
-            pathname: '/loginRegister'
+            pathname: '/login'
         });
-        this.changeCurrentMenu('/loginRegister');
+        this.changeCurrentMenu('/login');
     };
     onMyProfile = () => {
         this.props.history.push({

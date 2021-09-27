@@ -98,6 +98,13 @@ html.mm-blocking body {
 	overflow: hidden;
 }
 
+@media (min-width: 550px) {
+	html.mm-opening .mm-menu.mm-opened ~ .mm-slideout {
+		transform: translate(440px, 0);
+		transform: translate3d(-440px, 0, 0) !important;
+	}
+}
+
 #logo { display: inline-block; margin-top: 1px; }
 
 #logo img { max-height: 45px; width: auto; transform: translate3d(0,0,0); }
