@@ -18,6 +18,10 @@
     url("../fonts/IRANSansMobileFaNum-Bold.ttf") format('truetype');
 }
 
+#my-menu:not( .mm-menu ) {
+    display: none;
+}
+
 body {
 
     font: 400 15px Lato, sans-serif;

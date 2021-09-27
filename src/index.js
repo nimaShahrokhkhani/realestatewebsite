@@ -15,6 +15,6 @@ ReactDOM.render(
             <App/>
         </I18nextProvider>
     </Provider>,
-    document.getElementById('root')
+    document.getElementById('wrapper')
 );
 serviceWorker.unregister();

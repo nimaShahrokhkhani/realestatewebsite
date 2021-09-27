@@ -94,6 +94,10 @@
 /* ---------------------------------- */
 /* Header
 ------------------------------------- */
+html.mm-blocking body {
+	overflow: hidden;
+}
+
 #logo { display: inline-block; margin-top: 1px; }
 
 #logo img { max-height: 45px; width: auto; transform: translate3d(0,0,0); }

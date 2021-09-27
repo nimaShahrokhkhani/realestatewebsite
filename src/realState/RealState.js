@@ -38,7 +38,12 @@ class RealState extends React.Component {
         this.clearAllMenuSelect();
     };
 
+    closeHamburger() {
+        document.getElementById('hamburgerBtn').classList.remove("is-active");
+    }
+
     onHomePageClick = () => {
+        this.closeHamburger();
         this.props.history.push({
             pathname: '/'
         });
@@ -46,6 +51,7 @@ class RealState extends React.Component {
     };
 
     onAdvertisingPageClick = () => {
+        this.closeHamburger();
         this.props.history.push({
             pathname: '/advertise'
         });
@@ -53,6 +59,7 @@ class RealState extends React.Component {
     };
 
     onRealstatePanelClick = () => {
+        this.closeHamburger();
         this.props.history.push({
             pathname: '/realstatePanel'
         });
@@ -67,6 +74,7 @@ class RealState extends React.Component {
     };
 
     onContactClick = () => {
+        this.closeHamburger();
         this.props.history.push({
             pathname: '/contact'
         });
@@ -74,6 +82,7 @@ class RealState extends React.Component {
     };
 
     onBestAgenciesClick = () => {
+        this.closeHamburger();
         this.props.history.push({
             pathname: '/bestAgencies'
         });
@@ -143,9 +152,22 @@ class RealState extends React.Component {
         }
     }
 
+    clickMenuEventListener = () => {
+        document.getElementById('home').addEventListener('click', this.onHomePageClick);
+        document.getElementById('advertise').addEventListener('click', this.onAdvertisingPageClick);
+        document.getElementById('realStatePanel').addEventListener('click', this.onRealstatePanelClick);
+        document.getElementById('bestAgencies').addEventListener('click', this.onBestAgenciesClick);
+        document.getElementById('contact').addEventListener('click', this.onContactClick);
+
+    };
+
     componentDidMount() {
         this.props.setState(JSON.parse(localStorage.getItem('state')));
         this.changeCurrentMenu();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        setTimeout(this.clickMenuEventListener, 5000)
     }
 
     isLoginPage() {
@@ -168,7 +190,7 @@ class RealState extends React.Component {
                                                                            alt=""/></a>
                                 </div>
                                 <div className="mmenu-trigger">
-                                    <button className="hamburger hamburger--collapse" type="button">
+                                    <button id='hamburgerBtn' className="hamburger hamburger--collapse" type="button">
 						<span className="hamburger-box">
 							<span className="hamburger-inner"></span>
 						</span>
@@ -233,7 +255,7 @@ class RealState extends React.Component {
                                                                            alt=""/></a>
                                 </div>
                                 <div className="mmenu-trigger">
-                                    <button className="hamburger hamburger--collapse" type="button">
+                                    <button id='hamburgerBtn' className="hamburger hamburger--collapse" type="button">
 						<span className="hamburger-box">
 							<span className="hamburger-inner"></span>
 						</span>

@@ -2,10 +2,8 @@ import React from 'react';
 import './Home.css';
 import '../css/style.css';
 import '../css/color.css';
-import 'react-awesome-slider/dist/styles.css';
 import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
-import ScriptTag from 'react-script-tag';
 import Services from "../../utils/Services";
 import _ from "underscore";
 
