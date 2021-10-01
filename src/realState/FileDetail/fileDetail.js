@@ -33,7 +33,7 @@ class fileDetail extends React.Component {
                 localStorage.clear();
                 this.props.setUser({});
                 this.props.history.push({
-                    pathname: '/login'
+                    pathname: '/loginPanel'
                 });
             } else {
                 this.setState({isErrorPage: true})
@@ -58,7 +58,7 @@ class fileDetail extends React.Component {
                 localStorage.clear();
                 this.props.setUser({});
                 this.props.history.push({
-                    pathname: '/login'
+                    pathname: '/loginPanel'
                 });
             }
         })
@@ -81,7 +81,7 @@ class fileDetail extends React.Component {
                 localStorage.clear();
                 this.props.setUser({});
                 this.props.history.push({
-                    pathname: '/login'
+                    pathname: '/loginPanel'
                 });
             }
         })

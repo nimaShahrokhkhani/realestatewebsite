@@ -179,7 +179,7 @@ class fileSearchTable extends React.Component {
                 localStorage.clear();
                 this.props.setUser({});
                 this.props.history.push({
-                    pathname: '/login'
+                    pathname: '/loginPanel'
                 });
             } else {
                 this.setState({isErrorPage: true})
