@@ -5,7 +5,7 @@ export default class Services {
 
     // static baseUrl = 'http://gilanfile.ir:3600/';
     // static baseUrl = 'http://localhost:3600/';
-    static baseUrl = 'http://api.gilanfile.ir/';
+    static baseUrl = 'https://api.gilanfile.ir/';
 
     static signInPanel(requestData) {
         axios.defaults.headers['content-Type'] = 'application/json';
