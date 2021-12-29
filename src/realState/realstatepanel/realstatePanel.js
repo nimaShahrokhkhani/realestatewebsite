@@ -342,10 +342,10 @@ class realstatePanel extends React.Component {
                                             <select data-placeholder="کد منطقه " style={{color: '#888'}}
                                                     name="regionCode" id="regionCode"
                                                     onChange={this.onRegionCodeChange}>
-                                                <option label="کد منطقه " disabled selected></option>
+                                                <option key={1} label="کد منطقه " disabled selected></option>
                                                 {regionCodeList && regionCodeList.map(regionCode => {
                                                     return (
-                                                        <option>{regionCode}</option>
+                                                        <option key={regionCode}>{regionCode}</option>
                                                     )
                                                 })}
 
@@ -360,7 +360,7 @@ class realstatePanel extends React.Component {
                                                     <option label="نام منطقه" disabled selected></option>
                                                     {this.state.regionNameList && this.state.regionNameList.map(regionName => {
                                                         return (
-                                                            <option>{regionName}</option>
+                                                            <option key={regionName}>{regionName}</option>
                                                         )
                                                     })}
 
@@ -577,7 +577,7 @@ class realstatePanel extends React.Component {
                                                         <option label="کف پوش"></option>
                                                         {this.state.configList.floorCovering && this.state.configList.floorCovering.map(floorCovering => {
                                                             return (
-                                                                <option>{floorCovering}</option>
+                                                                <option key={floorCovering}>{floorCovering}</option>
                                                             )
                                                         })}
 

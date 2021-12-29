@@ -818,8 +818,8 @@ class Home extends React.Component {
                                 <h4>تماس با ما</h4>
                                 <div className="text-widget">
                                     <span>رشت ، گلسار</span> <br/>
-                                    تلفن: <span>۰۹۱۲۳۴۵۶۷۸۹ </span><br/>
-                                    ایمیل:<span> <a href="#">najafi@example.com</a> </span><br/>
+                                    تلفن: <span>01332130930 </span><br/>
+                                    ایمیل:<span> <a href="#">gilanfile1400@gmail.com</a> </span><br/>
                                 </div>
 
 

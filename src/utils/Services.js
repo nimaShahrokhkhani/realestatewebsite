@@ -5,13 +5,13 @@ export default class Services {
 
     // static baseUrl = 'http://gilanfile.ir:3600/';
     // static baseUrl = 'http://localhost:3600/';
-    static baseUrl = 'http://api.gilanfile.ir/';
+    static baseUrl = 'https://api.gilanfile.ir/';
 
     static signInPanel(requestData) {
-        axios.defaults.headers['content-Type'] = 'application/json';
-        axios.defaults.headers['Accept'] = '/';
-        axios.defaults.headers['Cache-Control'] = 'no-cache';
-        axios.defaults.withCredentials = true;
+        // axios.defaults.headers['content-Type'] = 'application/json';
+        // axios.defaults.headers['Accept'] = '/';
+        // axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
+        // axios.defaults.withCredentials = true;
         return axios.post(`/base/realStateLogin`, {
             username: requestData.username,
             password: requestData.password,
@@ -19,10 +19,10 @@ export default class Services {
     }
 
     static signIn(requestData) {
-        axios.defaults.headers['content-Type'] = 'application/json';
-        axios.defaults.headers['Accept'] = '/';
-        axios.defaults.headers['Cache-Control'] = 'no-cache';
-        axios.defaults.withCredentials = true;
+        // axios.defaults.headers['content-Type'] = 'application/json';
+        // axios.defaults.headers['Accept'] = '/';
+        // axios.defaults.headers['Cache-Control'] = 'no-cache';
+        // axios.defaults.withCredentials = true;
         return axios.post(`/base/login`, {
             username: requestData.username,
             password: requestData.password,
@@ -38,10 +38,10 @@ export default class Services {
     }
 
     static signInClient(requestData) {
-        axios.defaults.headers['content-Type'] = 'application/json';
-        axios.defaults.headers['Accept'] = '/';
-        axios.defaults.headers['Cache-Control'] = 'no-cache';
-        axios.defaults.withCredentials = true;
+        // axios.defaults.headers['content-Type'] = 'application/json';
+        // axios.defaults.headers['Accept'] = '/';
+        // axios.defaults.headers['Cache-Control'] = 'no-cache';
+        // axios.defaults.withCredentials = true;
         return axios.post(`/client/login`, {
             username: requestData.username,
             password: requestData.password,
@@ -49,10 +49,10 @@ export default class Services {
     }
 
     static registerClient(requestData) {
-        axios.defaults.headers['content-Type'] = 'application/json';
-        axios.defaults.headers['Accept'] = '/';
-        axios.defaults.headers['Cache-Control'] = 'no-cache';
-        axios.defaults.withCredentials = true;
+        // axios.defaults.headers['content-Type'] = 'application/json';
+        // axios.defaults.headers['Accept'] = '/';
+        // axios.defaults.headers['Cache-Control'] = 'no-cache';
+        // axios.defaults.withCredentials = true;
         return axios.post(`/client/register`, {
             username: requestData.username,
             password: requestData.password,

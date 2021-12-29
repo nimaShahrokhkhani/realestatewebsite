@@ -221,9 +221,14 @@ class advertisingPage extends React.Component {
                                                         </ul>
                                                     </div>
 
-                                                    <img
-                                                        src={Services.getAdvertiseImageDownloadUrl(advertise.images[0].filename)}
-                                                        alt=""/>
+                                                    {(advertise.images && advertise.images[0] && !_.isEmpty(advertise.images[0].filename)) ?
+                                                        <img
+                                                            src={Services.getAdvertiseImageDownloadUrl(advertise.images[0].filename)}
+                                                            alt=""/> :
+                                                        <img
+                                                            src={require('../image/house-advertise.png')}
+                                                            alt=""/>}
+
                                                 </a>
 
                                             </div>
