@@ -12,7 +12,7 @@ export default class Services {
         // axios.defaults.headers['Accept'] = '/';
         // axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
         // axios.defaults.withCredentials = true;
-        return axios.post(`/api/api/base/realStateLogin`, {
+        return axios.post(`/api/base/realStateLogin`, {
             username: requestData.username,
             password: requestData.password,
         })
@@ -23,7 +23,7 @@ export default class Services {
         // axios.defaults.headers['Accept'] = '/';
         // axios.defaults.headers['Cache-Control'] = 'no-cache';
         // axios.defaults.withCredentials = true;
-        return axios.post(`/api/api/base/login`, {
+        return axios.post(`/api/base/login`, {
             username: requestData.username,
             password: requestData.password,
         })
@@ -61,11 +61,11 @@ export default class Services {
     }
 
     static editClientProfile(requestData) {
-        return axios.post(`/api/client/api/clientUsers/edit`, requestData)
+        return axios.post(`/api/client/clientUsers/edit`, requestData)
     }
 
     static changeClientPassword(requestData) {
-        return axios.post(`/api/client/api/clientUsers/edit`, {
+        return axios.post(`/api/client/clientUsers/edit`, {
             username: requestData.username,
             currentPassword: requestData.currentPassword,
             newPassword: requestData.newPassword
@@ -74,7 +74,7 @@ export default class Services {
 
     static getConfigList(requestData) {
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.get(`/api/base/api/clientConfig/list`, {
+        return axios.get(`/api/base/clientConfig/list`, {
             params: requestData
         })
     }
@@ -178,7 +178,7 @@ export default class Services {
     static getAdvertiseImageDownloadUrl(fileName){
         // var url = `/api/client/advertise/download?fileName=` + fileName;
         // return axios.get(url);
-        return this.baseUrl + `client/advertise/download?fileName=` + fileName;
+        return this.baseUrl + `api/client/advertise/download?fileName=` + fileName;
 
     }
 
@@ -192,15 +192,15 @@ export default class Services {
     }
 
     static getRealStateProfileImageDownloadUrl(fileName){
-        return this.baseUrl + `base/agencyProfile/download?fileName=` + fileName;
+        return this.baseUrl + `api/base/agencyProfile/download?fileName=` + fileName;
     }
 
     static getUserProfileImageDownloadUrl(fileName){
-        return this.baseUrl + `client/api/clientUsers/download?fileName=` + fileName;
+        return this.baseUrl + `api/client/api/clientUsers/download?fileName=` + fileName;
     }
 
     static getBlogImageDownloadUrl(fileName){
-        return this.baseUrl + `base/blogList/download?fileName=` + fileName;
+        return this.baseUrl + `api/base/blogList/download?fileName=` + fileName;
     }
 
     static getBlogList(requestData) {
