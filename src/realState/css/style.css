@@ -75,7 +75,7 @@
 @import url("style-rtl.css");					/* Default Reset, Typography, Forms, Responsive Grid etc. */
 @import url("icons.css");						/* Webfont Icons: FontAwesome, Line, Simple Line */
 @import url("icons-rtl.css");						/* Webfont Icons: FontAwesome, Line, Simple Line */
-@import url("http://fonts.googleapis.com/css?family=Varela+Round");
+@import url("https://fonts.googleapis.com/css?family=Varela+Round");
 
 
 /* ------------------------------------------------------------------- */
@@ -1581,11 +1581,11 @@ html.mm-opened {
 }
 
 html.mm-blocking {
-    overflow: hidden
+    /*overflow: hidden*/
 }
 
 html.mm-blocking .App {
-    overflow: hidden
+    /*overflow: hidden*/
 }
 
 html.mm-background .mm-page {
@@ -12881,5 +12881,13 @@ input#date-picker:hover {
 
 #root-div {
 	margin-top: 50px;
+}
+
+.listing-img-container {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	display: block;
+	min-height: 300px;
 }
 

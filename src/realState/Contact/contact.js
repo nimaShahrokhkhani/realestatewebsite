@@ -24,39 +24,10 @@ class contact extends React.Component {
         root.appendChild(element);
 
         $(document).ready(function () {
-
-            var element = document.createElement("script");
-            element.src = "../scripts/jquery-migrate-3.1.0.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/chosen.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/magnific-popup.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/owl.carousel.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/sticky-kit.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
+            $('html').removeClass('mm-blocking mm-opened mm-background mm-opening');
 
             var element = document.createElement("script");
             element.src = "../scripts/rangeSlider.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/custom.js";
             element.type = "text/javascript";
             root.appendChild(element);
 
@@ -66,22 +37,22 @@ class contact extends React.Component {
             root.appendChild(element);
 
             var element = document.createElement("script");
-            element.src = "../scripts/masonry.min.js";
+            element.src = "../scripts/owl.carousel.min.js";
+            element.type = "text/javascript";
+            root.appendChild(element);
+
+            var element = document.createElement("script");
+            element.src = "../scripts/chosen.min.js";
+            element.type = "text/javascript";
+            root.appendChild(element);
+
+            var element = document.createElement("script");
+            element.src = "../scripts/custom.js";
             element.type = "text/javascript";
             root.appendChild(element);
 
             var element = document.createElement("script");
             element.src = "../scripts/mmenu.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/tooltips.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/Utils/generalUI.js";
             element.type = "text/javascript";
             root.appendChild(element);
         })

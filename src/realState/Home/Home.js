@@ -72,39 +72,10 @@ class Home extends React.Component {
         root.appendChild(element);
 
         $(document).ready(function () {
-
-            var element = document.createElement("script");
-            element.src = "../scripts/jquery-migrate-3.1.0.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/chosen.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/magnific-popup.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/owl.carousel.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/sticky-kit.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
+            $('html').removeClass('mm-blocking mm-opened mm-background mm-opening');
 
             var element = document.createElement("script");
             element.src = "../scripts/rangeSlider.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/custom.js";
             element.type = "text/javascript";
             root.appendChild(element);
 
@@ -114,22 +85,22 @@ class Home extends React.Component {
             root.appendChild(element);
 
             var element = document.createElement("script");
-            element.src = "../scripts/masonry.min.js";
+            element.src = "../scripts/owl.carousel.min.js";
+            element.type = "text/javascript";
+            root.appendChild(element);
+
+            var element = document.createElement("script");
+            element.src = "../scripts/chosen.min.js";
+            element.type = "text/javascript";
+            root.appendChild(element);
+
+            var element = document.createElement("script");
+            element.src = "../scripts/custom.js";
             element.type = "text/javascript";
             root.appendChild(element);
 
             var element = document.createElement("script");
             element.src = "../scripts/mmenu.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/tooltips.min.js";
-            element.type = "text/javascript";
-            root.appendChild(element);
-
-            var element = document.createElement("script");
-            element.src = "../scripts/Utils/generalUI.js";
             element.type = "text/javascript";
             root.appendChild(element);
         })
@@ -677,7 +648,7 @@ class Home extends React.Component {
                                         }} className="carousel-item">
                                             <div className="listing-item">
 
-                                                <a className="listing-img-container">
+                                                <div className="listing-img-container">
 
                                                     <div className="listing-badges">
                                                         <span className="featured">ویژه</span>
@@ -699,13 +670,13 @@ class Home extends React.Component {
                                                         })}
                                                     </div>
 
-                                                </a>
+                                                </div>
 
                                                 <div className="listing-content">
 
                                                     <div className="listing-title">
-                                                        <h4><a
-                                                            href="single-property-page-1.html">{advertise.title}</a>
+                                                        <h4><div
+                                                            href="single-property-page-1.html">{advertise.title}</div>
                                                         </h4>
                                                         <i className="fa fa-map-marker"></i>
                                                     </div>
