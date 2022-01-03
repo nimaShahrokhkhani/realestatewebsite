@@ -3,57 +3,56 @@ import history from "../history";
 
 export default class Services {
 
-    // static baseUrl = 'http://gilanfile.ir:3600/';
+    static baseUrl = 'http://5.201.177.202:3600/';
     // static baseUrl = 'http://localhost:3600/';
-    static baseUrl = 'https://gilanfile.ir/';
 
     static signInPanel(requestData) {
-        // axios.defaults.headers['content-Type'] = 'application/json';
-        // axios.defaults.headers['Accept'] = '/';
-        // axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
-        // axios.defaults.withCredentials = true;
-        return axios.post(`/api/base/realStateLogin`, {
+        axios.defaults.headers['content-Type'] = 'application/json';
+        axios.defaults.headers['Accept'] = '/';
+        axios.defaults.headers['Cache-Control'] = 'no-cache';
+        axios.defaults.withCredentials = true;
+        return axios.post(`/base/realStateLogin`, {
             username: requestData.username,
             password: requestData.password,
         })
     }
 
     static signIn(requestData) {
-        // axios.defaults.headers['content-Type'] = 'application/json';
-        // axios.defaults.headers['Accept'] = '/';
-        // axios.defaults.headers['Cache-Control'] = 'no-cache';
-        // axios.defaults.withCredentials = true;
-        return axios.post(`/api/base/login`, {
+        axios.defaults.headers['content-Type'] = 'application/json';
+        axios.defaults.headers['Accept'] = '/';
+        axios.defaults.headers['Cache-Control'] = 'no-cache';
+        axios.defaults.withCredentials = true;
+        return axios.post(`/base/login`, {
             username: requestData.username,
             password: requestData.password,
         })
     }
 
     static logoutUser() {
-        return axios.get(`/api/client/logout`)
+        return axios.get(`/client/logout`)
     }
 
     static logoutRealEstate() {
-        return axios.get(`/api/base/logout`)
+        return axios.get(`/base/logout`)
     }
 
     static signInClient(requestData) {
-        // axios.defaults.headers['content-Type'] = 'application/json';
-        // axios.defaults.headers['Accept'] = '/';
-        // axios.defaults.headers['Cache-Control'] = 'no-cache';
-        // axios.defaults.withCredentials = true;
-        return axios.post(`/api/client/login`, {
+        axios.defaults.headers['content-Type'] = 'application/json';
+        axios.defaults.headers['Accept'] = '/';
+        axios.defaults.headers['Cache-Control'] = 'no-cache';
+        axios.defaults.withCredentials = true;
+        return axios.post(`/client/login`, {
             username: requestData.username,
             password: requestData.password,
         })
     }
 
     static registerClient(requestData) {
-        // axios.defaults.headers['content-Type'] = 'application/json';
-        // axios.defaults.headers['Accept'] = '/';
-        // axios.defaults.headers['Cache-Control'] = 'no-cache';
-        // axios.defaults.withCredentials = true;
-        return axios.post(`/api/client/register`, {
+        axios.defaults.headers['content-Type'] = 'application/json';
+        axios.defaults.headers['Accept'] = '/';
+        axios.defaults.headers['Cache-Control'] = 'no-cache';
+        axios.defaults.withCredentials = true;
+        return axios.post(`/client/register`, {
             username: requestData.username,
             password: requestData.password,
             email: requestData.email,
@@ -61,11 +60,11 @@ export default class Services {
     }
 
     static editClientProfile(requestData) {
-        return axios.post(`/api/client/clientUsers/edit`, requestData)
+        return axios.post(`/client/clientUsers/edit`, requestData)
     }
 
     static changeClientPassword(requestData) {
-        return axios.post(`/api/client/clientUsers/edit`, {
+        return axios.post(`/client/clientUsers/edit`, {
             username: requestData.username,
             currentPassword: requestData.currentPassword,
             newPassword: requestData.newPassword
@@ -74,40 +73,40 @@ export default class Services {
 
     static getConfigList(requestData) {
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.get(`/api/base/clientConfig/list`, {
+        return axios.get(`/base/clientConfig/list`, {
             params: requestData
         })
     }
 
     static getFileById(requestData) {
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.get(`/api/base/agencyFiles/file`, {
+        return axios.get(`/base/agencyFiles/file`, {
             params: requestData
         })
     }
 
     static getNextFile(requestData) {
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.get(`/api/base/agencyFiles/nextFile`, {
+        return axios.get(`/base/agencyFiles/nextFile`, {
             params: requestData
         })
     }
 
     static getPrevFile(requestData) {
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.get(`/api/base/agencyFiles/prevFile`, {
+        return axios.get(`/base/agencyFiles/prevFile`, {
             params: requestData
         })
     }
 
     static searchAgencyFiles(requestData) {
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.post(`/api/base/agencyFiles/list`, requestData)
+        return axios.post(`/base/agencyFiles/list`, requestData)
     }
 
     static searchFiles(requestData) {
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.get(`/api/base/getFiles/list`, {
+        return axios.get(`/base/getFiles/list`, {
             params: requestData
         })
     }
@@ -151,78 +150,78 @@ export default class Services {
 
     static async insertAdvertise(requestData) {
         axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.post(`/api/client/advertising/insert`, requestData)
+        return axios.post(`/client/advertising/insert`, requestData)
     }
 
     static searchAdvertiseList(requestData) {
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.get(`/api/client/advertise/list`, {
+        return axios.get(`/client/advertise/list`, {
             params: requestData
         })
     }
 
     static latestAdvertiseList(requestData) {
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.get(`/api/client/advertise/latestList`, {
+        return axios.get(`/client/advertise/latestList`, {
             params: requestData
         })
     }
 
     static bestAgenciesList(requestData) {
         // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.get(`/api/base/bestAgencies/list`, {
+        return axios.get(`/base/bestAgencies/list`, {
             params: requestData
         })
     }
 
     static getAdvertiseImageDownloadUrl(fileName){
-        // var url = `/api/client/advertise/download?fileName=` + fileName;
+        // var url = `/client/advertise/download?fileName=` + fileName;
         // return axios.get(url);
-        return this.baseUrl + `api/client/advertise/download?fileName=` + fileName;
+        return this.baseUrl + `client/advertise/download?fileName=` + fileName;
 
     }
 
     static geAdvertiseTotalCount(requestData) {
-        return axios.get(`/api/client/advertise/totalCount`, requestData)
+        return axios.get(`/client/advertise/totalCount`, requestData)
     }
 
     static async editRealStateProfile(requestData) {
         axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.post(`/api/base/agencyProfile/edit`, requestData)
+        return axios.post(`/base/agencyProfile/edit`, requestData)
     }
 
     static getRealStateProfileImageDownloadUrl(fileName){
-        return this.baseUrl + `api/base/agencyProfile/download?fileName=` + fileName;
+        return this.baseUrl + `base/agencyProfile/download?fileName=` + fileName;
     }
 
     static getUserProfileImageDownloadUrl(fileName){
-        return this.baseUrl + `api/client/api/clientUsers/download?fileName=` + fileName;
+        return this.baseUrl + `client/clientUsers/download?fileName=` + fileName;
     }
 
     static getBlogImageDownloadUrl(fileName){
-        return this.baseUrl + `api/base/blogList/download?fileName=` + fileName;
+        return this.baseUrl + `base/blogList/download?fileName=` + fileName;
     }
 
     static getBlogList(requestData) {
-        return axios.get(`/api/base/blogList/list`, {
+        return axios.get(`/base/blogList/list`, {
             params: requestData
         })
     }
 
     static async insertBlog(requestData) {
-        return axios.post(`/api/base/blogManager/insert`, requestData)
+        return axios.post(`/base/blogManager/insert`, requestData)
     }
 
     static async deleteBlog(requestData) {
-        return axios.post(`/api/base/blogManager/delete`, requestData)
+        return axios.post(`/base/blogManager/delete`, requestData)
     }
 
     static async editBlog(requestData) {
-        return axios.post(`/api/base/blogManager/edit`, requestData)
+        return axios.post(`/base/blogManager/edit`, requestData)
     }
 
     static uploadBlogImage(requestData){
         axios.defaults.headers['Cookie'] = localStorage.getItem('session');
-        return axios.post(`/api/base/blogManager/uploadImage`, requestData)
+        return axios.post(`/base/blogManager/uploadImage`, requestData)
     }
 }

@@ -740,18 +740,6 @@ class realstatePanel extends React.Component {
                             <h3 className="headline margin-bottom-30 margin-top-40">نکات مهم</h3>
                         </div>
 
-
-                        <div className="col-md-4">
-                            <div className="numbered color filled">
-                                <ol>
-                                    <li>تمامی مبالغ بالا به تومان می باشد.</li>
-                                    <li>با خرید اشتراک بالا تمام اطلاعات در اختیار شما قرار می گیرد.</li>
-                                    <li>پس از پرداخت اشتراک شما فعال می گردد.</li>
-                                    <li>امکان حذف و اصلاح برای مشترکین فعال می گردد.</li>
-
-                                </ol>
-                            </div>
-                        </div>
                         <div className="col-md-5">
                             <div className="numbered color ">
                                 <ol>
