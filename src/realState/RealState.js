@@ -412,6 +412,16 @@ class RealState extends React.Component {
 
 
                             </div>
+                            <div class="Enamad">
+                                <a referrerPolicy="origin" target="_blank"
+                                   href="https://trustseal.enamad.ir/?id=184185&amp;Code=hOMhSUQs1Y4sKnO6xS2M"><img
+                                    referrerPolicy="origin"
+                                    src="https://Trustseal.eNamad.ir/logo.aspx?id=184185&amp;Code=hOMhSUQs1Y4sKnO6xS2M"
+                                    alt="" style={{cursor:'pointer'}} id="hOMhSUQs1Y4sKnO6xS2M"/></a>
+
+
+                            </div>
+
 
                         </div>
 
@@ -435,17 +445,4 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {setUser, setState})(withTranslation()(RealState));
 
 
-{/*
-<div className="d-flex align-items-center">
-    <a referrerPolicy="origin" target="_blank" href="https://trustseal.enamad.ir/?id=184185&amp;Code=hOMhSUQs1Y4sKnO6xS2M">
-        <img
-            referrerPolicy="origin"
-            src="https://Trustseal.eNamad.ir/logo.aspx?id=184185&amp;Code=hOMhSUQs1Y4sKnO6xS2M"
-            alt="" style={{cursor:'pointer'}} id="hOMhSUQs1Y4sKnO6xS2M"/>
-    </a>
-    <img
-        id="nbqeesgtfukzoeukjzpejxlz" style={{cursor:'pointer'}}
-        onClick="window.open(&quot;https://logo.samandehi.ir/Verify.aspx?id=206871&amp;p=uiwkobpdgvkamcsijyoerfth&quot;, &quot;Popup&quot;,&quot;toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30&quot;)"
-        alt=""
-        src="https://logo.samandehi.ir/logo.aspx?id=206871&amp;p=odrflymawlbqaqgwyndtnbpd"/>
-</div>*/}
+
