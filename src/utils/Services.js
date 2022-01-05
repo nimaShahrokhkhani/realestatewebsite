@@ -3,7 +3,7 @@ import history from "../history";
 
 export default class Services {
 
-    static baseUrl = 'http://5.201.177.202:3600/';
+    static baseUrl = 'http://5.201.177.202:3600/api/';
     // static baseUrl = 'http://localhost:3600/';
 
     static signInPanel(requestData) {
