@@ -661,7 +661,7 @@ class Home extends React.Component {
                                                     </div>
 
                                                     <div className="listing-carousel">
-                                                        {advertise.images.map(image => {
+                                                        {advertise.images && advertise.images.map(image => {
                                                             return (
                                                                 <div><img
                                                                     src={Services.getAdvertiseImageDownloadUrl(image.filename)}
@@ -722,7 +722,7 @@ class Home extends React.Component {
                     <div className="container">
                         <div className="row">
 
-                            {this.state.blogList.map(blog => {
+                            {this.state.blogList && this.state.blogList.map(blog => {
                                 return(
                                     <div className="col-md-4">
                                         <div className="blog-post">
