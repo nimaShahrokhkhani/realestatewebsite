@@ -641,7 +641,7 @@ class Home extends React.Component {
                         </div>
                         <div className="col-md-12">
                             <div className="carousel">
-                                {this.state.latestAdvertiseList.map(advertise => {
+                                {this.state.latestAdvertiseList && this.state.latestAdvertiseList.map(advertise => {
                                     return (
                                         <a onClick={() => {
                                             this.advertiseDetail(advertise);
