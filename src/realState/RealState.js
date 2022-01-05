@@ -188,11 +188,11 @@ class RealState extends React.Component {
     componentDidMount() {
         this.props.setState(JSON.parse(localStorage.getItem('state')));
         this.changeCurrentMenu();
-        setTimeout(this.clickMenuEventListener, 4000)
+        setTimeout(this.clickMenuEventListener, 5000)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        setTimeout(this.clickMenuEventListener, 4000)
+        setTimeout(this.clickMenuEventListener, 5000)
     }
 
     isLoginPage() {

@@ -95,12 +95,12 @@ class Home extends React.Component {
             root.appendChild(element);
 
             var element = document.createElement("script");
-            element.src = "../scripts/custom.js";
+            element.src = "../scripts/mmenu.min.js";
             element.type = "text/javascript";
             root.appendChild(element);
 
             var element = document.createElement("script");
-            element.src = "../scripts/mmenu.min.js";
+            element.src = "../scripts/custom.js";
             element.type = "text/javascript";
             root.appendChild(element);
         })
