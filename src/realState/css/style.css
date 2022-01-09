@@ -3097,7 +3097,7 @@ span.like-icon {
 ------------------------------------- */
 .parallax {
     background-repeat: no-repeat;
-    background-position: 50% 50%;
+    background-position: 50% 20%;
     position: relative;
     z-index: 99;
 	background-image: url(../image/Shahrdari.jpg);

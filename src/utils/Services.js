@@ -112,44 +112,44 @@ export default class Services {
     }
 
     static async insertConfig(requestData) {
-        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.post(`/configs/insert`, requestData)
     }
 
     static async deleteConfig(requestData) {
-        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.post(`/configs/delete`, requestData)
     }
 
     static async editConfig(requestData) {
-        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.post(`/configs/edit`, requestData)
     }
 
     static getRegionPriceList(requestData) {
-        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.get(`/regionPrice/list`, {
             params: requestData
         })
     }
 
     static async insertRegionPrice(requestData) {
-        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.post(`/regionPrice/insert`, requestData)
     }
 
     static async deleteRegionPrice(requestData) {
-        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.post(`/regionPrice/delete`, requestData)
     }
 
     static async editRegionPrice(requestData) {
-        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.post(`/regionPrice/edit`, requestData)
     }
 
     static async insertAdvertise(requestData) {
-        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.post(`/client/advertising/insert`, requestData)
     }
 
@@ -186,7 +186,7 @@ export default class Services {
     }
 
     static async editRealStateProfile(requestData) {
-        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.post(`/base/agencyProfile/edit`, requestData)
     }
 
@@ -221,7 +221,7 @@ export default class Services {
     }
 
     static uploadBlogImage(requestData){
-        axios.defaults.headers['Cookie'] = localStorage.getItem('session');
+        // axios.defaults.headers['Cookie'] = localStorage.getItem('session');
         return axios.post(`/base/blogManager/uploadImage`, requestData)
     }
 }

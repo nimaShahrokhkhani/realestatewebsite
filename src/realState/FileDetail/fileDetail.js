@@ -227,12 +227,17 @@ class fileDetail extends React.Component {
             root.appendChild(element);
 
             var element = document.createElement("script");
-            element.src = "../scripts/custom.js";
+            element.src = "../scripts/owl.carousel.min.js";
             element.type = "text/javascript";
             root.appendChild(element);
 
             var element = document.createElement("script");
             element.src = "../scripts/mmenu.min.js";
+            element.type = "text/javascript";
+            root.appendChild(element);
+
+            var element = document.createElement("script");
+            element.src = "../scripts/custom.js";
             element.type = "text/javascript";
             root.appendChild(element);
         })
