@@ -244,12 +244,14 @@ class fileSearchTable extends React.Component {
                     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <img style={{width: '50%', height: '50%'}} src={require('../image/404.jpeg')}/>
                     </div> :
-                    <table>
-                        <tbody id="tableContent">
-                        <tr id="title">
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div style={{overflowX: 'auto'}}>
+                        <table>
+                            <tbody id="tableContent">
+                            <tr id="title">
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 }
 
             </div>

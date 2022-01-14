@@ -254,7 +254,7 @@ class fileDetail extends React.Component {
                     <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <img style={{width: '50%', height: '50%'}} src={require('../image/404.jpeg')}/>
                     </div> :
-                    <div className="container-center-horizontal" style={{direction: 'ltr'}}>
+                    <div className="container-center-horizontal" style={{direction: 'ltr', overflowX: 'auto'}}>
                         <div className="add-file screen">
                             <div className="flex-row">
                                 <div className="jahat border-1px-dove-gray">
