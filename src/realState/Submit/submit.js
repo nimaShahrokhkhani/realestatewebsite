@@ -61,7 +61,7 @@ class submit extends React.Component {
                 data.append('age', document.getElementById('ageSubmit').value);
                 data.append('unitWC', !_.isEmpty(document.getElementById('bathSubmit').value) ?
                     parseInt(StringUtils.convertNumbersToEnglish(document.getElementById('bathSubmit').value)) : 0);
-                data.append('realStateAccess', document.getElementById('yesSubmit').checked);
+                data.append('realStateAccess', document.getElementById('realestateAccess').value);
                 data.append('contactInfoName', document.getElementById('nameSubmit').value);
                 data.append('contactInfoTel', document.getElementById('emailSubmit').value);
                 data.append('contactInfoEmail', document.getElementById('telSubmit').value);
@@ -182,6 +182,7 @@ class submit extends React.Component {
                                                     <option label="blank"></option>
                                                     <option>فروشی</option>
                                                     <option>اجاره ای</option>
+                                                    <option>رهن</option>
                                                 </select>
                                             </div>
 
@@ -189,7 +190,7 @@ class submit extends React.Component {
                                                 <h5>نوع</h5>
                                                 <select className="chosen-select-no-single" id="kindSubmit">
                                                     <option label="blank"></option>
-                                                    <option>آپارتمانی</option>
+                                                    <option>آپارتمان</option>
                                                     <option>خانه</option>
                                                     <option>تجاری</option>
                                                     <option>ویلا</option>
@@ -331,15 +332,13 @@ class submit extends React.Component {
                                                 </select>
                                             </div>
                                             <div className="col-md-4">
-                                                <h5>در اختیار مشاورین املاک <span></span></h5>
-                                                <div className="allow-house">
-                                                    <input type="radio" checked="checked" value="allow" name="allow"
-                                                           id="yesSubmit"/> قرار بگیرد<br/>
-                                                    <input type="radio" value="notAllow" name="notAllow"
-                                                           id="noSubmit"/> قرار نگیرد
-
-
-                                                </div>
+                                                <h5>در اختیار مشاورین املاک قرار بگیرد <span></span></h5>
+                                                <select className="chosen-select-no-single" id="realestateAccess">
+                                                    <option label="blank"></option>
+                                                    <option>در اختیار مشاورین املاک قرار بگیرد </option>
+                                                    <option>در اختیار مشاورین املاک قرار نگیرد </option>
+                                                </select>
+                                                <br/>
 
                                             </div>
 

@@ -412,7 +412,7 @@ class RealState extends React.Component {
 
 
                             </div>
-                            <div class="Enamad">
+                            <div className="Enamad">
                                 <a referrerPolicy="origin" target="_blank"
                                    href="https://trustseal.enamad.ir/?id=184185&amp;Code=hOMhSUQs1Y4sKnO6xS2M"><img
                                     referrerPolicy="origin"

@@ -6,6 +6,9 @@ import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
 import Services from "../../utils/Services";
 import _ from "underscore";
+import GoogleMapReact from 'google-map-react';
+
+const AnyReactComponent = ({text}) => <div>{text}</div>;
 
 class Home extends React.Component {
 
@@ -18,6 +21,7 @@ class Home extends React.Component {
         };
         this.finalEquipmentListSale = [];
         this.finalEquipmentListRent = [];
+        this.finalEquipmentListMortgage = [];
     }
 
     getLatestAdvertiseList() {
@@ -45,18 +49,31 @@ class Home extends React.Component {
     onTabClick(tab) {
         let tab1 = document.getElementById('tab1');
         let tab2 = document.getElementById('tab2');
+        let tab3 = document.getElementById('tab3');
         let titleTable1 = document.getElementById('titleTable1');
         let titleTable2 = document.getElementById('titleTable2');
+        let titleTable3 = document.getElementById('titleTable3');
         if (tab === 'tab1') {
             tab1.style.display = 'block';
             tab2.style.display = 'none';
+            tab3.style.display = 'none';
             titleTable1.className = 'active';
             titleTable2.className = '';
-        } else {
+            titleTable3.className = '';
+        } else if (tab === 'tab2') {
             tab2.style.display = 'block';
             tab1.style.display = 'none';
+            tab3.style.display = 'none';
             titleTable1.className = '';
+            titleTable3.className = '';
             titleTable2.className = 'active';
+        } else {
+            tab3.style.display = 'block';
+            tab1.style.display = 'none';
+            tab2.style.display = 'none';
+            titleTable1.className = '';
+            titleTable2.className = '';
+            titleTable3.className = 'active';
         }
     }
 
@@ -158,6 +175,31 @@ class Home extends React.Component {
         });
     };
 
+    searchMortgage = () => {
+        let requestData = {
+            address: _.compact([
+                !_.isEmpty(document.querySelector('#addressTab3').value) ? document.querySelector('#addressTab3').value : undefined,
+            ]),
+            sale: _.compact([
+                'اجاره ای'
+            ]),
+            type: document.getElementById('typeTab3').value !== '' ? document.getElementById('typeTab3').value : undefined,
+            room: document.getElementById('roomNumberTab3').value !== '' ? document.getElementById('roomNumberTab3').value : undefined,
+            unitWC: document.getElementById('wcTab3').value !== '' ? document.getElementById('wcTab3').value : undefined,
+            fromMortgage: document.getElementById('minMortgageTab3').value !== '' ? this.convertAmount(document.getElementById('minMortgageTab3').value) : undefined,
+            toMortgage: document.getElementById('maxMortgageTab3').value !== '' ? this.convertAmount(document.getElementById('maxMortgageTab3').value) : undefined,
+            fromArea: document.getElementById('areaMinTab3').value !== '' ? parseInt(document.getElementById('areaMinTab3').value) : undefined,
+            toArea: document.getElementById('areaMaxTab3').value !== '' ? parseInt(document.getElementById('areaMaxTab3').value) : undefined,
+            equipments: this.finalEquipmentListSale
+        };
+        this.props.history.push({
+            pathname: '/advertise',
+            state: {
+                requestData: requestData
+            }
+        });
+    };
+
     advertiseDetail = (advertise) => {
         this.props.history.push({
             pathname: '/advertiseDetail',
@@ -185,7 +227,7 @@ class Home extends React.Component {
             return parseInt(amount.match(/\d+/g)[0]) * 1000;
         } else if (amount.includes('میلیون')) {
             return parseInt(amount.match(/\d+/g)[0]) * 1000000;
-        } else if (amount.includes('میلیارد')){
+        } else if (amount.includes('میلیارد')) {
             return parseInt(amount.match(/\d+/g)[0]) * 1000000000;
         }
     }
@@ -201,6 +243,17 @@ class Home extends React.Component {
                     className="listing-compact-title"><i>{advertise.mortgage ? advertise.mortgage : advertise.rent} تومان</i></span>
             )
         }
+    }
+
+    renderMarkers(map, maps) {
+        let marker = new maps.Marker({
+            position: {
+                lat: 37.296929,
+                lng: 49.591424
+            },
+            map,
+            title: "گیلان فایل"
+        });
     }
 
     render() {
@@ -223,10 +276,15 @@ class Home extends React.Component {
                                                     className="first-tab"
                                                     name="tab[]"
                                                     onClick={() => this.onTabClick('tab1')}
-                                                    type="radio"/>فروشی</label>
-                                                <label id='titleTable2'><input name="tab[]"
-                                                                               onClick={() => this.onTabClick('tab2')}
-                                                                               type="radio"/>اجاره</label>
+                                                    type="radio"/>فروش</label>
+                                                <label id='titleTable2'>
+                                                    <input name="tab[]"
+                                                           onClick={() => this.onTabClick('tab2')}
+                                                           type="radio"/>اجاره</label>
+                                                <label id='titleTable3'>
+                                                    <input name="tab[]"
+                                                           onClick={() => this.onTabClick('tab3')}
+                                                           type="radio"/>رهن</label>
                                             </div>
                                             <div id="tab1" className="main-search-box">
                                                 <div className="main-search-input larger-input">
@@ -242,7 +300,7 @@ class Home extends React.Component {
                                                                 className="chosen-select-no-single"
                                                                 id="typeTab1">
                                                             <option></option>
-                                                            <option>آپارتمانی</option>
+                                                            <option>آپارتمان</option>
                                                             <option>خانه</option>
                                                             <option>تجاری</option>
                                                             <option>ویلا</option>
@@ -271,7 +329,7 @@ class Home extends React.Component {
                                                                 <option>10 میلیارد</option>
                                                                 <option>15 میلیارد</option>
                                                                 <option>30 میلیارد</option>
-                                                                <option>50 میلیارد </option>
+                                                                <option>50 میلیارد</option>
 
                                                             </select>
                                                         </div>
@@ -284,11 +342,11 @@ class Home extends React.Component {
                                                                    id="maxTotalPriceTab1"/>
                                                             <select>
                                                                 <option></option>
-                                                                <option> 1 میلیارد </option>
+                                                                <option> 1 میلیارد</option>
                                                                 <option> 1.5 میلیارد</option>
-                                                                <option> 2 میلیارد </option>
-                                                                <option> 3 میلیارد </option>
-                                                                <option>  5 میلیارد </option>
+                                                                <option> 2 میلیارد</option>
+                                                                <option> 3 میلیارد</option>
+                                                                <option> 5 میلیارد</option>
                                                                 <option> 10 میلیارد</option>
                                                                 <option>20 میلیارد</option>
                                                                 <option>30 میلیارد</option>
@@ -376,7 +434,7 @@ class Home extends React.Component {
 
                                                             {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
                                                                 return (
-                                                                    <div style={{width: '25%'}}>
+                                                                    <div key={equipment} style={{width: '25%'}}>
                                                                         <input id={equipment} type="checkbox"
                                                                                name="check"
                                                                                onChange={(e) => {
@@ -412,7 +470,7 @@ class Home extends React.Component {
                                                                 className="chosen-select-no-single"
                                                                 id="typeTab2">
                                                             <option></option>
-                                                            <option>آپارتمانی</option>
+                                                            <option>آپارتمان</option>
                                                             <option>خانه</option>
                                                             <option>تجاری</option>
                                                             <option>ویلا</option>
@@ -565,7 +623,6 @@ class Home extends React.Component {
                                                                         <option>800</option>
 
 
-
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -602,7 +659,7 @@ class Home extends React.Component {
 
                                                             {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
                                                                 return (
-                                                                    <div style={{width: '25%'}}>
+                                                                    <div key={equipment} style={{width: '25%'}}>
                                                                         <input id={equipment} type="checkbox"
                                                                                name="check"
                                                                                onChange={(e) => {
@@ -611,6 +668,195 @@ class Home extends React.Component {
                                                                                    } else {
                                                                                        if (this.finalEquipmentListRent.includes(e.target.id)) {
                                                                                            this.finalEquipmentListRent = this.finalEquipmentListRent.filter(equipment => equipment !== e.target.id)
+                                                                                       }
+                                                                                   }
+                                                                               }}/>
+                                                                        <label
+                                                                            htmlFor={equipment}>{equipment}</label>
+                                                                    </div>
+                                                                )
+                                                            })}
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div id="tab3" style={{display: "none"}} className="main-search-box">
+                                                <div className="main-search-input larger-input">
+                                                    <input type="text" className="ico-01"
+                                                           placeholder="آدرس را وارد کنید."
+                                                           id="addressTab3"/>
+                                                    <button onClick={this.searchMortgage} className="button">جست و جو
+                                                    </button>
+                                                </div>
+                                                <div className="row with-forms">
+                                                    <div className="col-md-4">
+                                                        <select data-placeholder="نوع"
+                                                                className="chosen-select-no-single"
+                                                                id="typeTab3">
+                                                            <option></option>
+                                                            <option>آپارتمان</option>
+                                                            <option>خانه</option>
+                                                            <option>تجاری</option>
+                                                            <option>ویلا</option>
+                                                            <option>زمین کشاورزی</option>
+                                                            <option>اداری</option>
+                                                            <option>زمین</option>
+                                                            <option>مستغلات</option>
+                                                        </select>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <div className="select-input disabled-first-option">
+                                                            <input type="text" placeholder="حداقل قیمت رهن"
+                                                                   data-unit="تومان"
+                                                                   id="minMortgageTab3"/>
+                                                            <select>
+                                                                <option></option>
+                                                                <option>10 میلیون</option>
+                                                                <option>20 میلیون</option>
+                                                                <option>30 میلیون</option>
+                                                                <option>40 میلیون</option>
+                                                                <option> 50 میلیون</option>
+                                                                <option>100 میلیون</option>
+                                                                <option>150 میلیون</option>
+                                                                <option>250 میلیون</option>
+                                                                <option>350 میلیون</option>
+                                                                <option>500 میلیون</option>
+                                                                <option>750 میلیون</option>
+                                                                <option>1 میلیارد</option>
+                                                                <option>1.2 میلیارد</option>
+                                                                <option>1.5 میلیارد</option>
+                                                                <option>2 میلیارد</option>
+                                                                <option>3 میلیارد</option>
+                                                                <option>5 میلیارد</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <div className="select-input disabled-first-option">
+                                                            <input type="text" placeholder="حداکثر قیمت رهن"
+                                                                   data-unit="تومان"
+                                                                   id="maxMortgageTab3"/>
+                                                            <select>
+                                                                <option>10 میلیون</option>
+                                                                <option>20 میلیون</option>
+                                                                <option>30 میلیون</option>
+                                                                <option>40 میلیون</option>
+                                                                <option> 50 میلیون</option>
+                                                                <option>100 میلیون</option>
+                                                                <option>150 میلیون</option>
+                                                                <option>250 میلیون</option>
+                                                                <option>350 میلیون</option>
+                                                                <option>500 میلیون</option>
+                                                                <option>750 میلیون</option>
+                                                                <option>1 میلیارد</option>
+                                                                <option>1.2 میلیارد</option>
+                                                                <option>1.5 میلیارد</option>
+                                                                <option>2 میلیارد</option>
+                                                                <option>3 میلیارد</option>
+                                                                <option>5 میلیارد</option>
+                                                                <option>8 میلیارد</option>
+                                                                <option>10 میلیارد</option>
+                                                                <option>15 میلیارد</option>
+                                                                <option>20 میلیارد</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" className="more-search-options-trigger"
+                                                   data-open-title="گزینه های بیشتر"
+                                                   data-close-title="بستن"></a>
+
+                                                <div className="more-search-options">
+                                                    <div className="more-search-options-container">
+                                                        <div className="row with-forms">
+                                                            <div className="col-md-6">
+                                                                <div className="select-input disabled-first-option">
+                                                                    <input type="text" placeholder="حداقل مساحت"
+                                                                           data-unit="متر مربع" id="areaMinTab3"/>
+                                                                    <select>
+                                                                        <option></option>
+                                                                        <option>40</option>
+                                                                        <option>60</option>
+                                                                        <option>80</option>
+                                                                        <option>90</option>
+                                                                        <option>100</option>
+                                                                        <option>140</option>
+                                                                        <option>160</option>
+                                                                        <option>200</option>
+                                                                        <option>250</option>
+                                                                        <option>300</option>
+                                                                        <option>360 متر</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-6">
+                                                                <div className="select-input disabled-first-option">
+                                                                    <input type="text" placeholder="حداکثر مساحت"
+                                                                           data-unit="متر مربع" id="areaMaxTab3"/>
+                                                                    <select>
+                                                                        <option></option>
+                                                                        <option>140</option>
+                                                                        <option>160</option>
+                                                                        <option>180</option>
+                                                                        <option>190</option>
+                                                                        <option>200</option>
+                                                                        <option>250</option>
+                                                                        <option>300</option>
+                                                                        <option>350</option>
+                                                                        <option>450</option>
+                                                                        <option>600</option>
+                                                                        <option>700</option>
+                                                                        <option>800</option>
+
+
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div className="row with-forms">
+                                                            <div className="col-md-6">
+                                                                <select data-placeholder="تعداد اتاق ها"
+                                                                        className="chosen-select-no-single"
+                                                                        id="roomNumberTab3">
+                                                                    <option></option>
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </div>
+                                                            <div className="col-md-6">
+                                                                <select data-placeholder="حمام"
+                                                                        className="chosen-select-no-single"
+                                                                        id="wcTab3">
+                                                                    <option></option>
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </div>
+
+                                                        </div>
+                                                        <div className="checkboxes in-row">
+
+                                                            {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
+                                                                return (
+                                                                    <div key={equipment} style={{width: '25%'}}>
+                                                                        <input id={equipment} type="checkbox"
+                                                                               name="check"
+                                                                               onChange={(e) => {
+                                                                                   if (e.target.checked) {
+                                                                                       !this.finalEquipmentListMortgage.includes(e.target.id) && this.finalEquipmentListMortgage.push(e.target.id)
+                                                                                   } else {
+                                                                                       if (this.finalEquipmentListMortgage.includes(e.target.id)) {
+                                                                                           this.finalEquipmentListMortgage = this.finalEquipmentListMortgage.filter(equipment => equipment !== e.target.id)
                                                                                        }
                                                                                    }
                                                                                }}/>
@@ -643,7 +889,7 @@ class Home extends React.Component {
                             <div className="carousel">
                                 {this.state.latestAdvertiseList && this.state.latestAdvertiseList.map(advertise => {
                                     return (
-                                        <a onClick={() => {
+                                        <a key={advertise.advertisingCode} onClick={() => {
                                             this.advertiseDetail(advertise);
                                         }} className="carousel-item">
                                             <div className="listing-item">
@@ -663,7 +909,7 @@ class Home extends React.Component {
                                                     <div className="listing-carousel">
                                                         {advertise.images && advertise.images.map(image => {
                                                             return (
-                                                                <div><img
+                                                                <div key={image.filename}><img
                                                                     src={Services.getAdvertiseImageDownloadUrl(image.filename)}
                                                                     alt=""/></div>
                                                             )
@@ -675,8 +921,9 @@ class Home extends React.Component {
                                                 <div className="listing-content">
 
                                                     <div className="listing-title">
-                                                        <h4><div
-                                                            href="single-property-page-1.html">{advertise.title}</div>
+                                                        <h4>
+                                                            <div
+                                                                href="single-property-page-1.html">{advertise.title}</div>
                                                         </h4>
                                                         <i className="fa fa-map-marker"></i>
                                                     </div>
@@ -715,7 +962,7 @@ class Home extends React.Component {
 
                 </section>
 
-                <section className="fullwidth margin-top-95 margin-bottom-0">
+                <section className="fullwidth margin-top-95">
 
                     <h3 className="headline-box">مقالات و نکته ها</h3>
 
@@ -723,8 +970,8 @@ class Home extends React.Component {
                         <div className="row">
 
                             {this.state.blogList && this.state.blogList.map(blog => {
-                                return(
-                                    <div className="col-md-4">
+                                return (
+                                    <div key={blog.title} className="col-md-4">
                                         <div className="blog-post">
                                             <a className="post-img">
                                                 <img src={blog.contentImage} alt=""/>
@@ -745,6 +992,37 @@ class Home extends React.Component {
                                 )
                             })}
 
+                        </div>
+                    </div>
+                </section>
+
+
+                <section className="fullwidth margin-top-95 margin-bottom-0">
+
+                    <h3 className="headline-box">درباره ی گیلان فایل </h3>
+                    <div className={'row'} style={{
+                        width: '100%',
+                        paddingLeft: 30
+                    }}>
+                        <div className={'col-md-7'} style={{fontSize: 19, marginLeft: 20, marginTop: 25, paddingRight: 60, textAlign: 'justify', textJustify: 'inter-word'}}>
+                            شرکت گیلان فایل در سال 1398 شکل گرفته است و همینک عضو رسمی اتحادیه مشاورین املاک  و دارای مجوز فعالیت رسمی یه کد شناسه صنفی 0000000 می‌باشد. کلیه کارمندان و اعضاء تشکیل دهنده‌ی این گروه همگی دارای تحصیلات عالیه حداقل با مدرک کارشناسی و عمدتا در رشته‌های فنی و مهندسی می‌باشند و از آموزش‌های لازم جهت ارایه خدمات مشاوره‌ای در زمینه املاک بهره جسته‌اند.
+                        </div>
+                        <div className={'col-md-4'} style={{height: '50vh'}}>
+                            <GoogleMapReact
+                                bootstrapURLKeys={{key: ""}}
+                                defaultCenter={{
+                                    lat: 37.296929,
+                                    lng: 49.591424
+                                }}
+                                defaultZoom={11}
+                                onGoogleApiLoaded={({map, maps}) => this.renderMarkers(map, maps)}
+                            >
+                                <AnyReactComponent
+                                    lat={37.296929}
+                                    lng={49.591424}
+                                    text="گیلان فایل"
+                                />
+                            </GoogleMapReact>
                         </div>
                     </div>
                 </section>
