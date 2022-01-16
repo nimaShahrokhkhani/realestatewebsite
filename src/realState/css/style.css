@@ -12893,3 +12893,7 @@ input#date-picker:hover {
 	min-height: 300px;
 }
 
+.slick-slider-custom {
+	height: 400px;
+}
+

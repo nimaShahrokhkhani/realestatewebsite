@@ -9,6 +9,9 @@ import Services from "../../utils/Services";
 import _ from 'underscore';
 import {NotificationContainer, NotificationManager} from "react-notifications";
 import * as StringUtils from "../../utils/StringUtils";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 class advertiseDetail extends React.Component {
 
@@ -62,6 +65,23 @@ class advertiseDetail extends React.Component {
 
     render() {
         let {advertise} = (this.props.location && this.props.location.state) ? this.props.location.state : {};
+        const settings = {
+            customPaging: function(i) {
+                return (
+                    <a>
+                        <img src={Services.getAdvertiseImageDownloadUrl(advertise.images[i].filename)} alt={''}/>
+                    </a>
+                );
+            },
+            dots: true,
+            className: 'slick-slider-custom',
+            dotsClass: "slick-dots slick-thumb",
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false
+        };
         return (
             <div id="root-div">
                 <NotificationContainer/>
@@ -111,25 +131,13 @@ class advertiseDetail extends React.Component {
                         <div className="row margin-bottom-50">
                             <div className="col-md-12">
 
-                                <div className="property-slider default">
+                                <Slider {...settings}>
                                     {advertise.images.map((image) => {
                                         return (
-                                            <a href={Services.getAdvertiseImageDownloadUrl(image.filename)}
-                                               data-background-image={Services.getAdvertiseImageDownloadUrl(image.filename)}
-                                               className="item mfp-gallery"/>
+                                            <img height={400} src={Services.getAdvertiseImageDownloadUrl(image.filename)} alt=""/>
                                         )
                                     })}
-                                </div>
-
-                                <div className="property-slider-nav">
-                                    {advertise.images.map((image) => {
-                                        return (
-                                            <div className="item"><img
-                                                src={Services.getAdvertiseImageDownloadUrl(image.filename)} alt=""/>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
+                                </Slider>
 
                             </div>
                         </div>
