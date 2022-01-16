@@ -6,7 +6,9 @@ import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
 import Services from "../../utils/Services";
 import _ from "underscore";
-import GoogleMapReact from 'google-map-react';
+import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 
 const AnyReactComponent = ({text}) => <div>{text}</div>;
 
@@ -257,6 +259,10 @@ class Home extends React.Component {
     }
 
     render() {
+        const Map = ReactMapboxGl({
+            accessToken:
+                'pk.eyJ1IjoibmltYXNoYWhyb2toa2hhbmkxMzcwIiwiYSI6ImNrdWU4cWQycjFodjQyem1uYnFjOHhyc2kifQ.Ojr2oC8o5_Aw7FbtdKwROQ'
+        });
         return (
             <div id='home-div'>
                 <div className="clearfix"></div>
@@ -1008,21 +1014,20 @@ class Home extends React.Component {
                             شرکت گیلان فایل در سال 1398 شکل گرفته است و همینک عضو رسمی اتحادیه مشاورین املاک  و دارای مجوز فعالیت رسمی یه کد شناسه صنفی 0000000 می‌باشد. کلیه کارمندان و اعضاء تشکیل دهنده‌ی این گروه همگی دارای تحصیلات عالیه حداقل با مدرک کارشناسی و عمدتا در رشته‌های فنی و مهندسی می‌باشند و از آموزش‌های لازم جهت ارایه خدمات مشاوره‌ای در زمینه املاک بهره جسته‌اند.
                         </div>
                         <div className={'col-md-4'} style={{height: '50vh'}}>
-                            <GoogleMapReact
-                                bootstrapURLKeys={{key: ""}}
-                                defaultCenter={{
-                                    lat: 37.296929,
-                                    lng: 49.591424
+                            <Map
+                                style="mapbox://styles/mapbox/streets-v9"
+                                center={[49.591424, 37.296929]}
+                                containerStyle={{
+                                    height: '50vh',
+                                    width: '100%'
                                 }}
-                                defaultZoom={11}
-                                onGoogleApiLoaded={({map, maps}) => this.renderMarkers(map, maps)}
                             >
-                                <AnyReactComponent
-                                    lat={37.296929}
-                                    lng={49.591424}
-                                    text="گیلان فایل"
-                                />
-                            </GoogleMapReact>
+                                <Marker
+                                    coordinates={[49.591424, 37.296929]}
+                                    anchor="bottom">
+                                    <img height={30} width={30} src={require("../image/marker.png")}/>
+                                </Marker>
+                            </Map>
                         </div>
                     </div>
                 </section>
