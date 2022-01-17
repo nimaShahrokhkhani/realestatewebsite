@@ -4880,13 +4880,13 @@ section.fullwidth.border-bottom { border-bottom: 1px solid #e4e4e4;}
 
 .change-photo-btn {
 	border-radius: 2px;
-	display: inline-block;
-	position: absolute;
+	/*display: inline-block;*/
+	/*position: absolute;*/
 	font-size: 13px;
-	bottom: 50px;
+	/*bottom: 50px;*/
 	right: 15px;
 	width: auto;
-	height: 100px;
+	/*height: 100px;*/
 	background-color: #fff;
 	color: #333;
 	transition: 0.3s;

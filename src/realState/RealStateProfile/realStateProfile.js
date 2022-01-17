@@ -173,10 +173,19 @@ class profile extends React.Component {
                                 </div>
                             </div>
 
+
+
                             <div className="col-md-8">
-                                <div className="row">
+                                <div style={{display: 'flex', flexDirection: 'column'}}>
 
 
+                                    <div className="col-md-4" style={{display: 'flex', width: '100%'}}>
+                                        <div className="edit-profile-photo">
+                                            <Doka/>
+                                        </div>
+                                        {this.props.user.image && <img style={{width: 200, height: 160}} src={Services.getRealStateProfileImageDownloadUrl(this.props.user.image)} alt=""/>}
+
+                                    </div>
                                     <div className="col-md-8 my-profile">
                                         <label> نام آژانس</label>
                                         <input value={this.props.user.agencyName} id='agencyName' type="text"/>
@@ -232,14 +241,6 @@ class profile extends React.Component {
                                                 ی تغییرات
                                             </button>
                                         }
-
-                                    </div>
-
-                                    <div className="col-md-4">
-                                        <div className="edit-profile-photo">
-                                            <Doka/>
-                                        </div>
-                                        {this.props.user.image && <img src={Services.getRealStateProfileImageDownloadUrl(this.props.user.image)} alt=""/>}
 
                                     </div>
 
