@@ -12,6 +12,7 @@ import ScriptTag from 'react-script-tag';
 import * as StringUtils from "../../utils/StringUtils";
 import connect from "react-redux/es/connect/connect";
 import {setFileSearchRequest, setState, setUser} from "../../components/redux/actions";
+import ReactPaginate from 'react-paginate';
 
 class fileSearchTable extends React.Component {
 
@@ -19,7 +20,8 @@ class fileSearchTable extends React.Component {
         super(props);
         this.state = {
             activeNav: 1,
-            isErrorPage: false
+            isErrorPage: false,
+            pageCount: 1
         };
         this.totalFilesCount = 0;
         this.fileList = [];
@@ -123,17 +125,20 @@ class fileSearchTable extends React.Component {
         ];
         var tableContent = document.getElementById("tableContent");
 
-        if (_.isEmpty(this.fileList)) {
+        var titleRow = document.createElement("TR");
+        titleRow.id = 'title';
+        tableContent.innerHTML = '';
+        tableContent.appendChild(titleRow);
 
-            var titleList = document.getElementById("title");
-            for (var i = 0, n = showFilesTitle.length; i < n; i++) {
-                var titleField = document.createElement("TH");
-                titleField.innerHTML = showFilesTitle[i].value;
-                titleList.appendChild(titleField);
-            }
+
+        var titleList = document.getElementById("title");
+        for (var i = 0, n = showFilesTitle.length; i < n; i++) {
+            var titleField = document.createElement("TH");
+            titleField.innerHTML = showFilesTitle[i].value;
+            titleList.appendChild(titleField);
         }
 
-        this.fileList.push(...files);
+        this.fileList = files;
         for (var i = 0, n = files.length; i < n; i++) {
             var rowContainer = document.createElement("TR");
             for (var j = 0, k = showFilesTitle.length; j < k; j++) {
@@ -160,15 +165,21 @@ class fileSearchTable extends React.Component {
             };
             tableContent.appendChild(rowContainer);
         }
+        window.scrollTo(0, 0);
     }
 
-    getFile() {
+    getFile(offset, length) {
         let requestObject = this.props.fileRequestObject ? this.props.fileRequestObject : {};
         requestObject.agencyCode = this.props.user.agencyCode;
+        requestObject.offset = offset;
+        requestObject.length = length;
         Services.searchAgencyFiles(requestObject).then(response => {
-            if (!_.isEmpty(response.data) && response.data.length !== 0) {
-                this.setState({isErrorPage: false}, () => {
-                    this.createFileTable(response.data);
+            if (!_.isEmpty(response.data.data) && response.data.data.length !== 0) {
+                this.setState({
+                    isErrorPage: false,
+                    pageCount: (response.data.totalCount / 50)
+                }, () => {
+                    this.createFileTable(response.data.data);
                 })
             } else {
                 this.setState({isErrorPage: true})
@@ -188,7 +199,7 @@ class fileSearchTable extends React.Component {
     }
 
     componentDidMount() {
-        this.getFile();
+        this.getFile('0', '50');
 
         let root = document.getElementById('root-div');
 
@@ -233,6 +244,10 @@ class fileSearchTable extends React.Component {
         })
     }
 
+    handlePageClick = (event) => {
+        this.getFile((event.selected * 50).toString() , ((event.selected * 50) + 50).toString())
+    };
+
     render() {
         return (
             <div id="root-div" style={{marginTop: 50, marginBottom: 100}}>
@@ -251,6 +266,27 @@ class fileSearchTable extends React.Component {
                             </tr>
                             </tbody>
                         </table>
+
+
+                        <ReactPaginate
+                            previousLabel="قبلی"
+                            nextLabel="بعدی"
+                            pageClassName="page-item"
+                            pageLinkClassName="page-link"
+                            previousClassName="page-item"
+                            previousLinkClassName="page-link"
+                            nextClassName="page-item"
+                            nextLinkClassName="page-link"
+                            breakLabel="..."
+                            breakClassName="page-item"
+                            breakLinkClassName="page-link"
+                            pageCount={this.state.pageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={this.handlePageClick}
+                            containerClassName="pagination"
+                            activeClassName="active"
+                        />
                     </div>
                 }
 
