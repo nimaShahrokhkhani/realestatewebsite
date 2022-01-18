@@ -14,6 +14,7 @@ import $ from 'jquery';
 import ScriptTag from 'react-script-tag';
 import * as ReactDOM from "react-dom";
 // import Services from "../utils/Services";
+import { slide as Menu } from 'react-burger-menu'
 
 const ExpandingSearchBox = makeExpanding(SearchBox);
 
@@ -21,7 +22,9 @@ class RealState extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            isMenuOpen: false
+        }
 
     }
 
@@ -42,8 +45,13 @@ class RealState extends React.Component {
         document.getElementById('hamburgerBtn').classList.remove("is-active");
     }
 
+    closeHMenu() {
+        let element = document.getElementsByClassName("bm-overlay")[0];
+        element.click();
+    }
+
     onHomePageClick = () => {
-        this.closeHamburger();
+        this.closeHMenu();
         this.props.history.push({
             pathname: '/'
         });
@@ -51,7 +59,7 @@ class RealState extends React.Component {
     };
 
     onAdvertisingPageClick = () => {
-        this.closeHamburger();
+        this.closeHMenu();
         this.props.history.push({
             pathname: '/advertise'
         });
@@ -59,7 +67,7 @@ class RealState extends React.Component {
     };
 
     onRealstatePanelClick = () => {
-        this.closeHamburger();
+        this.closeHMenu();
         this.props.history.push({
             pathname: '/realstatePanel'
         });
@@ -98,7 +106,7 @@ class RealState extends React.Component {
     };
 
     onContactClick = () => {
-        this.closeHamburger();
+        this.closeHMenu();
         this.props.history.push({
             pathname: '/contact'
         });
@@ -106,7 +114,7 @@ class RealState extends React.Component {
     };
 
     onBestAgenciesClick = () => {
-        this.closeHamburger();
+        this.closeHMenu();
         this.props.history.push({
             pathname: '/bestAgencies'
         });
@@ -214,12 +222,21 @@ class RealState extends React.Component {
                                     <a onClick={this.onHomePageClick}><img src={require("./image/logol.png")}
                                                                            alt=""/></a>
                                 </div>
-                                <div className="mmenu-trigger">
+                                {/*<div className="mmenu-trigger">
                                     <button id='hamburgerBtn' className="hamburger hamburger--collapse" type="button">
 						<span className="hamburger-box">
 							<span className="hamburger-inner"></span>
 						</span>
                                     </button>
+                                </div>*/}
+                                <div className="mmenu-trigger">
+                                    <Menu styles={styles} right isOpen={ false }>
+                                        <a id="hmHome" className="menu-item" onClick={this.onHomePageClick}>خانه</a>
+                                        <a id="hmAdvertise" className="menu-item" onClick={this.onAdvertisingPageClick}>آگهی ها</a>
+                                        <a id="hmRealStatePanel" className="menu-item" onClick={this.onRealstatePanelClick}>پنل املاک</a>
+                                        <a id='hmBestAgencies' className="menu-item" onClick={this.onBestAgenciesClick}>آژانس برتر</a>
+                                        <a id='hmContact' className="menu-item" onClick={this.onContactClick}>تماس با ما</a>
+                                    </Menu>
                                 </div>
                                 <nav id="navigation" className="style-1">
                                     <ul id="responsive">
@@ -434,6 +451,55 @@ class RealState extends React.Component {
 
             </div>
         );
+    }
+}
+
+var styles = {
+    bmBurgerButton: {
+        position: 'absolute',
+        width: '36px',
+        height: '30px',
+        right: '7px',
+        top: '10px'
+    },
+    bmBurgerBars: {
+        background: '#373a47'
+    },
+    bmBurgerBarsHover: {
+        background: '#a90000'
+    },
+    bmCrossButton: {
+        height: '24px',
+        width: '24px'
+    },
+    bmCross: {
+        background: '#bdc3c7'
+    },
+    bmMenuWrap: {
+        position: 'fixed',
+        height: '100%'
+    },
+    bmMenu: {
+        background: '#262626',
+        padding: '2.5em 1.5em 0',
+        fontSize: '1.15em'
+    },
+    bmMorphShape: {
+        fill: '#373a47'
+    },
+    bmItemList: {
+        color: '#b8b7ad',
+        padding: '0.8em',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    bmItem: {
+        display: 'inline-block',
+        color: 'white',
+        marginBottom: 20
+    },
+    bmOverlay: {
+        background: 'rgba(0, 0, 0, 0.3)'
     }
 }
 
