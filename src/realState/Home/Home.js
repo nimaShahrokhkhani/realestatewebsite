@@ -8,6 +8,7 @@ import Services from "../../utils/Services";
 import _ from "underscore";
 import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import Slider from "react-slick/lib";
 
 
 const AnyReactComponent = ({text}) => <div>{text}</div>;
@@ -263,6 +264,42 @@ class Home extends React.Component {
             accessToken:
                 'pk.eyJ1IjoibmltYXNoYWhyb2toa2hhbmkxMzcwIiwiYSI6ImNrdWU4cWQycjFodjQyem1uYnFjOHhyc2kifQ.Ojr2oC8o5_Aw7FbtdKwROQ'
         });
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: this.state.latestAdvertiseList ? ( this.state.latestAdvertiseList.length > 4 ? 4 : this.state.latestAdvertiseList.length ) : 0,
+            slidesToScroll: 1,
+            arrows: false,
+            // nextArrow: <SampleNextArrow />,
+            // prevArrow: <SamplePrevArrow />,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        initialSlide: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        };
         return (
             <div id='home-div'>
                 <div className="clearfix"></div>
@@ -892,7 +929,10 @@ class Home extends React.Component {
                             <h3 className="headline margin-bottom-25 margin-top-65">تازه ها</h3>
                         </div>
                         <div className="col-md-12">
-                            <div className="carousel">
+
+
+
+                            <Slider {...settings}>
                                 {this.state.latestAdvertiseList && this.state.latestAdvertiseList.map(advertise => {
                                     return (
                                         <a key={advertise.advertisingCode} onClick={() => {
@@ -949,7 +989,7 @@ class Home extends React.Component {
                                         </a>
                                     )
                                 })}
-                            </div>
+                            </Slider>
 
                         </div>
 
@@ -1010,15 +1050,41 @@ class Home extends React.Component {
                         width: '100%',
                         paddingLeft: 30
                     }}>
-                        <div className={'col-md-7'} style={{fontSize: 19, marginLeft: 20, marginTop: 25, paddingRight: 60, textAlign: 'justify', textJustify: 'inter-word'}}>
-                            شرکت گیلان فایل در سال 1398 شکل گرفته است و همینک عضو رسمی اتحادیه مشاورین املاک  و دارای مجوز فعالیت رسمی یه کد شناسه صنفی 0000000 می‌باشد. کلیه کارمندان و اعضاء تشکیل دهنده‌ی این گروه همگی دارای تحصیلات عالیه حداقل با مدرک کارشناسی و عمدتا در رشته‌های فنی و مهندسی می‌باشند و از آموزش‌های لازم جهت ارایه خدمات مشاوره‌ای در زمینه املاک بهره جسته‌اند.
+                        <div className={'col-md-7'} style={{fontSize: 18, marginLeft: 20, marginTop: 25, paddingRight: 60, textAlign: 'justify', textJustify: 'inter-word', color: 'black'}}>
+                            گیلان فایل بر اساس تفکر نوین و پیشرفته همسو با تکنولوژی روز جهت تسهیل و آسان سازی در تجارت صنعت ساختمان به کمک ابزارهای مجازی و اینترنتی در استان گیلان شروع به فعالیت نموده و بعنوان بخش خصوصی آماده ارائه خدمات به آژانسهای املاک و فعالان اقتصادی در حوزه املاک میباشد ،
+                            مزایای فایلینگ گیلان فایل به شرح ذیل است:
+                            <br/>
+                            •	دسترسی آسان به فایلهای خرید، فروش و اجاره (کاغذی/کامپیوتری)
+                            <br/>
+                            •	ارائه بیش از هزار فایل طی یک ماه در کلیه نقاط شهر با ارسال رایگان
+                            <br/>
+                            •	دریافت فایلهای دسته بندی طبق کدپستی منطقه فعالیت شما
+                            <br/>
+                            •	جلوگیری از اتلاف وقت و هزینه های پنهان و  اضافه
+                            <br/>
+                            •	کاهش هزینه نیروی انسانی ، لوازم اداری و فضای کاری
+                            <br/>
+                            •	حفظ کلاس کاری مقابل مالکان ، متقاضیان و همکاران
+                            <br/>
+                            •	عدم اختلال در معاملات بین مشاوران املاک بدلیل عدم تکرار فایل
+                            <br/>
+                            •	اعتماد سرمایه گذاران و سازندگان املاک به سیستم یکپارچه
+                            <br/>
+                            •	کنترل و تثبیت قیمت املاک بدلیل نظارت و همکاری شما
+                            <br/>
+                            •	فروش بیشتر ، زحمت کمتر و رونق اقتصادی برای مشاوران املاک
+
+                            <br/>
+                            <br/>
+                            " گیلان فایل " با کادری مجرب آماده خدمت به مدیران و مشاوران املاک
+
                         </div>
                         <div className={'col-md-4'} style={{height: '50vh'}}>
                             <Map
                                 style="mapbox://styles/mapbox/streets-v9"
                                 center={[49.591424, 37.296929]}
                                 containerStyle={{
-                                    height: '50vh',
+                                    height: '60vh',
                                     width: '100%'
                                 }}
                             >
@@ -1036,6 +1102,32 @@ class Home extends React.Component {
             </div>
         );
     }
+}
+
+function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={className}
+            style={{ ...style, display: "block", background: "transparent" }}
+            onClick={onClick}
+        >
+            <img src={require("../image/right-arrow.png")} alt={''}/>
+        </div>
+    );
+}
+
+function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={className}
+            style={{ ...style, display: "block", background: "transparent" }}
+            onClick={onClick}
+        >
+            <img src={require("../image/left-arrow.png")} alt={''}/>
+        </div>
+    );
 }
 
 export default withTranslation()(Home);
