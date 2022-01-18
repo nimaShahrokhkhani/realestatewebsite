@@ -6,6 +6,7 @@ import 'react-awesome-slider/dist/styles.css';
 import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
 import Services from "../../utils/Services";
+import Slider from "react-slick";
 
 class bestAgencies extends React.Component {
     constructor(props) {
@@ -68,6 +69,42 @@ class bestAgencies extends React.Component {
     }
 
     render() {
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: false,
+            fade: false,
+            focusOnSelect: false,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        initialSlide: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        };
         return (
             <div id='root-div' style={{marginBottom: 150}}>
                 <div className="clearfix"></div>
@@ -80,11 +117,12 @@ class bestAgencies extends React.Component {
                         </div>
 
                         <div className="col-md-12">
-                            <div className="carousel">
 
+
+                            <Slider {...settings}>
                                 {this.state.bestAgencyList.map(agency => {
                                     return (
-                                        <div className="carousel-item">
+                                        <div className="carousel-item" style={{width: '80%'}}>
                                             <div className="listing-item compact">
 
 
@@ -93,7 +131,7 @@ class bestAgencies extends React.Component {
                                                     <ul className="listing-hidden-content">
                                                         <li>اسم آژانس <span>{agency.agencyName}</span></li>
                                                         <li>نام مدیر آژانس <span>{agency.managementName}</span></li>
-                                                        <li>تلفن آژانس <span>{agency.telephone}</span></li>
+                                                        <li>تلفن آژانس <span>{agency.telephone ? agency.telephone : '***'}</span></li>
 
                                                     </ul>
                                                 </div>
@@ -106,8 +144,7 @@ class bestAgencies extends React.Component {
                                         </div>
                                     )
                                 })}
-
-                            </div>
+                            </Slider>
                         </div>
 
                     </div>

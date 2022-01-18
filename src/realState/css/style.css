@@ -4133,7 +4133,9 @@ ul.listing-details li {
 .listing-item.compact:hover li { opacity: 1; }
 
 .listing-item.compact li span {
-	display: block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	font-size: 14px;
 	color: #fff;
 	margin: 0;
@@ -6589,7 +6591,7 @@ a.read-more i {
 
 
 /* Before page gets loaded */
-.carousel-item { width: 29%;  display: inline-block; }
+.carousel-item { width: 29%;  display: inline-block; padding: 20px}
 .carousel-item .listing-carousel { overflow: hidden; height: 280px; }
 
 .owl-wrapper .carousel-item { width: auto;  display: block; }
