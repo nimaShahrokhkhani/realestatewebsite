@@ -252,6 +252,113 @@ class submit extends React.Component {
                                                     <option>بیشتر از 5 اتاق</option>
                                                 </select>
                                             </div>
+                                            <div className="col-md-4">
+                                                <h5>جهت ملک</h5>
+                                                <select className="chosen-select-no-single" id="directionSubmit">
+                                                    <option label="blank"></option>
+                                                    <option>شمالی</option>
+                                                    <option>شرقی</option>
+                                                    <option>جنوبی</option>
+                                                    <option>غربی</option>
+
+                                                </select>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <h5>کفپوش</h5>
+                                                <select className="chosen-select-no-single" id="floorcoverSubmit">
+                                                    <option label="blank"></option>
+                                                    <option></option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>بیشتر از 5 اتاق</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <h5>بالکن</h5>
+                                                <select className="chosen-select-no-single" id="balkonSubmit">
+                                                    <option label="blank"></option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>بیشتر از 5 اتاق</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <h5>آشپزخانه</h5>
+                                                <select className="chosen-select-no-single" id="kitchenSubmit">
+                                                    <option label="blank"></option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>بیشتر از 5 اتاق</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <h5>طبقه</h5>
+                                                <select className="chosen-select-no-single" id="floorSubmit">
+                                                    <option label="blank"></option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>بیشتر از 5 اتاق</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <h5>سن بنا</h5>
+                                                <select className="chosen-select-no-single" id="ageSubmit">
+                                                    <option label="blank"></option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>بیشتر از 5 اتاق</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <h5>متراژ</h5>
+                                                <select className="chosen-select-no-single" id="areeSubmit">
+                                                    <option label="blank"></option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>بیشتر از 5 اتاق</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <h5>سند</h5>
+                                                <select className="chosen-select-no-single" id="documentSubmit">
+                                                    <option label="blank"></option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>بیشتر از 5 اتاق</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <h5>نما</h5>
+                                                <select className="chosen-select-no-single" id="namaSubmit">
+                                                    <option label="blank"></option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>بیشتر از 5 اتاق</option>
+                                                </select>
+                                            </div>
 
                                         </div>
 
@@ -307,7 +414,7 @@ class submit extends React.Component {
                                         <div className="row with-forms">
 
                                             <div className="col-md-4">
-                                                <h5>عمر ساخت <span>(اختیاری)</span></h5>
+                                                <h5>عمر ساخت <span></span></h5>
                                                 <select className="chosen-select-no-single" id="ageSubmit">
                                                     <option label="blank"></option>
                                                     <option>0 - 1 سال</option>
@@ -321,7 +428,7 @@ class submit extends React.Component {
 
 
                                             <div className="col-md-4">
-                                                <h5>حمام و دستشویی <span>(اختیاری)</span></h5>
+                                                <h5>حمام و دستشویی <span></span></h5>
                                                 <select className="chosen-select-no-single" id="bathSubmit">
                                                     <option label="blank"></option>
                                                     <option>1</option>
@@ -343,7 +450,7 @@ class submit extends React.Component {
                                             </div>
 
 
-                                            <h5 className="margin-top-30">ویژگی های دیگر <span>(اختیاری)</span></h5>
+                                            <h5 className="margin-top-30">ویژگی های دیگر <span></span></h5>
                                             <div className="checkboxes in-row margin-bottom-20">
 
                                                 {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
@@ -386,7 +493,7 @@ class submit extends React.Component {
                                                 </div>
 
                                                 <div className="col-md-4">
-                                                    <h5>تلفن <span>(اختیاری)</span></h5>
+                                                    <h5>تلفن <span></span></h5>
                                                     <input type="text" style={{direction: "ltr"}} id="telSubmit"/>
                                                 </div>
 

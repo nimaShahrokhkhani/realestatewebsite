@@ -157,6 +157,18 @@ class advertiseDetail extends React.Component {
                                         <li>شهر <span>{advertise.city}</span></li>
                                     </ul>
 
+                                    <h3 className="desc-headline">جزئیات</h3>
+                                    <ul className="property-features  margin-top-0">
+                                        <li>سن بنا: <span></span></li>
+                                        <li>پارکینگ: <span></span></li>
+                                        <li>سیستم سرمایش: <span></span></li>
+                                        <li>سیستم گرمایش: <span></span></li>
+                                        <li>فاضلاب: <span></span></li>
+                                        <li>آب: <span></span></li>
+                                        <li>اتاق ورزش: <span></span></li>
+                                        <li>انباری: <span></span></li>
+                                    </ul>
+
 
                                     <h3 className="desc-headline">ویژگی ها</h3>
                                     <ul className="property-features checkboxes margin-top-0">
