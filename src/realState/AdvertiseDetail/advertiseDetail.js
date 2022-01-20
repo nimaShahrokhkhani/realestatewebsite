@@ -159,13 +159,21 @@ class advertiseDetail extends React.Component {
 
                                     <h3 className="desc-headline">جزئیات</h3>
                                     <ul className="property-features  margin-top-0">
+                                        <li>قیمت متری: <span></span></li>
+                                        <li>قیمت کل: <span></span></li>
+                                        <li>قیمت اجاره: <span></span></li>
+                                        <li>قیمت رهن: <span></span></li>
+                                        <li>مساحت: <span></span></li>
+                                        <li>اتاق: <span></span></li>
+                                        <li>جهت: <span></span></li>
+                                        <li>کفپوش: <span></span></li>
+                                        <li>بالکن: <span></span></li>
+                                        <li>آشپزخانه: <span></span></li>
+                                        <li>طبقه: <span></span></li>
                                         <li>سن بنا: <span></span></li>
+                                        <li>سند: <span></span></li>
+                                        <li>نما: <span></span></li>
                                         <li>پارکینگ: <span></span></li>
-                                        <li>سیستم سرمایش: <span></span></li>
-                                        <li>سیستم گرمایش: <span></span></li>
-                                        <li>فاضلاب: <span></span></li>
-                                        <li>آب: <span></span></li>
-                                        <li>اتاق ورزش: <span></span></li>
                                         <li>انباری: <span></span></li>
                                     </ul>
 

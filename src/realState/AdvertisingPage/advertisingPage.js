@@ -291,7 +291,7 @@ class advertisingPage extends React.Component {
                                         <div className="col-md-6">
                                             <select id='room' data-placeholder="اتاق خواب"
                                                     className="chosen-select-no-single">
-                                                <option label="blank"></option>
+                                                <option label=""></option>
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
@@ -303,7 +303,7 @@ class advertisingPage extends React.Component {
                                         <div className="col-md-6">
                                             <select id='unitWC' data-placeholder="حمام"
                                                     className="chosen-select-no-single">
-                                                <option label="blank"></option>
+                                                <option label=""></option>
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
