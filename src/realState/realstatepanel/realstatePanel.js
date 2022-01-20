@@ -495,7 +495,7 @@ class realstatePanel extends React.Component {
 
 
                                                 <div className="col-md-3">
-                                                    <select data-placeholder="آشپزخانه" className="chosen-select-no-single"
+                                                    <select data-placeholder="آشپزخانه" style={{color: '#888'}}
                                                             name="unitKitchen" id="unitKitchen">
                                                         <option label="آشپزخانه"></option>
                                                         {this.state.configList.kitchenService && this.state.configList.kitchenService.map(kitchenService => {
@@ -506,7 +506,7 @@ class realstatePanel extends React.Component {
                                                     </select>
                                                 </div>
                                                 <div className="col-md-3">
-                                                    <select data-placeholder="نما" className="chosen-select-no-single"
+                                                    <select data-placeholder="نما" style={{color: '#888'}}
                                                             name="frontKind" id="frontKind">
                                                         <option label="نما"></option>
                                                         {this.state.configList.frontKind && this.state.configList.frontKind.map(frontKind => {
@@ -531,7 +531,7 @@ class realstatePanel extends React.Component {
                                                 </div>
                                                 <div className="col-md-3">
                                                     <select data-placeholder="سند"
-                                                            className="chosen-select-no-single" name="documentKind"
+                                                            style={{color: '#888'}} name="documentKind"
                                                             id="documentKind">
                                                         <option label="سند"></option>
                                                         {this.state.configList.documentKind && this.state.configList.documentKind.map(documentKind => {
@@ -543,7 +543,7 @@ class realstatePanel extends React.Component {
                                                     </select>
                                                 </div>
                                                 <div className="col-md-3">
-                                                    <select data-placeholder="کف" className="chosen-select-no-single"
+                                                    <select data-placeholder="کف" style={{color: '#888'}}
                                                             name="floorCovering" id="floorCovering">
                                                         <option label="کف پوش"></option>
                                                         {this.state.configList.floorCovering && this.state.configList.floorCovering.map(floorCovering => {
@@ -556,7 +556,7 @@ class realstatePanel extends React.Component {
                                                 </div>
                                                 <div className="col-md-3">
                                                     <select data-placeholder="جهت"
-                                                            className="chosen-select-no-single" name="direction"
+                                                            style={{color: '#888'}} name="direction"
                                                             id="direction">
                                                         <option label="جهت"></option>
                                                         <option>شمالی</option>

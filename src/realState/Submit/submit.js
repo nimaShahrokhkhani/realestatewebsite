@@ -275,7 +275,7 @@ class submit extends React.Component {
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>کفپوش</h5>
-                                                <select className="chosen-select-no-single" id="floorCoveringSubmit">
+                                                <select style={{color: '#888'}} id="floorCoveringSubmit">
                                                     <option label=""></option>
                                                     {this.state.configList.floorCovering && this.state.configList.floorCovering.map(floorCovering => {
                                                         return (
@@ -286,7 +286,7 @@ class submit extends React.Component {
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>بالکن</h5>
-                                                <select className="chosen-select-no-single" id="unitBalconySubmit">
+                                                <select style={{color: '#888'}} id="unitBalconySubmit">
                                                     <option label=""></option>
                                                     {this.state.configList.patio && this.state.configList.patio.map(patio => {
                                                         return (
@@ -297,7 +297,7 @@ class submit extends React.Component {
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>آشپزخانه</h5>
-                                                <select className="chosen-select-no-single" id="kitchenServiceSubmit">
+                                                <select style={{color: '#888'}} id="kitchenServiceSubmit">
                                                     <option label=""></option>
                                                     {this.state.configList.kitchenService && this.state.configList.kitchenService.map(kitchenService => {
                                                         return (
@@ -308,7 +308,7 @@ class submit extends React.Component {
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>طبقه</h5>
-                                                <select className="chosen-select-no-single" id="floorSubmit">
+                                                <select style={{color: '#888'}} id="floorSubmit">
                                                     <option label=""></option>
                                                     {this.state.configList.floor && this.state.configList.floor.map(floor => {
                                                         return (
@@ -331,7 +331,7 @@ class submit extends React.Component {
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>سند</h5>
-                                                <select className="chosen-select-no-single" id="documentSubmit">
+                                                <select style={{color: '#888'}} id="documentSubmit">
                                                     <option label=""></option>
                                                         {this.state.configList.documentKind && this.state.configList.documentKind.map(documentKind => {
                                                             return (
@@ -342,7 +342,7 @@ class submit extends React.Component {
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>نما</h5>
-                                                <select className="chosen-select-no-single" id="frontKindSubmit">
+                                                <select style={{color: '#888'}} id="frontKindSubmit">
                                                     <option></option>
                                                     {this.state.configList.frontKind && this.state.configList.frontKind.map(frontKind => {
                                                         return (
@@ -358,7 +358,7 @@ class submit extends React.Component {
 
                                             <div className="col-md-6">
                                                 <h5>پارکینگ</h5>
-                                                <select className="chosen-select-no-single" id="parkingSubmit">
+                                                <select style={{color: '#888'}} id="parkingSubmit">
                                                     <option label=""></option>
                                                     {this.state.configList.parking && this.state.configList.parking.map(parking => {
                                                         return (
@@ -370,7 +370,7 @@ class submit extends React.Component {
 
                                             <div className="col-md-6">
                                                 <h5>انباری</h5>
-                                                <select className="chosen-select-no-single" id="warehouseSubmit">
+                                                <select style={{color: '#888'}} id="warehouseSubmit">
                                                     <option label=""></option>
                                                     {this.state.configList.warehouse && this.state.configList.warehouse.map(warehouse => {
                                                         return (
