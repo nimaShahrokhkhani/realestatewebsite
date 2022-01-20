@@ -6,9 +6,8 @@ import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
 import Services from "../../utils/Services";
 import _ from "underscore";
-import ReactMapboxGl, { Layer, Feature, Marker } from 'react-mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import Slider from "react-slick/lib";
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 
 const AnyReactComponent = ({text}) => <div>{text}</div>;
@@ -248,22 +247,7 @@ class Home extends React.Component {
         }
     }
 
-    renderMarkers(map, maps) {
-        let marker = new maps.Marker({
-            position: {
-                lat: 37.296929,
-                lng: 49.591424
-            },
-            map,
-            title: "گیلان فایل"
-        });
-    }
-
     render() {
-        const Map = ReactMapboxGl({
-            accessToken:
-                'pk.eyJ1IjoibmltYXNoYWhyb2toa2hhbmkxMzcwIiwiYSI6ImNreW41ZGwxdTA0OXUyb295ZDZzZ2U1dHYifQ.YVmqVBhHn0SyZxrk3FCZjQ'
-        });
         const settings = {
             dots: true,
             infinite: true,
@@ -1080,20 +1064,20 @@ class Home extends React.Component {
 
                         </div>
                         <div className={'col-md-4'} style={{height: '50vh'}}>
-                            <Map
-                                style="mapbox://styles/mapbox/streets-v9"
-                                center={[49.591424, 37.296929]}
-                                containerStyle={{
-                                    height: '60vh',
-                                    width: '100%'
-                                }}
-                            >
-                                <Marker
-                                    coordinates={[49.591424, 37.296929]}
-                                    anchor="bottom">
-                                    <img height={30} width={30} src={require("../image/marker.png")}/>
+                            <MapContainer style={{
+                                height: '60vh',
+                                width: '100%'
+                            }} center={[37.296929, 49.591424]} zoom={13} scrollWheelZoom={false}>
+                                <TileLayer
+                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                                <Marker position={[37.296929, 49.591424]}>
+                                    <Popup>
+                                        شرکت گیلان فایل
+                                    </Popup>
                                 </Marker>
-                            </Map>
+                            </MapContainer>
                         </div>
                     </div>
                 </section>
