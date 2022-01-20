@@ -179,7 +179,7 @@ class submit extends React.Component {
                                             <div className="col-md-6">
                                                 <h5>وضعیت</h5>
                                                 <select className="chosen-select-no-single" id="conditionSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option>فروشی</option>
                                                     <option>اجاره ای</option>
                                                     <option>رهن</option>
@@ -189,7 +189,7 @@ class submit extends React.Component {
                                             <div className="col-md-6">
                                                 <h5>نوع</h5>
                                                 <select className="chosen-select-no-single" id="kindSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option>آپارتمان</option>
                                                     <option>خانه</option>
                                                     <option>تجاری</option>
@@ -243,7 +243,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>اتاق</h5>
                                                 <select className="chosen-select-no-single" id="roomSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
@@ -255,7 +255,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>جهت ملک</h5>
                                                 <select className="chosen-select-no-single" id="directionSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option>شمالی</option>
                                                     <option>شرقی</option>
                                                     <option>جنوبی</option>
@@ -266,7 +266,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>کفپوش</h5>
                                                 <select className="chosen-select-no-single" id="floorcoverSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option></option>
                                                     <option>2</option>
                                                     <option>3</option>
@@ -278,7 +278,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>بالکن</h5>
                                                 <select className="chosen-select-no-single" id="balkonSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
@@ -290,7 +290,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>آشپزخانه</h5>
                                                 <select className="chosen-select-no-single" id="kitchenSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
@@ -302,7 +302,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>طبقه</h5>
                                                 <select className="chosen-select-no-single" id="floorSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
@@ -314,7 +314,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>سن بنا</h5>
                                                 <select className="chosen-select-no-single" id="ageSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
@@ -326,7 +326,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>متراژ</h5>
                                                 <select className="chosen-select-no-single" id="areeSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
@@ -338,7 +338,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>سند</h5>
                                                 <select className="chosen-select-no-single" id="documentSubmit">
-                                                    <option label="blank"></option>
+                                                    <option label=""></option>
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
