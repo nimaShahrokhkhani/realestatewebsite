@@ -54,6 +54,16 @@ class submit extends React.Component {
                 data.append('unitRoom', !_.isEmpty(document.getElementById('roomSubmit').value) ?
                     parseInt(StringUtils.convertNumbersToEnglish(document.getElementById('roomSubmit').value)) : 0);
                 data.append('address', document.getElementById('addressSubmit').value);
+                data.append('direction', document.getElementById('directionSubmit').value);
+                data.append('floorCovering', document.getElementById('floorCoveringSubmit').value);
+                data.append('unitBalcony', document.getElementById('unitBalconySubmit').value);
+                data.append('kitchenService', document.getElementById('kitchenServiceSubmit').value);
+                data.append('floorSubmit', document.getElementById('floorSubmit').value);
+                data.append('unitBuiltUpArea', document.getElementById('unitBuiltUpAreaSubmit').value);
+                data.append('documentKind', document.getElementById('documentSubmit').value);
+                data.append('frontKind', document.getElementById('frontKindSubmit').value);
+                data.append('parking', document.getElementById('parkingSubmit').value);
+                data.append('warehouse', document.getElementById('warehouseSubmit').value);
                 data.append('city', document.getElementById('citySubmit').value);
                 data.append('province', document.getElementById('provinceSubmit').value);
                 data.append('postalCode', document.getElementById('codePostAddress').value);
@@ -265,98 +275,108 @@ class submit extends React.Component {
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>کفپوش</h5>
-                                                <select className="chosen-select-no-single" id="floorcoverSubmit">
+                                                <select style={{color: '#888'}} id="floorCoveringSubmit">
                                                     <option label=""></option>
-                                                    <option></option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>بیشتر از 5 اتاق</option>
+                                                    {this.state.configList.floorCovering && this.state.configList.floorCovering.map(floorCovering => {
+                                                        return (
+                                                            <option>{floorCovering}</option>
+                                                        )
+                                                    })}
                                                 </select>
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>بالکن</h5>
-                                                <select className="chosen-select-no-single" id="balkonSubmit">
+                                                <select style={{color: '#888'}} id="unitBalconySubmit">
                                                     <option label=""></option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>بیشتر از 5 اتاق</option>
+                                                    {this.state.configList.patio && this.state.configList.patio.map(patio => {
+                                                        return (
+                                                            <option>{patio}</option>
+                                                        )
+                                                    })}
                                                 </select>
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>آشپزخانه</h5>
-                                                <select className="chosen-select-no-single" id="kitchenSubmit">
+                                                <select style={{color: '#888'}} id="kitchenServiceSubmit">
                                                     <option label=""></option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>بیشتر از 5 اتاق</option>
+                                                    {this.state.configList.kitchenService && this.state.configList.kitchenService.map(kitchenService => {
+                                                        return (
+                                                            <option>{kitchenService}</option>
+                                                        )
+                                                    })}
                                                 </select>
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>طبقه</h5>
-                                                <select className="chosen-select-no-single" id="floorSubmit">
+                                                <select style={{color: '#888'}} id="floorSubmit">
                                                     <option label=""></option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>بیشتر از 5 اتاق</option>
+                                                    {this.state.configList.floor && this.state.configList.floor.map(floor => {
+                                                        return (
+                                                            <option>{floor}</option>
+                                                        )
+                                                    })}
                                                 </select>
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>سن بنا</h5>
-                                                <select className="chosen-select-no-single" id="ageSubmit">
-                                                    <option label=""></option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>بیشتر از 5 اتاق</option>
-                                                </select>
+                                                <div className="select-input disabled-first-option">
+                                                    <input id="ageSubmit" type="text" data-unit=""/>
+                                                </div>
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>متراژ</h5>
-                                                <select className="chosen-select-no-single" id="areeSubmit">
-                                                    <option label=""></option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>بیشتر از 5 اتاق</option>
-                                                </select>
+                                                <div className="select-input disabled-first-option">
+                                                    <input id="unitBuiltUpAreaSubmit" type="text" data-unit=""/>
+                                                </div>
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>سند</h5>
-                                                <select className="chosen-select-no-single" id="documentSubmit">
+                                                <select style={{color: '#888'}} id="documentSubmit">
                                                     <option label=""></option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>بیشتر از 5 اتاق</option>
+                                                        {this.state.configList.documentKind && this.state.configList.documentKind.map(documentKind => {
+                                                            return (
+                                                                <option>{documentKind}</option>
+                                                            )
+                                                        })}
                                                 </select>
                                             </div>
                                             <div className="col-md-4">
                                                 <h5>نما</h5>
-                                                <select className="chosen-select-no-single" id="namaSubmit">
-                                                    <option label="blank"></option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>بیشتر از 5 اتاق</option>
+                                                <select style={{color: '#888'}} id="frontKindSubmit">
+                                                    <option></option>
+                                                    {this.state.configList.frontKind && this.state.configList.frontKind.map(frontKind => {
+                                                        return (
+                                                            <option>{frontKind}</option>
+                                                        )
+                                                    })}
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                        <div className="row with-forms">
+
+                                            <div className="col-md-6">
+                                                <h5>پارکینگ</h5>
+                                                <select style={{color: '#888'}} id="parkingSubmit">
+                                                    <option label=""></option>
+                                                    {this.state.configList.parking && this.state.configList.parking.map(parking => {
+                                                        return (
+                                                            <option>{parking}</option>
+                                                        )
+                                                    })}
+                                                </select>
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <h5>انباری</h5>
+                                                <select style={{color: '#888'}} id="warehouseSubmit">
+                                                    <option label=""></option>
+                                                    {this.state.configList.warehouse && this.state.configList.warehouse.map(warehouse => {
+                                                        return (
+                                                            <option>{warehouse}</option>
+                                                        )
+                                                    })}
                                                 </select>
                                             </div>
 
@@ -416,7 +436,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>عمر ساخت <span></span></h5>
                                                 <select className="chosen-select-no-single" id="ageSubmit">
-                                                    <option label="blank"></option>
+                                                    <option></option>
                                                     <option>0 - 1 سال</option>
                                                     <option>0 - 5 سال</option>
                                                     <option>0 - 10 سال</option>
@@ -430,7 +450,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>حمام و دستشویی <span></span></h5>
                                                 <select className="chosen-select-no-single" id="bathSubmit">
-                                                    <option label="blank"></option>
+                                                    <option></option>
                                                     <option>1</option>
                                                     <option>2</option>
                                                     <option>3</option>
@@ -441,7 +461,7 @@ class submit extends React.Component {
                                             <div className="col-md-4">
                                                 <h5>در اختیار مشاورین املاک قرار بگیرد <span></span></h5>
                                                 <select className="chosen-select-no-single" id="realestateAccess">
-                                                    <option label="blank"></option>
+                                                    <option></option>
                                                     <option>در اختیار مشاورین املاک قرار بگیرد </option>
                                                     <option>در اختیار مشاورین املاک قرار نگیرد </option>
                                                 </select>
