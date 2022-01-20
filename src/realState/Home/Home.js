@@ -262,7 +262,7 @@ class Home extends React.Component {
     render() {
         const Map = ReactMapboxGl({
             accessToken:
-                'pk.eyJ1IjoibmltYXNoYWhyb2toa2hhbmkxMzcwIiwiYSI6ImNrdWU4cWQycjFodjQyem1uYnFjOHhyc2kifQ.Ojr2oC8o5_Aw7FbtdKwROQ'
+                'pk.eyJ1IjoibmltYXNoYWhyb2toa2hhbmkxMzcwIiwiYSI6ImNreW41ZGwxdTA0OXUyb295ZDZzZ2U1dHYifQ.YVmqVBhHn0SyZxrk3FCZjQ'
         });
         const settings = {
             dots: true,
