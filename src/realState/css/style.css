@@ -3924,6 +3924,7 @@ ul.listing-details li {
 	line-height: 26px;
 	width: 25%;
 	text-align: center;
+	direction: rtl;
 }
 
 .listing-features li:last-child {
