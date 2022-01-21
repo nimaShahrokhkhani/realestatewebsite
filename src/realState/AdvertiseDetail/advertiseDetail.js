@@ -151,30 +151,32 @@ class advertiseDetail extends React.Component {
                                 <div className="property-description">
 
                                     <ul className="property-main-features">
-                                        <li>مساحت <span>{advertise.area} متر مربع</span></li>
-                                        <li>تعداد اتاق ها <span>{advertise.unitRoom}</span></li>
-                                        <li>تعداد حمام/دستشویی <span>{advertise.unitWC}</span></li>
-                                        <li>شهر <span>{advertise.city}</span></li>
+                                        <li><p>مساحت </p><span>{advertise.area ? advertise.area : '***'} متر مربع</span></li>
+                                        <li><p>اتاق </p><span>{advertise.unitRoom ? advertise.unitRoom : '*'}</span></li>
+                                        <li><p>جهت </p><span>{advertise.direction ? advertise.direction : '***'}</span></li>
+                                        <li><p>شهر </p><span>{advertise.city ? advertise.city : '***'}</span></li>
                                     </ul>
 
                                     <h3 className="desc-headline">جزئیات</h3>
                                     <ul className="property-features  margin-top-0">
-                                        <li>قیمت متری: <span id={"priceMetri"}></span></li>
-                                        <li>قیمت کل: <span id={"priceTotal"}></span></li>
-                                        <li>قیمت اجاره: <span id={"priceRent"}></span></li>
-                                        <li>قیمت رهن: <span id={"priceMortgage"}></span></li>
-                                        <li>مساحت: <span id={"area"}></span></li>
-                                        <li>اتاق: <span id={"room"}></span></li>
-                                        <li>جهت: <span id={"direction"}></span></li>
-                                        <li>کفپوش: <span id={"floorcover"}></span></li>
-                                        <li>بالکن: <span id={"balkon"}></span></li>
-                                        <li>آشپزخانه: <span id={"kitchen"}></span></li>
-                                        <li>طبقه: <span id={"floor"}></span></li>
-                                        <li>سن بنا: <span id={"aree"}></span></li>
-                                        <li>سند: <span id={"document"}></span></li>
-                                        <li>نما: <span id={"nama"}></span></li>
-                                        <li>پارکینگ: <span id={"parking"}></span></li>
-                                        <li>انباری: <span id={"warehouse"}></span></li>
+                                        <li>قیمت متری: <span id={"priceMetri"}>{advertise.unitPrice}</span></li>
+                                        <li>قیمت کل: <span id={"priceTotal"}>{advertise.totalPrice}</span></li>
+                                        <li>قیمت اجاره: <span id={"priceRent"}>{advertise.rent}</span></li>
+                                        <li>قیمت رهن: <span id={"priceMortgage"}>{advertise.mortgage}</span></li>
+                                        <li>مساحت: <span id={"area"}>{advertise.area}</span></li>
+                                        <li>متراژ: <span id={"unitBuiltUpArea"}>{advertise.unitBuiltUpArea}</span></li>
+                                        <li>اتاق: <span id={"room"}>{advertise.unitRoom}</span></li>
+                                        <li>جهت: <span id={"direction"}>{advertise.direction}</span></li>
+                                        <li>تعداد حمام/دستشویی: <span id={"unitWC"}>{advertise.unitWC}</span></li>
+                                        <li>کفپوش: <span id={"floorcover"}>{advertise.floorCovering}</span></li>
+                                        <li>بالکن: <span id={"balkon"}>{advertise.unitBalcony}</span></li>
+                                        <li>آشپزخانه: <span id={"kitchen"}>{advertise.kitchenService}</span></li>
+                                        <li>طبقه: <span id={"floor"}>{advertise.floor}</span></li>
+                                        <li>سن بنا: <span id={"aree"}>{advertise.age}</span></li>
+                                        <li>سند: <span id={"document"}>{advertise.documentKind}</span></li>
+                                        <li>نما: <span id={"nama"}>{advertise.frontKind}</span></li>
+                                        <li>پارکینگ: <span id={"parking"}>{advertise.parking}</span></li>
+                                        <li>انباری: <span id={"warehouse"}>{advertise.warehouse}</span></li>
                                     </ul>
 
 

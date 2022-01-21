@@ -8,6 +8,7 @@ import Services from "../../utils/Services";
 import _ from "underscore";
 import Slider from "react-slick/lib";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import * as StringUtils from "../../utils/StringUtils";
 
 
 const AnyReactComponent = ({text}) => <div>{text}</div>;
@@ -237,12 +238,12 @@ class Home extends React.Component {
     renderAmount(advertise) {
         if (this.isSale(advertise.sale)) {
             return (
-                <span className="listing-compact-title"><i>{advertise.totalPrice} تومان</i></span>
+                <span className="listing-compact-title"><i>{advertise.totalPrice ? StringUtils.commify(advertise.totalPrice) : ''} تومان</i></span>
             )
         } else {
             return (
                 <span
-                    className="listing-compact-title"><i>{advertise.mortgage ? advertise.mortgage : advertise.rent} تومان</i></span>
+                    className="listing-compact-title"><i>{advertise.mortgage ? (advertise.mortgage ? StringUtils.commify(advertise.mortgage) : '') : (advertise.rent ? StringUtils.commify(advertise.rent) : '')} تومان</i></span>
             )
         }
     }

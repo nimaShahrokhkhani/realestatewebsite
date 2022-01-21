@@ -58,7 +58,7 @@ class submit extends React.Component {
                 data.append('floorCovering', document.getElementById('floorCoveringSubmit').value);
                 data.append('unitBalcony', document.getElementById('unitBalconySubmit').value);
                 data.append('kitchenService', document.getElementById('kitchenServiceSubmit').value);
-                data.append('floorSubmit', document.getElementById('floorSubmit').value);
+                data.append('floor', document.getElementById('floorSubmit').value);
                 data.append('unitBuiltUpArea', document.getElementById('unitBuiltUpAreaSubmit').value);
                 data.append('documentKind', document.getElementById('documentSubmit').value);
                 data.append('frontKind', document.getElementById('frontKindSubmit').value);
@@ -435,7 +435,7 @@ class submit extends React.Component {
 
                                             <div className="col-md-4">
                                                 <h5>عمر ساخت <span></span></h5>
-                                                <select className="chosen-select-no-single" id="ageSubmit">
+                                                <select className="chosen-select-no-single" id="ageSubmit-ex">
                                                     <option></option>
                                                     <option>0 - 1 سال</option>
                                                     <option>0 - 5 سال</option>

@@ -9,6 +9,7 @@ import Services from "../../utils/Services";
 import _ from 'underscore';
 import {NotificationContainer, NotificationManager} from "react-notifications";
 import ScaleLoader from "react-spinners/ScaleLoader";
+import * as StringUtils from "../../utils/StringUtils";
 
 class advertisingPage extends React.Component {
 
@@ -133,12 +134,12 @@ class advertisingPage extends React.Component {
     renderAmount(advertise) {
         if (this.isSale(advertise.sale)) {
             return (
-                <span className="listing-compact-title"><i>{advertise.totalPrice} تومان</i></span>
+                <span className="listing-compact-title"><i>{advertise.totalPrice ? StringUtils.commify(advertise.totalPrice) : ''} تومان</i></span>
             )
         } else {
             return (
                 <span
-                    className="listing-compact-title"><i>{advertise.mortgage ? advertise.mortgage : advertise.rent} تومان</i></span>
+                    className="listing-compact-title"><i>{advertise.mortgage ? (advertise.mortgage ? StringUtils.commify(advertise.mortgage) : '') : (advertise.rent ? StringUtils.commify(advertise.rent) : '')} تومان</i></span>
             )
         }
     }
@@ -240,7 +241,7 @@ class advertisingPage extends React.Component {
                                         <div className="col-md-12">
                                             <select id='saleType' data-placeholder="وضعیت"
                                                     className="chosen-select-no-single">
-                                                <option>وضعیت</option>
+                                                <option></option>
                                                 <option>فروشی</option>
                                                 <option>اجاره ای</option>
                                             </select>
@@ -251,7 +252,7 @@ class advertisingPage extends React.Component {
                                         <div className="col-md-12">
                                             <select id='type' data-placeholder="نوع"
                                                     className="chosen-select-no-single">
-                                                <option>نوع</option>
+                                                <option></option>
                                                 <option>آپارتمان</option>
                                                 <option>خانه</option>
                                                 <option>تجاری</option>
@@ -271,6 +272,7 @@ class advertisingPage extends React.Component {
                                     <div className="row with-forms">
                                         <div className="col-md-12">
                                             <select id='city' data-placeholder="شهرستان" className="chosen-select">
+                                                <option></option>
                                                 <option>رشت</option>
                                                 <option>لاهیجان</option>
                                                 <option>فومن</option>

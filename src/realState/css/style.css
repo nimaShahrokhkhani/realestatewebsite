@@ -4705,8 +4705,14 @@ section.fullwidth.border-bottom { border-bottom: 1px solid #e4e4e4;}
 }
 
 .property-main-features li span {
-	display: block;
+	display: flex;
+	justify-content: center;
 	color: #444;
+}
+
+.property-main-features li p {
+	display: flex;
+	justify-content: center;
 }
 
 
