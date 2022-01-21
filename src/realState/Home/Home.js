@@ -253,7 +253,7 @@ class Home extends React.Component {
             dots: true,
             infinite: true,
             speed: 500,
-            slidesToShow: this.state.latestAdvertiseList ? ( this.state.latestAdvertiseList.length > 4 ? 4 : this.state.latestAdvertiseList.length ) : 0,
+            slidesToShow: this.state.latestAdvertiseList ? ( this.state.latestAdvertiseList.length > 3 ? 3 : this.state.latestAdvertiseList.length ) : 0,
             slidesToScroll: 1,
             arrows: false,
             // nextArrow: <SampleNextArrow />,
