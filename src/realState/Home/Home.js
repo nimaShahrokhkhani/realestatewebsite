@@ -1033,7 +1033,9 @@ class Home extends React.Component {
                     <h3 className="headline-box">درباره ی گیلان فایل </h3>
                     <div className={'row'} style={{
                         width: '100%',
-                        paddingLeft: 30
+                        paddingLeft: 30,
+                        marginRight: 0,
+                        marginLeft: 0,
                     }}>
                         <div className={'col-md-7'} style={{fontSize: 18, marginLeft: 20, marginTop: 25, paddingRight: 60, textAlign: 'justify', textJustify: 'inter-word', color: 'black'}}>
                             گیلان فایل بر اساس تفکر نوین و پیشرفته همسو با تکنولوژی روز جهت تسهیل و آسان سازی در تجارت صنعت ساختمان به کمک ابزارهای مجازی و اینترنتی در استان گیلان شروع به فعالیت نموده و بعنوان بخش خصوصی آماده ارائه خدمات به آژانسهای املاک و فعالان اقتصادی در حوزه املاک میباشد ،
@@ -1064,7 +1066,7 @@ class Home extends React.Component {
                             " گیلان فایل " با کادری مجرب آماده خدمت به مدیران و مشاوران املاک
 
                         </div>
-                        <div className={'col-md-4'} style={{height: '50vh'}}>
+                        <div className={'col-md-4'} style={{height: '50vh', marginRight: 30}}>
                             <MapContainer style={{
                                 height: '60vh',
                                 width: '100%'

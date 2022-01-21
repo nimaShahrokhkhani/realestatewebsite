@@ -6597,7 +6597,7 @@ a.read-more i {
 
 
 /* Before page gets loaded */
-.carousel-item { width: 29%;  display: inline-block; padding: 20px}
+.carousel-item { width: 90% !important;  display: inline-block;}
 .carousel-item .listing-carousel { overflow: hidden; height: 280px; }
 
 .owl-wrapper .carousel-item { width: auto;  display: block; }
@@ -12537,7 +12537,6 @@ input#date-picker:hover {
 
 
 	.listing-features li span {
-		display: inline-block;
 		color: #444;
 		margin-left: 3px;
 	}
