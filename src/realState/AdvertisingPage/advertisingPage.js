@@ -345,7 +345,7 @@ class advertisingPage extends React.Component {
 
                                             {this.state.configList.equipments && this.state.configList.equipments.map(equipment => {
                                                 return (
-                                                    <div>
+                                                    <div key={equipment} style={{width: '33%'}}>
                                                         <input id={equipment} type="checkbox"
                                                                name="check"
                                                                onChange={(e) => {
@@ -357,7 +357,7 @@ class advertisingPage extends React.Component {
                                                                        }
                                                                    }
                                                                }}/>
-                                                        <label htmlFor={equipment}>{equipment}</label>
+                                                        <label style={{fontSize: '2.25vh'}} htmlFor={equipment}>{equipment}</label>
                                                     </div>
                                                 )
                                             })}
