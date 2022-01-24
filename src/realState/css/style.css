@@ -12574,7 +12574,7 @@ input#date-picker:hover {
 
 
 	.listing-item.compact .listing-hidden-content { height: 70px; }
-	.listing-item.compact .listing-hidden-content li { opacity: 1; }
+	.listing-item.compact .listing-hidden-content li { opacity: 1; padding-left: 20px; text-align: center;}
 	.compact .listing-img-container:before { transform: translateY(-70px); }
 
 	.fullwidth-property-slider .item { height: 400px; }
@@ -12909,4 +12909,3 @@ input#date-picker:hover {
 	width: 100%;
 	height: 100vh;
 }
-

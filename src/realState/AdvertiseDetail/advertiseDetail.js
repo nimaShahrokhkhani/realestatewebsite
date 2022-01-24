@@ -157,6 +157,12 @@ class advertiseDetail extends React.Component {
                                         <li><p>شهر </p><span>{advertise.city ? advertise.city : '***'}</span></li>
                                     </ul>
 
+                                    <h3 className="desc-headline">اطلاعات تماس</h3>
+                                    <ul className="property-features  margin-top-0">
+                                        <li>نام آگهی دهنده: <span id={"contactInfoName"}>{advertise.contactInfoName}</span></li>
+                                        <li>تلفن آگهی دهنده: <span id={"contactInfoTel"}>{advertise.contactInfoTel}</span></li>
+                                    </ul>
+
                                     <h3 className="desc-headline">جزئیات</h3>
                                     <ul className="property-features  margin-top-0">
                                         <li>قیمت متری: <span id={"priceMetri"}>{advertise.unitPrice}</span></li>

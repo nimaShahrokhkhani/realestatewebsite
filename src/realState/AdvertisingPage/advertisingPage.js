@@ -189,7 +189,7 @@ class advertisingPage extends React.Component {
 
                                                         <ul className="listing-hidden-content">
                                                             <li>مساحت <span>{advertise.area} متر مربع</span></li>
-                                                            <li>تعداد اتاق ها <span>{advertise.unitRoom}</span></li>
+                                                            <li>خواب <span>{advertise.unitRoom}</span></li>
                                                             <li>شهر <span>{advertise.city}</span></li>
                                                         </ul>
                                                     </div>

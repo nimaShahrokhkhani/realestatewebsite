@@ -128,9 +128,10 @@ class Home extends React.Component {
 
     searchSale = () => {
         let requestData = {
-            address: _.compact([
-                !_.isEmpty(document.querySelector('#addressTab1').value) ? document.querySelector('#addressTab1').value : undefined,
-            ]),
+            // address: _.compact([
+            //     !_.isEmpty(document.querySelector('#addressTab1').value) ? document.querySelector('#addressTab1').value : undefined,
+            // ]),
+            city: document.getElementById('addressTab1').value !== '' ? document.getElementById('addressTab1').value : undefined,
             sale: _.compact([
                 'فروشی'
             ]),
@@ -153,9 +154,10 @@ class Home extends React.Component {
 
     searchRent = () => {
         let requestData = {
-            address: _.compact([
-                !_.isEmpty(document.querySelector('#addressTab2').value) ? document.querySelector('#addressTab2').value : undefined,
-            ]),
+            // address: _.compact([
+            //     !_.isEmpty(document.querySelector('#addressTab2').value) ? document.querySelector('#addressTab2').value : undefined,
+            // ]),
+            city: document.getElementById('addressTab2').value !== '' ? document.getElementById('addressTab2').value : undefined,
             sale: _.compact([
                 'اجاره ای'
             ]),
@@ -180,9 +182,10 @@ class Home extends React.Component {
 
     searchMortgage = () => {
         let requestData = {
-            address: _.compact([
-                !_.isEmpty(document.querySelector('#addressTab3').value) ? document.querySelector('#addressTab3').value : undefined,
-            ]),
+            // address: _.compact([
+            //     !_.isEmpty(document.querySelector('#addressTab3').value) ? document.querySelector('#addressTab3').value : undefined,
+            // ]),
+            city: document.getElementById('addressTab3').value !== '' ? document.getElementById('addressTab3').value : undefined,
             sale: _.compact([
                 'اجاره ای'
             ]),
@@ -317,7 +320,7 @@ class Home extends React.Component {
                                             <div id="tab1" className="main-search-box">
                                                 <div className="main-search-input larger-input">
                                                     <input type="text" className="ico-01"
-                                                           placeholder="آدرس را وارد کنید."
+                                                           placeholder="شهر را وارد کنید."
                                                            id="addressTab1"/>
                                                     <button onClick={this.searchSale} className="button">جست و جو
                                                     </button>
@@ -327,7 +330,7 @@ class Home extends React.Component {
                                                         <select data-placeholder="نوع"
                                                                 className="chosen-select-no-single"
                                                                 id="typeTab1">
-                                                            <option></option>
+                                                            <option value="" disabled selected hidden>نوع</option>
                                                             <option>آپارتمان</option>
                                                             <option>خانه</option>
                                                             <option>تجاری</option>
@@ -437,7 +440,7 @@ class Home extends React.Component {
                                                                 <select data-placeholder="تعداد اتاق ها"
                                                                         className="chosen-select-no-single"
                                                                         id="roomNumberTab1">
-                                                                    <option></option>
+                                                                    <option value="" disabled selected hidden>تعداد اتاق ها</option>
                                                                     <option>1</option>
                                                                     <option>2</option>
                                                                     <option>3</option>
@@ -446,9 +449,9 @@ class Home extends React.Component {
                                                                 </select>
                                                             </div>
                                                             <div className="col-md-6">
-                                                                <select data-placeholder="حمام/دستشویی" id='wcTab1'
+                                                                <select data-placeholder="تعداد حمام/دستشویی" id='wcTab1'
                                                                         className="chosen-select-no-single">
-                                                                    <option></option>
+                                                                    <option value="" disabled selected hidden>تعداد حمام/دستشویی</option>
                                                                     <option>1</option>
                                                                     <option>2</option>
                                                                     <option>3</option>
@@ -487,7 +490,7 @@ class Home extends React.Component {
                                             <div id="tab2" style={{display: "none"}} className="main-search-box">
                                                 <div className="main-search-input larger-input">
                                                     <input type="text" className="ico-01"
-                                                           placeholder="آدرس را وارد کنید."
+                                                           placeholder="شهر را وارد کنید."
                                                            id="addressTab2"/>
                                                     <button onClick={this.searchRent} className="button">جست و جو
                                                     </button>
@@ -497,7 +500,7 @@ class Home extends React.Component {
                                                         <select data-placeholder="نوع"
                                                                 className="chosen-select-no-single"
                                                                 id="typeTab2">
-                                                            <option></option>
+                                                            <option value="" disabled selected hidden>نوع</option>
                                                             <option>آپارتمان</option>
                                                             <option>خانه</option>
                                                             <option>تجاری</option>
@@ -661,7 +664,7 @@ class Home extends React.Component {
                                                                 <select data-placeholder="تعداد اتاق ها"
                                                                         className="chosen-select-no-single"
                                                                         id="roomNumberTab2">
-                                                                    <option></option>
+                                                                    <option value="" disabled selected hidden>تعداد اتاق ها</option>
                                                                     <option>1</option>
                                                                     <option>2</option>
                                                                     <option>3</option>
@@ -670,10 +673,10 @@ class Home extends React.Component {
                                                                 </select>
                                                             </div>
                                                             <div className="col-md-6">
-                                                                <select data-placeholder="حمام"
+                                                                <select data-placeholder="تعداد حمام/دستشویی"
                                                                         className="chosen-select-no-single"
                                                                         id="wcTab2">
-                                                                    <option></option>
+                                                                    <option value="" disabled selected hidden>تعداد حمام/دستشویی</option>
                                                                     <option>1</option>
                                                                     <option>2</option>
                                                                     <option>3</option>
@@ -713,7 +716,7 @@ class Home extends React.Component {
                                             <div id="tab3" style={{display: "none"}} className="main-search-box">
                                                 <div className="main-search-input larger-input">
                                                     <input type="text" className="ico-01"
-                                                           placeholder="آدرس را وارد کنید."
+                                                           placeholder="شهر را وارد کنید."
                                                            id="addressTab3"/>
                                                     <button onClick={this.searchMortgage} className="button">جست و جو
                                                     </button>
@@ -723,7 +726,7 @@ class Home extends React.Component {
                                                         <select data-placeholder="نوع"
                                                                 className="chosen-select-no-single"
                                                                 id="typeTab3">
-                                                            <option></option>
+                                                            <option value="" disabled selected hidden>نوع</option>
                                                             <option>آپارتمان</option>
                                                             <option>خانه</option>
                                                             <option>تجاری</option>
@@ -850,7 +853,7 @@ class Home extends React.Component {
                                                                 <select data-placeholder="تعداد اتاق ها"
                                                                         className="chosen-select-no-single"
                                                                         id="roomNumberTab3">
-                                                                    <option></option>
+                                                                    <option value="" disabled selected hidden>تعداد اتاق ها</option>
                                                                     <option>1</option>
                                                                     <option>2</option>
                                                                     <option>3</option>
@@ -859,10 +862,10 @@ class Home extends React.Component {
                                                                 </select>
                                                             </div>
                                                             <div className="col-md-6">
-                                                                <select data-placeholder="حمام"
+                                                                <select data-placeholder="تعداد حمام/دستشویی"
                                                                         className="chosen-select-no-single"
                                                                         id="wcTab3">
-                                                                    <option></option>
+                                                                    <option value="" disabled selected hidden>تعداد حمام/دستشویی</option>
                                                                     <option>1</option>
                                                                     <option>2</option>
                                                                     <option>3</option>
@@ -962,7 +965,7 @@ class Home extends React.Component {
 
                                                 <ul className="listing-features">
                                                     <li>مساحت <span>{advertise.area} متر مربع</span></li>
-                                                    <li>تعداد اتاق ها <span>{advertise.unitRoom}</span></li>
+                                                    <li>خواب <span>{advertise.unitRoom}</span></li>
                                                     <li>شهر <span>{advertise.city}</span></li>
                                                 </ul>
 
