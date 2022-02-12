@@ -21,7 +21,7 @@ class advertisingPage extends React.Component {
             configList: [],
             isLoading: false,
             offset: 0,
-            length: 6,
+            length: 16,
             totalCount: 0,
             requestData: requestData ? requestData : {}
         };
@@ -111,9 +111,9 @@ class advertisingPage extends React.Component {
 
     handlePageClick = (data) => {
         let selected = data.selected;
-        let offset = Math.ceil(selected * this.props.perPage);
+        let offset = Math.ceil(selected * this.state.length);
 
-        this.setState({offset: offset, length: (this.state.length + offset)}, () => {
+        this.setState({offset: offset}, () => {
             this.getAdvertises();
         });
     };
@@ -196,9 +196,11 @@ class advertisingPage extends React.Component {
 
                                                     {(advertise.images && advertise.images[0] && !_.isEmpty(advertise.images[0].filename)) ?
                                                         <img
+                                                            style={{height: 300}}
                                                             src={Services.getAdvertiseImageDownloadUrl(advertise.images[0].filename)}
                                                             alt=""/> :
                                                         <img
+                                                            style={{height: 300}}
                                                             src={require('../image/house-advertise.png')}
                                                             alt=""/>}
 
@@ -219,7 +221,7 @@ class advertisingPage extends React.Component {
                                     nextLabel={'بعدی'}
                                     breakLabel={'...'}
                                     breakClassName={'break-me'}
-                                    pageCount={(parseInt(this.state.totalCount) / 6)}
+                                    pageCount={(parseInt(this.state.totalCount) / this.state.length)}
                                     marginPagesDisplayed={2}
                                     pageRangeDisplayed={5}
                                     onPageChange={this.handlePageClick}
