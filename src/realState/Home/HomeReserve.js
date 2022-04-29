@@ -672,7 +672,7 @@ class Home extends React.Component {
 
                 <section className="fullwidth margin-top-105" data-background-color="#f7f7f7">
 
-                    <h3 className="headline-box">معرفی نرم افزار ساتر املاک</h3>
+                    <h3 className="headline-box">معرفی نرم افزار گیلان فایل</h3>
 
 
                 </section>

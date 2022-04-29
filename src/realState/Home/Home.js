@@ -319,9 +319,29 @@ class Home extends React.Component {
                                             </div>
                                             <div id="tab1" className="main-search-box">
                                                 <div className="main-search-input larger-input">
-                                                    <input type="text" className="ico-01"
-                                                           placeholder="شهر را وارد کنید."
-                                                           id="addressTab1"/>
+
+                                                    <select data-placeholder="شهر را وارد کنید."
+                                                            className="chosen-select-no-single"
+                                                            id="addressTab1">
+                                                        <option value="" disabled selected hidden>شهر را وارد کنید.</option>
+                                                        <option>رشت</option>
+                                                        <option>بندر انزلی</option>
+                                                        <option>خمام</option>
+                                                        <option>فومن</option>
+                                                        <option>صومعه سرا</option>
+                                                        <option>تالش</option>
+                                                        <option>ماسال</option>
+                                                        <option>آستارا</option>
+                                                        <option>لاهیجان</option>
+                                                        <option>سیاهکل</option>
+                                                        <option>آستانه اشرفیه</option>
+                                                        <option>منجیل</option>
+                                                        <option>رودبار</option>
+                                                        <option>لنگرود</option>
+                                                        <option>رودسر</option>
+                                                        <option>کلاچای</option>
+                                                    </select>
+
                                                     <button onClick={this.searchSale} className="button">جست و جو
                                                     </button>
                                                 </div>
@@ -489,9 +509,27 @@ class Home extends React.Component {
                                             </div>
                                             <div id="tab2" style={{display: "none"}} className="main-search-box">
                                                 <div className="main-search-input larger-input">
-                                                    <input type="text" className="ico-01"
-                                                           placeholder="شهر را وارد کنید."
-                                                           id="addressTab2"/>
+                                                    <select data-placeholder="شهر را وارد کنید."
+                                                            className="chosen-select-no-single"
+                                                            id="addressTab2">
+                                                        <option value="" disabled selected hidden>شهر را وارد کنید.</option>
+                                                        <option>رشت</option>
+                                                        <option>بندر انزلی</option>
+                                                        <option>خمام</option>
+                                                        <option>فومن</option>
+                                                        <option>صومعه سرا</option>
+                                                        <option>تالش</option>
+                                                        <option>ماسال</option>
+                                                        <option>آستارا</option>
+                                                        <option>لاهیجان</option>
+                                                        <option>سیاهکل</option>
+                                                        <option>آستانه اشرفیه</option>
+                                                        <option>منجیل</option>
+                                                        <option>رودبار</option>
+                                                        <option>لنگرود</option>
+                                                        <option>رودسر</option>
+                                                        <option>کلاچای</option>
+                                                    </select>
                                                     <button onClick={this.searchRent} className="button">جست و جو
                                                     </button>
                                                 </div>
@@ -715,9 +753,27 @@ class Home extends React.Component {
                                             </div>
                                             <div id="tab3" style={{display: "none"}} className="main-search-box">
                                                 <div className="main-search-input larger-input">
-                                                    <input type="text" className="ico-01"
-                                                           placeholder="شهر را وارد کنید."
-                                                           id="addressTab3"/>
+                                                    <select data-placeholder="شهر را وارد کنید."
+                                                            className="chosen-select-no-single"
+                                                            id="addressTab3">
+                                                        <option value="" disabled selected hidden>شهر را وارد کنید.</option>
+                                                        <option>رشت</option>
+                                                        <option>بندر انزلی</option>
+                                                        <option>خمام</option>
+                                                        <option>فومن</option>
+                                                        <option>صومعه سرا</option>
+                                                        <option>تالش</option>
+                                                        <option>ماسال</option>
+                                                        <option>آستارا</option>
+                                                        <option>لاهیجان</option>
+                                                        <option>سیاهکل</option>
+                                                        <option>آستانه اشرفیه</option>
+                                                        <option>منجیل</option>
+                                                        <option>رودبار</option>
+                                                        <option>لنگرود</option>
+                                                        <option>رودسر</option>
+                                                        <option>کلاچای</option>
+                                                    </select>
                                                     <button onClick={this.searchMortgage} className="button">جست و جو
                                                     </button>
                                                 </div>
@@ -988,7 +1044,7 @@ class Home extends React.Component {
 
                 <section className="fullwidth margin-top-105" data-background-color="#f7f7f7">
 
-                    <h3 className="headline-box">معرفی نرم افزار ساتر املاک</h3>
+                    <h3 className="headline-box">معرفی نرم افزار گیلان فایل</h3>
                     <div className="introduction-software">
                         <img src={require("../image/software.jpg")} alt=""/>
 
@@ -1033,7 +1089,7 @@ class Home extends React.Component {
 
                 <section className="fullwidth margin-top-95 margin-bottom-0">
 
-                    <h3 className="headline-box">درباره ی گیلان فایل </h3>
+                    <h3 className="headline-box">درباره گیلان فایل </h3>
                     <div className={'row'} style={{
                         width: '100%',
                         paddingLeft: 30,
