@@ -7,6 +7,7 @@ import {withTranslation, Trans} from 'react-i18next'
 import $ from 'jquery';
 import Services from "../../utils/Services";
 import Slider from "react-slick";
+import _ from "underscore";
 
 class bestAgencies extends React.Component {
     constructor(props) {
@@ -135,9 +136,8 @@ class bestAgencies extends React.Component {
 
                                                     </ul>
                                                 </div>
-
-                                                {agency.image ?
-                                                    <img src={Services.getRealStateProfileImageDownloadUrl(agency.image)} alt=""/> :
+                                                {!_.isEmpty(agency.image) ?
+                                                    <img width={355} height={355} src={"data:image/png;base64," + agency.image} alt=""/> :
                                                     <img src={require("../image/real_estate_icon.jpeg")} alt=""/>}
 
                                             </div>
