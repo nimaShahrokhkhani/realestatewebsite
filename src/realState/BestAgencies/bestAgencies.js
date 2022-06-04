@@ -74,7 +74,7 @@ class bestAgencies extends React.Component {
             dots: true,
             infinite: true,
             speed: 500,
-            slidesToShow: 3,
+            slidesToShow: this.state.bestAgencyList ? ( this.state.bestAgencyList.length > 3 ? 3 : this.state.bestAgencyList.length ) : 0,
             slidesToScroll: 1,
             arrows: false,
             fade: false,
