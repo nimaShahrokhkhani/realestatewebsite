@@ -11,12 +11,15 @@ import ScriptTag from 'react-script-tag';
 import * as StringUtils from "../../utils/StringUtils";
 import connect from "react-redux/es/connect/connect";
 import {setFileSearchRequest, setState, setUser} from "../../components/redux/actions";
+import {NotificationContainer} from "react-notifications";
+import Slider from "react-slick/lib";
 
 class fileDetail extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            file: {},
             activeNav: 1,
             isErrorPage: false
         };
@@ -26,7 +29,10 @@ class fileDetail extends React.Component {
     getFile(fileId) {
         Services.getFileById({Id: fileId}).then(response => {
             this.file = response.data;
-            this.showFile(response.data)
+            // this.showFile(response.data)
+            this.setState({
+                file: response.data
+            })
         }).catch(error => {
             if (error.message.includes('403')) {
                 sessionStorage.clear();
@@ -243,387 +249,209 @@ class fileDetail extends React.Component {
         })
     }
 
+    getFileType(file) {
+        var noeMelkValue = "";
+        if (file.apartment) {
+            noeMelkValue += "آپارتمان (" + file.apartment + ')'
+        }
+        if (file.vila) {
+            noeMelkValue += "ویلا (" + file.vila + ')'
+        }
+        if (file.land) {
+            noeMelkValue += "زمین (" + file.land + ')'
+        }
+        if (file.building) {
+            noeMelkValue += "مستغلات (" + file.building + ')'
+        }
+        if (file.oldHouse) {
+            noeMelkValue += "کلنگی (" + file.oldHouse + ')'
+        }
+        if (file.office) {
+            noeMelkValue += "دفتر کار (" + file.office + ')'
+        }
+        if (file.store) {
+            noeMelkValue += "مغازه "
+        }
+        if (file.suit) {
+            noeMelkValue += "سوییت "
+        }
+        return noeMelkValue;
+    }
+
+    getFileDirection(file) {
+        let directionValue = "";
+        if (file.north) {
+            directionValue = "شمالی"
+        }
+        if (file.south) {
+            directionValue = "جنوبی"
+        }
+        if (file.east) {
+            directionValue = "شرقی"
+        }
+        if (file.west) {
+            directionValue = "غربی"
+        }
+        return directionValue;
+    }
+
     render() {
+        let {file} = this.state;
         return (
-            <div id="root-div" style={{marginTop: 50, marginBottom: 100, display: 'flex', justifyContent: 'center', direction: 'rtl'}}>
+            <div id="root-div">
+                <NotificationContainer/>
+
+                <div id="wrapper">
+
+                    <div className="clearfix"></div>
+
+                    <div id="titlebar" className="property-titlebar margin-bottom-0">
+                        <div className="container">
+                            <div className="row">
+                                <div style={{display: 'flex'}} className="col-md-12">
+
+                                    <img style={{width: '20%'}} src={require("../image/house-file.png")}/>
+                                    <div style={{width: '80%', paddingRight: 85}}>
+                                        <h2>{this.getFileType(file)} <span className="property-badge">{file.sale}</span>
+                                        </h2>
+                                        <h1>{file.Id}
+                                        </h1>
+                                        <span>
+						<a href="#location" className="listing-address">
+							<i className="fa fa-map-marker"></i>
+						</a>
+					</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
-                <div className="clearfix"/>
+                    <div className="container">
+                        <div className="row">
 
-                {this.state.isErrorPage ?
-                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                        <img style={{width: '50%', height: '50%'}} src={require('../image/404.jpeg')}/>
-                    </div> :
-                    <div className="container-center-horizontal" style={{direction: 'ltr', overflowX: 'auto'}}>
-                        <div className="add-file screen">
-                            <div className="flex-row">
-                                <div className="jahat border-1px-dove-gray">
-                                    <div className="flex-col-1">
-                                        <input disabled type="checkbox" className="rectangle-69 border-1px-denim" id="east"
-                                               tabIndex="11"/>
-                                        <input disabled type="checkbox" className="rectangle-69-1 border-1px-denim" id="west"
-                                               tabIndex="13"/>
-                                    </div>
-                                    <div className="flex-col-2">
-                                        <div className="text iransans-light-black-13px" style={{marginTop: 10}}>شرقی</div>
-                                        <div className="text-9 iransans-light-black-13px" style={{marginTop: -5}}>غربی</div>
-                                    </div>
-                                    <div className="flex-col-3">
-                                        <input disabled type="checkbox" className="rectangle-69-2 border-1px-denim" id="north"
-                                               tabIndex="10"/>
-                                        <input disabled type="checkbox" className="rectangle-69-3 border-1px-denim" id="south"
-                                               tabIndex="12"/>
-                                    </div>
-                                    <div className="flex-col-4">
-                                        <div className="text-8 iransans-light-black-13px" style={{marginTop: 10}}>شمالی</div>
-                                        <div className="text-1 iransans-light-black-13px">جنوبی</div>
-                                    </div>
-                                </div>
-                                <div className="date border-1px-dove-gray">
-                                    <div className="flex-row-1">
-                                        <input disabled className="rectangle-8 border-1px-navy-blue date-picker" id="updateDate"
-                                               tabIndex="7"/>
-                                        <input disabled className="rectangle-9 border-1px-navy-blue date-picker" id='date'
-                                               tabIndex="6"/>
-                                        <div className="text-4 iransans-light-black-13px">: تاریخ</div>
-                                    </div>
-                                    <div className="flex-row-2">
-                                        <input disabled className="rectangle-11 border-1px-navy-blue" id="regionName" tabIndex="9"/>
-                                        <input disabled className="rectangle-10 border-1px-navy-blue" id="regionCode" tabIndex="8"
-                                               onChange="onRegionCodeChange()"/>
-                                        <div className="text-5 iransans-light-black-13px">: منطقه</div>
-                                    </div>
-                                </div>
-                                <div className="overlap-group3">
-                                    <div className="tel border-1px-dove-gray">
-                                        <div className="flex-col">
-                                            <div className="flex-row-3">
-                                                <div className="rectangle-4 border-1px-navy-blue"></div>
-                                                <div className="text-2-1 segoeui-regular-normal-black-13px">: مالک</div>
-                                                <div className="rectangle-3 border-1px-navy-blue"></div>
-                                                <div className="rectangle-3-1 border-1px-navy-blue"></div>
-                                                <div className="overlap-group4 border-1px-navy-blue">
-                                                </div>
-                                            </div>
-                                            <div className="rectangle-6 border-1px-navy-blue"></div>
-                                        </div>
-                                        <div className="flex-col-5">
-                                            <div className="text-1-1 segoeui-regular-normal-black-13px">: تلفن</div>
-                                            <div className="text-3 segoeui-regular-normal-black-13px">: آدرس</div>
-                                        </div>
-                                    </div>
-                                    <div className="tel-1 border-1px-dove-gray">
-                                        <div className="flex-col">
-                                            <div className="flex-row-4">
-                                                <input disabled className="rectangle-4-1 border-1px-navy-blue" id='owner'
-                                                       tabIndex="4"/>
-                                                <div className="text-11 iransans-light-black-13px">: مالک</div>
-                                                <input disabled className="rectangle-3 border-1px-navy-blue"
-                                                       onfocusout="onTelephoneInputFocusOut('tel3')" id="tel3"
-                                                       tabIndex="3"/>
-                                                <input disabled className="rectangle-3-1 border-1px-navy-blue"
-                                                       onfocusout="onTelephoneInputFocusOut('tel2')" id="tel2"
-                                                       tabIndex="2"/>
-                                                <input disabled className="rectangle-3-1 border-1px-navy-blue"
-                                                       onfocusout="onTelephoneInputFocusOut('tel1')" id="tel1"
-                                                       tabIndex="1"/>
-                                            </div>
-                                            <input disabled className="rectangle-6-1 border-1px-navy-blue" id="address" tabIndex="5"/>
-                                        </div>
-                                        <div className="flex-col-6">
-                                            <div className="text-10 iransans-light-black-13px">: تلفن</div>
-                                            <div className="text-1 iransans-light-black-13px">: آدرس</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="overlap-group1">
-                                <div className="kind">
-                                    <div className="overlap-group4-1 border-1px-dove-gray">
-                                        <div className="rectangle-13"></div>
-                                        <div className="kind-1">
-                                            <div className="text-13 iransans-light-red-13px">خارجی</div>
-                                            <div className="text-14 iransans-light-red-13px">معاوضه</div>
-                                            <div className="text-15 iransans-light-red-13px">مشارکت</div>
-                                            <div className="text-16 iransans-light-red-13px">رهن</div>
-                                            <div className="text-17 iransans-light-red-13px">اجاره</div>
-                                            <div className="text-18 iransans-light-red-13px">فروش</div>
-                                        </div>
-                                        <div className="text-19 iransans-light-chocolate-13px">سوئیت</div>
-                                        <div className="text-20 iransans-light-chocolate-13px">مغازه</div>
-                                        <div className="text-21 iransans-light-chocolate-13px">دفترکار</div>
-                                        <div className="text-22 iransans-light-chocolate-13px">زمین</div>
-                                        <div className="text-23 iransans-light-chocolate-13px">کلنگی</div>
-                                        <div className="text-24 iransans-light-chocolate-13px">مستغلات</div>
-                                        <div className="text-25 iransans-light-chocolate-13px">ویلا</div>
-                                        <div className="text-26 iransans-light-chocolate-13px">آپارتمان</div>
-                                        <input disabled className="rectangle-14 border-1px-navy-blue" id="office" tabIndex="25"/>
-                                        <input disabled className="rectangle-14-1 border-1px-navy-blue" id="kolangi" tabIndex="23"/>
-                                        <input disabled className="rectangle-14-2 border-1px-navy-blue" id="mostaghelat"
-                                               tabIndex="22"/>
-                                        <input disabled className="rectangle-14-3 border-1px-navy-blue" id="vila" tabIndex="21"/>
-                                        <input disabled className="rectangle-14-4 border-1px-navy-blue" id="apartment"
-                                               tabIndex="20"/>
-                                        <input disabled className="rectangle-15 border-1px-navy-blue" id="land" tabIndex="24"/>
-                                        <input disabled type="checkbox" className="ch-soeit border-1px-denim" id="suite"
-                                               tabIndex="27"/>
-                                        <input disabled type="checkbox" className="ch-maghazeh border-1px-denim" id="store"
-                                               tabIndex="26"/>
-                                    </div>
-                                </div>
-                                <div className="parking-anbari">
-                                    <input disabled type="checkbox" className="ch-khareji border-1px-denim" id="home" tabIndex="19"
-                                           name="saleType[]" onClick="saleTypeClickEvent('خارجی')"/>
-                                    <input disabled type="checkbox" className="ch-moavezeh border-1px-denim" id="exchange"
-                                           tabIndex="18" name="saleType[]" onClick="saleTypeClickEvent('معاوضه')"/>
-                                    <input disabled type="checkbox" className="ch-mosharekat border-1px-denim"
-                                           id="partnership" tabIndex="17" name="saleType[]"
-                                           onClick="saleTypeClickEvent('مشارکت')"/>
-                                    <input disabled type="checkbox" className="ch-rahn border-1px-denim" id="mortgage"
-                                           tabIndex="16" name="saleType[]" onClick="saleTypeClickEvent('رهن')"/>
-                                    <input disabled type="checkbox" className="parking-anbari-item border-1px-denim"
-                                           id="rent" tabIndex="15" name="saleType[]"
-                                           onClick="saleTypeClickEvent('اجاره')"/>
-                                    <input disabled type="checkbox"
-                                           className="parking-anbari-item border-1px-denim" id="sale"
-                                           tabIndex="14" name="saleType[]"
-                                           onClick="saleTypeClickEvent('فروش')"/>
-                                </div>
-                            </div>
-                            <div className="overlap-group-1">
-                                <div className="price border-1px-dove-gray">
-                                    <input disabled className="rectangle-18 border-1px-navy-blue" id="unitComment" tabIndex="33"
-                                           style={{display: "none"}}/>
-                                    <input disabled className="rectangle-18 border-1px-navy-blue" id="priceComment" tabIndex="33"/>
-                                    <div className="text-27 iransans-light-black-13px">: توضیح قیمت</div>
-                                    <input disabled className="rectangle-18-1 border-1px-navy-blue" id='rentPrice' tabIndex="32"
-                                           style={{display: "none"}}/>
-                                    <input disabled className="rectangle-18-1 border-1px-navy-blue" id='metri' tabIndex="32"/>
-                                    <div className="text-28 iransans-light-black-13px" id='rentPriceLabel'
-                                         style={{display: "none"}}>: اجاره
-                                    </div>
-                                    <div className="text-28 iransans-light-black-13px" id='metriLabel'>: قیمت متری
-                                    </div>
-                                    <input disabled className="rectangle-18-2 border-1px-navy-blue" id="mortgagePrice"
-                                           tabIndex="31"
-                                           style={{display: "none"}}/>
-                                    <input disabled className="rectangle-18-2 border-1px-navy-blue" id="totalPrice"
-                                           tabIndex="31"/>
-                                    <div className="text-29 iransans-light-black-13px"
-                                         id='mortgagePriceLabel' style={{display: "none"}}>: ودیعه
-                                    </div>
-                                    <div className="text-29 iransans-light-black-13px"
-                                         id='totalPriceLabel'>: قیمت کل
-                                    </div>
-                                    <input disabled className="rectangle-18-3 border-1px-navy-blue" id="totalVahed"
-                                           tabIndex="30" onFocus="onTotalVahedFocus(this)"/>
-                                    <input disabled className="rectangle-19 border-1px-navy-blue" id="vahed"
-                                           tabIndex="29"/>
-                                    <div className="text-30 iransans-light-black-13px">: واحد</div>
-                                    <input disabled className="rectangle-18-4 border-1px-navy-blue"
-                                           id="tabaghat" tabIndex="28"/>
-                                    <div className="text-31 iransans-light-black-13px">: تعداد
-                                        طبقات
-                                    </div>
-                                </div>
-                            </div>
-                            <img className="bar" src={require('../image/bar@1x.png')}/>
-                            <div id="table" className="table" style={{marginBottom: 0}}>
-                                <div className="sub-bar2-1 border-1px-dove-gray">
-                                    <input disabled className="rectangle-30 border-1px-navy-blue" id='tableMetri0' tabIndex="46"/>
-                                    <input disabled className="rectangle border-1px-navy-blue" id='tableTotalAmount0'
-                                           tabIndex="45"/>
-                                    <input disabled className="rectangle-17 border-1px-navy-blue" id="tableAnbari0"
-                                           tabIndex="44"/>
-                                    <input disabled className="rectangle-17 border-1px-navy-blue" id="tableParking0"
-                                           tabIndex="43"/>
-                                    <input disabled className="rectangle-28 border-1px-navy-blue" id="tableKafPoosh0"
-                                           tabIndex="42"/>
-                                    <input disabled className="rectangle-27 border-1px-navy-blue" id="tableWC0"
-                                           tabIndex="41"/>
-                                    <input disabled type="checkbox" className="ch-open border-1px-denim" id='tableOpen0'
-                                           tabIndex="40"/>
-                                    <input disabled className="rectangle-26 border-1px-navy-blue" id="tableKitchen0"
-                                           tabIndex="39"/>
-                                    <input disabled className="rectangle-2 border-1px-navy-blue" id="tableTelephone0"
-                                           tabIndex="38"/>
-                                    <input disabled type="checkbox" className="ch-open border-1px-denim"
-                                           style={{marginRight: 15}} id='tableBalcon0' tabIndex="37"/>
-                                    <input disabled className="rectangle-2-1 border-1px-navy-blue" id='tableKhab0'
-                                           tabIndex="36"/>
-                                    <input disabled className="rectangle-2-1 border-1px-navy-blue"
-                                           id='tableZirBana0' tabIndex="35"/>
-                                    <input disabled className="rectangle-2 border-1px-navy-blue"
-                                           id='tableFloor0' tabIndex="34"/>
-                                </div>
-                            </div>
+                            <div className="col-lg-8 col-md-7 sp-content">
+                                <div className="property-description">
 
-                            <div className="flex-row-5">
-                                <div className="estakhr-sona">
-                                    <div className="flex-col-7">
-                                        <input disabled className="rectangle-34 border-1px-navy-blue" id="pool" tabIndex="49"/>
-                                        <input disabled className="rectangle-34-1 border-1px-navy-blue" id="sona" tabIndex="50"/>
-                                        <input disabled className="rectangle-34-2 border-1px-navy-blue" id="jakoozi" tabIndex="51"/>
-                                    </div>
-                                    <div className="flex-col-8">
-                                        <div className="text iransans-light-chocolate-13px">: استخر</div>
-                                        <div className="text-34 iransans-light-chocolate-13px">: سونا</div>
-                                        <div className="text-35 iransans-light-chocolate-13px">: جکوزی</div>
-                                    </div>
-                                </div>
-                                <div className="emkanat border-1px-dove-gray">
-                                    <div style={{flex: 1, height: '100%'}} id="equipmentResultList"></div>
-                                </div>
-                            </div>
-                            <div className="flex-row-6">
-                                <div className="ejadeh-takhliyeh border-1px-dove-gray">
-                                    <div className="flex-row-7">
-                                        <div className="text-48 iransans-light-red-devil-13px">تخلیه</div>
-                                        <div className="text-47 iransans-light-red-devil-13px">اجاره</div>
-                                        <div className="text-49 iransans-light-red-devil-13px">مسکونی</div>
-                                    </div>
-                                    <div className="group-18">
-                                        <input disabled type="checkbox" className="ch-takhliyeh border-1px-denim" id="discharge"
-                                               tabIndex="65"/>
-                                        <input disabled type="checkbox" className="ch-ejareh border-1px-denim" id="rented"
-                                               tabIndex="64"/>
-                                        <input disabled type="checkbox" className="ch-maskoni border-1px-denim"
-                                               id="residential" tabIndex="63"/>
-                                    </div>
-                                </div>
-                                <div className="mostakhdem border-1px-dove-gray">
-                                    <div className="flex-col-9">
-                                        <div className="text-46 iransans-light-red-devil-13px">سکونت مالک</div>
-                                        <input disabled className="rectangle-3-2 border-1px-navy-blue" id="residenceOwner"
-                                               tabIndex="62"/>
-                                    </div>
-                                    <div className="flex-col-10">
-                                        <div className="text-45 iransans-light-red-devil-13px">سرویس مستخدم</div>
-                                        <input disabled className="rectangle-3-2 border-1px-navy-blue" id="employeeService"
-                                               tabIndex="61"/>
-                                    </div>
-                                </div>
-                                <div className="moshaat border-1px-dove-gray">
-                                    <div className="flex-col-11">
-                                        <div className="text-42 iransans-light-red-devil-13px">زیر زمین</div>
-                                        <input disabled className="rectangle-36 border-1px-navy-blue" id="basement" tabIndex="60"/>
-                                    </div>
-                                    <div className="flex-col-12">
-                                        <div className="text-41 iransans-light-red-devil-13px">پاسیو</div>
-                                        <input disabled className="rectangle-36 border-1px-navy-blue" id="patio" tabIndex="59"/>
-                                    </div>
-                                    <div className="flex-col-13">
-                                        <div className="text-43 iransans-light-red-devil-13px">حیاط خلوت</div>
-                                        <input disabled className="rectangle-36-1 border-1px-navy-blue" id="backYard" tabIndex="58"/>
-                                    </div>
-                                    <div className="flex-col-14">
-                                        <div className="text-44 iransans-light-red-devil-13px">حیاط</div>
-                                        <input disabled className="rectangle-36-1 border-1px-navy-blue" id="yard" tabIndex="57"/>
-                                    </div>
-                                </div>
-                                <div className="masahat-zamin border-1px-dove-gray">
-                                    <div className="overlap-group10">
-                                        <div className="text-37 iransans-light-red-devil-13px">ارتفاع</div>
-                                        <input disabled className="rectangle-36-2 border-1px-navy-blue" id="height" tabIndex="56"/>
-                                    </div>
-                                    <div className="overlap-group">
-                                        <div className="text-36 iransans-light-red-devil-13px">اصلاحی</div>
-                                        <input disabled className="rectangle-36-2 border-1px-navy-blue" id="corrective"
-                                               tabIndex="55"/>
-                                    </div>
-                                    <div className="overlap-group8">
-                                        <div className="text-38 iransans-light-red-devil-13px">طول بر</div>
-                                        <input disabled className="rectangle-36-2 border-1px-navy-blue" id="toolBar" tabIndex="54"/>
-                                    </div>
-                                    <div className="overlap-group">
-                                        <div className="text-39 iransans-light-red-devil-13px">تراکم</div>
-                                        <input disabled className="rectangle-36-2 border-1px-navy-blue" id="density" tabIndex="53"/>
-                                    </div>
-                                    <div className="overlap-group6">
-                                        <div className="text-40 iransans-light-red-devil-13px">مساحت زمین</div>
-                                        <input disabled className="rectangle-35 border-1px-navy-blue" id="area" tabIndex="52"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="tanzim-konandeh border-1px-dove-gray">
-                                <input disabled className="rectangle-18-5 border-1px-navy-blue" id="ownerName" tabIndex="71"
-                                       disabled/>
-                                <div className="text-50 iransans-light-black-13px">: تنظیم کننده</div>
-                                <input disabled className="rectangle-38 border-1px-navy-blue" id="username" tabIndex="70"
-                                       disabled/>
-                                <div className="text-54 iransans-light-black-13px">: ثبت کننده</div>
-                                <input disabled className="rectangle-18-6 border-1px-navy-blue" id="InformationSource"
-                                       tabIndex="69"/>
-                                <div className="text-51 iransans-light-black-13px">: منبع</div>
-                                <input disabled className="rectangle-18-7 border-1px-navy-blue" id="documentState"
-                                       tabIndex="68"/>
-                                <div className="text-53 iransans-light-black-13px">: سند</div>
-                                <input disabled className="rectangle border-1px-navy-blue" id="view" tabIndex="67"/>
-                                <div className="text-52 iransans-light-black-13px">: نما</div>
-                                <input disabled className="rectangle-18-8 border-1px-navy-blue" id="ageBuilding"
-                                       tabIndex="66"/>
-                                <div className="text-55 iransans-light-black-13px">: سن بنا</div>
-                            </div>
-                            <div className="overlap-group2">
-                                <div className="tozihat border-1px-dove-gray">
-                                    <div className="flex-col-15">
-                                        <input disabled type="checkbox" className="ch-hame border-1px-denim" id="allParticipation"
-                                               tabIndex="74" name="participation[]"/>
-                                        <input disabled type="checkbox" className="ch-khososi border-1px-denim"
-                                               id="privateParticipation" tabIndex="76" name="participation[]"/>
-                                    </div>
-                                    <div className="flex-col-16">
-                                        <input disabled type="checkbox" className="ch-malek-ajaleh-darad border-1px-denim"
-                                               id="isHurry" tabIndex="73"/>
-                                        <input disabled type="checkbox" className="ch-taavon border-1px-denim"
-                                               id="consultingCooperativeParticipation"
-                                               tabIndex="75" name="participation[]"/>
-                                    </div>
-                                    <input disabled className="txt-tozihat border-1px-navy-blue" id="additionalDescription"
-                                           tabIndex="72"/>
-                                    <div className="text-56 iransans-light-black-13px">: توضیحات</div>
-                                </div>
-                                <div className="jahat-1">
-                                    <div className="flex-col-17">
-                                        <div className="text-57 iransans-light-black-13px">همه</div>
-                                        <div className="text-2 iransans-light-black-13px">خصوصی</div>
-                                    </div>
-                                    <div className="flex-col-18">
-                                        <div className="text-58 iransans-light-black-13px">مالک عجله دارد</div>
-                                        <div className="text-2 iransans-light-black-13px">تعاون مشاور</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex-row-8">
-                                <div className="shomareh border-1px-dove-gray">
-                                    <input disabled className="rectangle-41 border-1px-navy-blue" id="number" tabIndex="77" disabled/>
-                                    <div className="text-61 iransans-light-black-13px">: شماره فایل</div>
-                                </div>
-                                <div className="button">
-                                    <div className="overlap-group11 border-1px-dove-gray">
+                                    <h3 className="desc-headline">اطلاعات تماس</h3>
+                                    <ul className="property-features  margin-top-0">
+                                        <li>تاریخ ثبت: <span id={"updateDate"}>{StringUtils.convertMillisecondToShamsi(file.updateDate)}</span>
+                                        </li>
+                                        <li>نام مالک: <span id={"owner"}>{file.owner}</span>
+                                        </li>
+                                        <li>تلفن مالک: <span id={"tel1"}>{file.tel1}</span>
+                                        </li>
+                                        <li>تلفن مالک: <span id={"tel2"}>{file.tel2}</span>
+                                        </li>
+                                        <li>آدرس مالک: <span id={"tel2"}>{file.address}</span>
+                                        </li>
+                                    </ul>
 
-                                        <div style={{display: 'flex', flex: 1, justifyContent: 'center'}}>
+                                    <h3 className="desc-headline">اطلاعات بنا</h3>
+                                    <ul className="property-features  margin-top-0">
+                                        <li>قیمت متری: <span id={"unitMetri"}>{file.unitPrice}</span></li>
+                                        <li>قیمت کل: <span id={"unitTotalAmount"}>{file.totalPrice}</span></li>
+                                        <li>قیمت اجاره: <span id={"priceRent"}>{file.rent}</span></li>
+                                        <li>قیمت رهن: <span id={"priceMortgage"}>{file.mortgage}</span></li>
+                                        <li>مساحت: <span id={"area"}>{file.area}</span></li>
+                                        <li>تراکم: <span id={"density"}>{file.density}</span></li>
+                                        <li>طول بر: <span id={"front"}>{file.front}</span></li>
+                                        <li>اصلاحی: <span id={"modify"}>{file.modify}</span></li>
+                                        <li>ارتفاع: <span id={"height"}>{file.height}</span></li>
+                                        <li>متراژ: <span id={"unitBuiltUpArea"}>{file.unitBuiltUpArea}</span></li>
+                                        <li>کد منطقه: <span id={"direction"}>{file.regionCode}</span></li>
+                                        <li>نام منطقه: <span id={"direction"}>{file.regionName}</span></li>
+                                        <li>جهت: <span id={"direction"}>{this.getFileDirection(file)}</span></li>
+                                        <li>طبقات: <span id={"floorNo"}>{file.floorNo}</span></li>
+                                        <li>واحد در طبقه: <span id={"unitNo"}>{file.unitNo}</span></li>
+                                        <li> کل واحد ها: <span id={"unitNo"}>{file.unitNo}</span></li>
+                                        <li>سن بنا: <span id={"aree"}>{file.age}</span></li>
+                                        <li>سند: <span id={"document"}>{file.documentKind}</span></li>
+                                        <li>نما: <span id={"nama"}>{file.frontKind}</span></li>
+                                        <li>منبع: <span id={"source"}>{file.source}</span></li>
+                                        <li>حیاط: <span id={"yard"}>{file.yard}</span></li>
+                                        <li>حیاط خلوت: <span id={"smallYard"}>{file.smallYard}</span></li>
+                                        <li>پاسیو: <span id={"patio"}>{file.patio}</span></li>
+                                        <li>زیرزمین: <span id={"underGround"}>{file.underGround}</span></li>
+                                        <li>استخر: <span id={"pool"}>{file.pool}</span></li>
+                                        <li>سونا: <span id={"sona"}>{file.sona}</span></li>
+                                        <li>جکوزی: <span id={"jakozi"}>{file.jakozi}</span></li>
+                                        <li>سرویس مستخدم: <span id={"employeeService"}>{file.employeeService}</span></li>
+                                        <li>سکونت مالک: <span id={"ownerInHouse"}>{file.ownerInHouse}</span></li>
+                                    </ul>
+
+                                    <h3 className="desc-headline">اطلاعات واحد</h3>
+                                    <ul className="property-features  margin-top-0">
+                                        <li>قیمت متری: <span id={"unitComment"}>{file.unitComment}</span></li>
+                                        <li>قیمت کل: <span id={"unitTotalAmount"}>{file.unitTotalAmount}</span></li>
+                                        <li>قیمت اجاره: <span id={"priceRent"}>{file.rent}</span></li>
+                                        <li>قیمت رهن: <span id={"priceMortgage"}>{file.mortgage}</span></li>
+                                        <li>توضیح قیمت: <span id={"priceComment"}>{file.priceComment}</span></li>
+                                        <li>متراژ: <span id={"unitBuiltUpArea"}>{file.unitBuiltUpArea}</span></li>
+                                        <li>اتاق: <span id={"room"}>{file.unitRoom}</span></li>
+                                        <li>تلفن: <span id={"unitTelephone"}>{file.unitTelephone}</span></li>
+                                        <li>کفپوش: <span id={"unitFloorCovering"}>{file.unitFloorCovering}</span></li>
+                                        <li> حمام/دستشویی: <span id={"unitWC"}>{file.unitWC}</span></li>
+                                        <li>بالکن: <span id={"balkon"}>{file.unitBalcony}</span></li>
+                                        <li>آشپزخانه: <span id={"kitchenService"}>{file.kitchenService}</span></li>
+                                        <li>طبقه: <span id={"unitFloor"}>{file.unitFloor}</span></li>
+                                        <li>پارکینگ: <span id={"unitParking"}>{file.unitParking}</span></li>
+                                        <li>انباری: <span id={"unitAnbari"}>{file.unitAnbari}</span></li>
+                                    </ul>
+
+                                    <h3 className="desc-headline">اطلاعات ملک</h3>
+                                    <ul className="property-features checkboxes margin-top-0">
+                                        {file.residential && <li>مسکونی </li>}
+                                        {file.rented && <li>اجاره </li>}
+                                        {file.empty && <li>تخلیه </li>}
+                                        {file.inHurry && <li>مالک عجله دارد </li>}
+                                    </ul>
+
+
+                                    <h3 className="desc-headline">امکانات</h3>
+                                    <ul className="property-features checkboxes margin-top-0">
+                                        {file.equipments && file.equipments.map((equipment) => {
+                                            return (
+                                                <li>{equipment}</li>
+                                            )
+                                        })}
+                                    </ul>
+
+                                    <h3 className="desc-headline">توضیحات</h3>
+                                    <div className="show-more">
+                                        {file.comment}
+
+                                        <a href="#" className="show-more-button">بیشتر <i
+                                            className="fa fa-angle-down"></i></a>
+                                    </div>
+
+                                    <div className="overlap-group11">
+
+                                        <div style={{display: 'flex', flex: 1, justifyContent: 'space-around'}}>
+                                            <a><img className="path-arrow-right-bold-box"
+                                                    src={require('../image/path---arrow-right-bold-box@1x.png')}
+                                                    id="btn-next" onClick={this.onNextFileClick}/></a>
                                             <a><img
                                                 className="path-arrow-left-bold-box"
                                                 src={require('../image/path---arrow-left-bold-box@1x.png')}
                                                 onClick={this.onPrevFileClick}
                                                 id="btn-prev"
                                             /></a>
-                                            <a><img className="path-arrow-right-bold-box"
-                                                    src={require('../image/path---arrow-right-bold-box@1x.png')}
-                                                    id="btn-next" onClick={this.onNextFileClick}/></a>
                                         </div>
 
                                     </div>
+
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
-                }
-
+                </div>
 
             </div>
-
 
         );
     }
